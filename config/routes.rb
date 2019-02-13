@@ -8,9 +8,14 @@ Rails.application.routes.draw do
   post "/players/add" => "players#add"
   post "/players/destroy/:id" => "players#destroy"
   get "/players/edit/:id" => "players#edit"
-  post "players/update/:id" => "players#update"
-  get 'entries/index' => "entries#index"
-  post "entries/add" => "entries#add"
-  post "entries/destroy/:id" => "entries#destroy"
+  post "/players/update/:id" => "players#update"
+  get '/entries/index' => "entries#index"
+  post "/entries/add" => "entries#add"
+  post "/entries/destroy/:id" => "entries#destroy"
+  get "/pairs/index" => "pairs#index"
+  post "/pairs/add/:id" => "pairs#add"
+  post "/pairs/addtwo/:id" => "pairs#addtwo"
+  post "/pairs/destroy/:id" => "pairs#destroy"
+  post "/pairs/destroytwo/:id" => "pairs#destroytwo"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

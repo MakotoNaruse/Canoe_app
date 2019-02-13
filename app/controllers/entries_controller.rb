@@ -18,14 +18,27 @@ class EntriesController < ApplicationController
   end
 
   def add
-    @entry = Entry.new
-    @entry.race_name = params[:race_name]
-    @entry.player_id = params[:entry][:player_id]
-    flash[:notice] = @entry
-    if @entry.save
-      flash[:notice] = "エントリーを登録しました"
+    @search = Entry.find_by(
+      race_name: params[:race_name],
+      player_id: params[:entry][:player_id]
+    )
+    @player = Player.find_by(id: params[:entry][:player_id])
+    if @search
+      flash[:notice] = "すでに登録済のエントリーです"
+    elsif @player == nil
+      flash[:notice] = "権限がありません"
+    elsif @player.u_name != @current_univ.u_name
+      flash[:notice] = "権限がありません"
     else
-      flash[:notice] = "エントリーを登録できませんでした"
+      @entry = Entry.new(
+        race_name: params[:race_name],
+        player_id: params[:entry][:player_id]
+        )
+      if @entry.save
+        flash[:notice] = "エントリーを登録しました"
+      else
+        flash[:notice] = "エントリーを登録できませんでした"
+      end
     end
     redirect_to("/entries/index")
   end

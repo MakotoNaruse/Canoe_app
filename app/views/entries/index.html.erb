@@ -5,7 +5,7 @@
 
 <h3>エントリー登録・変更</h3>
 <%= link_to("選手登録に戻る", "/players/index") %> <br>
-この内容でよければ「ペア登録へ」
+この内容でよければ<%= link_to("ペア登録へ", "/pairs/index") %>
 <br>
 <h3>エントリー追加</h3>
 <%= form_tag("/entries/add") do %>
@@ -30,6 +30,18 @@
 <option value="JWK-2-500m">JWK-2-500m</option>
 <option value="JWC-1-500m">JWC-1-500m</option>
 <option value="JWC-2-500m">JWC-2-500m</option>
+<option value="K-1-200m">K-1-200m</option>
+<option value="K-2-200m">K-2-200m</option>
+<option value="C-1-200m">C-1-200m</option>
+<option value="C-2-200m">C-2-200m</option>
+<option value="WK-1-200m">WK-1-200m</option>
+<option value="WK-2-200m">WK-2-200m</option>
+<option value="WC-1-200m">WC-1-200m</option>
+<option value="WC-2-200m">WC-2-200m</option>
+<option value="JK-1-200m">JK-1-200m</option>
+<option value="JC-1-200m">JC-1-200m</option>
+<option value="JWK-1-200m">JWK-1-200m</option>
+<option value="JWC-1-200m">JWC-1-200m</option>
 </select>
 <br/>
 <input type="submit" value="追加"/>

@@ -1,0 +1,87 @@
+<h3> エントリー登録システム </h3>
+<% if @current_univ %>
+  ログイン中の大学: <%= @current_univ.u_name %> <br>
+<% end %>
+
+<h3>ペア登録・変更</h3>
+<%= link_to("エントリー登録に戻る", "/entries/index") %> <br>
+この内容でよければ「登録確認へ」<br>
+<br>
+
+<table border = 1>
+  <tr>
+    <th>仮No</th>
+    <th>選手名</th>
+    <th>レース</th>
+    <th>ペア</th>
+  </tr>
+  <% @players.each do |player| %>
+    <% entries = Entry.where(player_id: player.id).where("race_name LIKE ?", "%-2-%") %>
+    <% entries.each do |entry| %>
+      <tr>
+        <td> <%= player.id %> </td>
+        <td> <%= player.p_name %> </td>
+        <td> <%= entry.race_name %> </td>
+        <% if entry.race_name.include?("-2-2") %>
+          <% pair_two = PairTwo.find_by(player_id: player.id) %>
+          <% if pair_two %>
+            <td>
+            <%= Player.find_by(id: pair_two.pair_id).p_name %>
+            <%= link_to("削除", "/pairs/destroytwo/#{player.id}", method: :post,
+                  data: { confirm: "#{player.p_name}・#{Player.find_by(id: pair_two.pair_id).p_name}ペアを削除しますか？" }) %>
+            </td>
+          <% else %>
+            <% pair_two = PairTwo.find_by(pair_id: player.id) %>
+            <% if pair_two %>
+              <td>
+              <%= Player.find_by(id: pair_two.player_id).p_name %>
+              <%= link_to("削除", "/pairs/destroytwo/#{pair_two.player_id}", method: :post,
+                    data: { confirm: "#{player.p_name}・#{Player.find_by(id: pair_two.player_id).p_name}ペアを削除しますか？" }) %>
+              </td>
+            <% else %>
+              <td>
+              <% p = Player.joins(:entries).where(u_name: @current_univ.u_name, year: @year)
+                            .where.not(id: player.id).where("entries.race_name" => entry.race_name) %>
+              <%= form_tag("/pairs/addtwo/#{player.id}") do %>
+                <%= collection_select("pair", "id", p, :id, :p_name) %>
+                <input type="submit" value="追加"/>
+              <% end %>
+              </td>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% pair = Pair.find_by(player_id: player.id) %>
+          <% if pair %>
+            <td>
+            <%= Player.find_by(id: pair.pair_id).p_name %>
+            <%= link_to("削除", "/pairs/destroy/#{player.id}", method: :post,
+                  data: { confirm: "#{player.p_name}・#{Player.find_by(id: pair.pair_id).p_name}ペアを削除しますか？" }) %>
+            </td>
+          <% else %>
+            <% pair = Pair.find_by(pair_id: player.id) %>
+            <% if pair %>
+              <td>
+              <%= Player.find_by(id: pair.player_id).p_name %>
+              <%= link_to("削除", "/pairs/destroy/#{pair.player_id}", method: :post,
+                    data: { confirm: "#{player.p_name}・#{Player.find_by(id: pair.player_id).p_name}ペアを削除しますか？" }) %>
+              </td>
+            <% else %>
+            <td>
+              <% p = Player.joins(:entries).where(u_name: @current_univ.u_name, year: @year)
+                            .where.not(id: player.id).where("entries.race_name" => entry.race_name) %>
+            <%= form_tag("/pairs/add/#{player.id}") do %>
+              <%= collection_select("pair", "id", p, :id, :p_name) %>
+              <input type="submit" value="追加"/>
+            <% end %>
+            </td>
+            <% end %>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+<br>
+<%= link_to("選手登録トップへ戻る", "/reg/top" ) %>
+<br><br>
+<%= link_to("トップへ戻る", "/") %>
