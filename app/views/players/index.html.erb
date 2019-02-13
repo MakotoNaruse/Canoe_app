@@ -4,7 +4,7 @@
 <% end %>
 
 <h3>選手登録・変更</h3>
-この内容でよければ「種目登録へ」
+この内容でよければ<%= link_to("エントリー登録へ", "/entries/index") %>
 
 <h3>現在の選手登録内容</h3>
 
@@ -24,7 +24,7 @@
     <td> <%= player.grade %> </td>
     <td> <%= link_to("変更", "/players/edit/#{player.id}") %> </td>
     <td> <%= link_to("削除", "/players/destroy/#{player.id}", method: :post,
-                      data: { confirm: "削除しますか？" }) %> </td>
+                      data: { confirm: "選手名: #{player.p_name} を削除しますか？" }) %> </td>
   </tr>
   <% end %>
 </table>

@@ -1,0 +1,64 @@
+<h3> エントリー登録システム </h3>
+<% if @current_univ %>
+  ログイン中の大学: <%= @current_univ.u_name %> <br><br>
+<% end %>
+
+<h3>エントリー登録・変更</h3>
+<%= link_to("選手登録に戻る", "/players/index") %> <br>
+この内容でよければ「ペア登録へ」
+
+<h3>現在のエントリー登録内容</h3>
+
+<table border = 1>
+  <tr>
+    <th>仮No</th>
+    <th>選手名</th>
+    <th>種目</th>
+    <th>参加レース</th>
+    <th>操作</th>
+  </tr>
+  <% @players.each do |player| %>
+    <% entries = Entry.where(player_id: player.id) %>
+    <% entries.each do |entry| %>
+    <tr>
+      <td> <%= player.id %> </td>
+      <td> <%= player.p_name %> </td>
+      <td> <%= player.typ %> </td>
+      <td> <%= entry.race_name %> </td>
+      <td> <%= link_to("削除", "/entries/destroy/#{entry.id}", method: :post,
+                        data: { confirm: "#{player.p_name} #{entry.race_name}を削除しますか？" }) %> </td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>
+<br>
+<h3>エントリー追加</h3>
+<%= form_tag("/entries/add") do %>
+選手名：
+<%= collection_select("entry", "player_id", @players, :id, :p_name) %>
+<br/>
+レース：
+<select name="race_name" size="1">
+<option value="K-1-1000m">K-1-1000m</option>
+<option value="K-2-1000m">K-2-1000m</option>
+<option value="C-1-1000m">C-1-1000m</option>
+<option value="C-2-1000m">C-2-1000m</option>
+<option value="WK-1-500m">WK-1-500m</option>
+<option value="WK-2-500m">WK-2-500m</option>
+<option value="WC-1-500m">WC-1-500m</option>
+<option value="WC-2-500m">WC-2-500m</option>
+<option value="JK-1-500m">JK-1-500m</option>
+<option value="JK-2-500m">JK-2-500m</option>
+<option value="JC-1-500m">JC-1-500m</option>
+<option value="JC-2-500m">JC-2-500m</option>
+<option value="JWK-1-500m">JWK-1-500m</option>
+<option value="JWK-2-500m">JWK-2-500m</option>
+<option value="JWC-1-500m">JWC-1-500m</option>
+<option value="JWC-2-500m">JWC-2-500m</option>
+</select>
+<br/>
+<input type="submit" value="追加"/>
+<% end %>
+
+<br>
+<%= link_to("トップへ戻る", "/") %>

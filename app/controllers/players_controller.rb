@@ -15,7 +15,6 @@ class PlayersController < ApplicationController
 
   def index
     @players = Player.where(u_name: @current_univ.u_name).where(year: @year)
-    @player = Player.new
   end
 
   def add
@@ -27,12 +26,12 @@ class PlayersController < ApplicationController
       grade: params[:grade].to_i
     )
     if params[:p_name].eql?("")
-      flash[:notice] = "選手を登録できませんでした。内容を確認してください。"
+      flash[:notice] = "選手を追加できませんでした。内容を確認してください。"
     else
       if @player.save
-        flash[:notice] = "選手を登録しました。"
+        flash[:notice] = "選手を追加しました。"
       else
-        flash[:notice] = "選手を登録できませんでした。内容を確認してください。"
+        flash[:notice] = "選手を追加できませんでした。内容を確認してください。"
       end
     end
     redirect_to("/players/index")
@@ -40,9 +39,14 @@ class PlayersController < ApplicationController
 
   def edit
     @player = Player.find_by(id: params[:id])
-    if @player.u_name != @current_univ.u_name
+    if @player == nil
       flash[:notice] = "権限がありません"
       redirect_to("/players/index")
+    else
+      if @player.u_name != @current_univ.u_name
+        flash[:notice] = "権限がありません"
+        redirect_to("/players/index")
+      end
     end
   end
 
@@ -59,7 +63,7 @@ class PlayersController < ApplicationController
         flash[:notice] = "選手を変更しました。"
         redirect_to("/players/index")
       else
-        flash[:notice] = "選手を登録できませんでした。内容を確認してください。"
+        flash[:notice] = "選手を変更できませんでした。内容を確認してください。"
         render("players/edit")
       end
     end

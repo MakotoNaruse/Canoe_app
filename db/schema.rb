@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_13_042951) do
+ActiveRecord::Schema.define(version: 2019_02_13_085101) do
+
+  create_table "entries", force: :cascade do |t|
+    t.string "race_name"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_entries_on_player_id"
+  end
 
   create_table "operations", force: :cascade do |t|
     t.string "command"
