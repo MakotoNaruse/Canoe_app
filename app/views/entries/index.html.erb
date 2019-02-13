@@ -1,9 +1,9 @@
-<h3> エントリー登録システム </h3>
+<h1> エントリー登録システム </h1>
 <% if @current_univ %>
   ログイン中の大学: <%= @current_univ.u_name %> <br>
 <% end %>
 
-<h3>エントリー登録・変更</h3>
+<h2>エントリー登録・変更</h2>
 <%= link_to("選手登録に戻る", "/players/index") %> <br>
 この内容でよければ<%= link_to("ペア登録へ", "/pairs/index") %>
 <br>
@@ -51,7 +51,6 @@
 
 <table border = 1>
   <tr>
-    <th>仮No</th>
     <th>選手名</th>
     <th>種目</th>
     <th>参加レース</th>
@@ -61,7 +60,6 @@
     <% entries = Entry.where(player_id: player.id) %>
     <% entries.each do |entry| %>
     <tr>
-      <td> <%= player.id %> </td>
       <td> <%= player.p_name %> </td>
       <td> <%= player.typ %> </td>
       <td> <%= entry.race_name %> </td>

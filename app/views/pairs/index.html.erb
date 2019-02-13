@@ -1,11 +1,11 @@
-<h3> エントリー登録システム </h3>
+<h1> エントリー登録システム </h1>
 <% if @current_univ %>
   ログイン中の大学: <%= @current_univ.u_name %> <br>
 <% end %>
 
-<h3>ペア登録・変更</h3>
+<h2>ペア登録・変更</h2>
 <%= link_to("エントリー登録に戻る", "/entries/index") %> <br>
-この内容でよければ「登録確認へ」<br>
+この内容でよければ<%= link_to("登録内容確認へ", "/reg/confirm") %> <br>
 <br>
 
 <table border = 1>

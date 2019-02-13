@@ -1,11 +1,18 @@
 class UniversitiesController < ApplicationController
   before_action :current
   before_action :forbid_login_univ, {only: [:login_form, :login]}
+  before_action :forbid, {only: [:top, :confirm]}
 
   def forbid_login_univ
     if @current_univ
       flash[:notice] = "ログイン中です"
       redirect_to("/reg/top")
+    end
+  end
+
+  def forbid
+    if session[:univ_id] == nil
+      redirect_to("/login")
     end
   end
 
@@ -40,8 +47,11 @@ class UniversitiesController < ApplicationController
   end
 
   def top
-    if session[:univ_id] == nil
-      redirect_to("/login")
-    end
+
   end
+
+  def confirm
+    @players = Player.where(u_name: @current_univ.u_name).where(year: @year)
+  end
+
 end

@@ -1,9 +1,9 @@
-<h3> エントリー登録システム </h3>
+<h1> エントリー登録システム </h1>
 <% if @current_univ %>
   ログイン中の大学: <%= @current_univ.u_name %> <br>
 <% end %>
 
-<h3>選手登録・変更</h3>
+<h2>選手登録・変更</h2>
 この内容でよければ<%= link_to("エントリー登録へ", "/entries/index") %>
 <br>
 <h3>選手追加</h3>
@@ -41,7 +41,6 @@
 
 <table border = 1>
   <tr>
-    <th>仮No</th>
     <th>選手名</th>
     <th>種目</th>
     <th>学年</th>
@@ -49,7 +48,6 @@
   </tr>
   <% @players.each do |player| %>
   <tr>
-    <td> <%= player.id %> </td>
     <td> <%= player.p_name %> </td>
     <td> <%= player.typ %> </td>
     <td> <%= player.grade %> </td>

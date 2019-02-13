@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   post "/pairs/addtwo/:id" => "pairs#addtwo"
   post "/pairs/destroy/:id" => "pairs#destroy"
   post "/pairs/destroytwo/:id" => "pairs#destroytwo"
+  get "/reg/confirm" => "universities#confirm"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
