@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  year: 1
+  u_name: MyString
+  p_name: MyString
+  type: 
+  grade: 1
+
+two:
+  year: 1
+  u_name: MyString
+  p_name: MyString
+  type: 
+  grade: 1

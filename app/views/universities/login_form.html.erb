@@ -1,0 +1,14 @@
+<h3> ログイン </h3>
+<% if @error_message %>
+  <%= @error_message %>
+<% end %>
+<%= form_tag("/login") do %>
+  <p>大学名</p>
+  <input name = "u_name" value = "<%= @u_name %>">
+  <p>パスワード</p>
+  <input type="password" name = "password">
+  <input type="submit" value="ログイン">
+<% end %>
+
+<br>
+<%= link_to("トップへ戻る", "/") %>

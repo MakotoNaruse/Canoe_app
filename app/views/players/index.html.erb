@@ -1,0 +1,64 @@
+<h3> エントリー登録システム </h3>
+<% if @current_univ %>
+  ログイン中の大学: <%= @current_univ.u_name %> <br><br>
+<% end %>
+
+<h3>選手登録・変更</h3>
+この内容でよければ「種目登録へ」
+
+<h3>現在の選手登録内容</h3>
+
+<table border = 1>
+  <tr>
+    <th>仮No</th>
+    <th>選手名</th>
+    <th>種目</th>
+    <th>学年</th>
+    <th colspan=2>操作</th>
+  </tr>
+  <% @players.each do |player| %>
+  <tr>
+    <td> <%= player.id %> </td>
+    <td> <%= player.p_name %> </td>
+    <td> <%= player.typ %> </td>
+    <td> <%= player.grade %> </td>
+    <td> <%= link_to("変更", "/players/edit/#{player.id}") %> </td>
+    <td> <%= link_to("削除", "/players/destroy/#{player.id}", method: :post,
+                      data: { confirm: "削除しますか？" }) %> </td>
+  </tr>
+  <% end %>
+</table>
+<br>
+<h3>選手追加</h3>
+<%= form_tag("/players/add") do %>
+大学名：
+<input type="text" name="u_name" value="<%= @current_univ.u_name %>" readonly />
+<br/>
+選手名：
+<input type="text" name="p_name"/>
+<br/>
+種目：
+<select name="typ" size="1">
+<option value="K">K</option>
+<option value="C">C</option>
+<option value="WK">WK</option>
+<option value="WC">WC</option>
+<option value="JK">JK</option>
+<option value="JC">JC</option>
+<option value="JWK">JWK</option>
+<option value="JWC">JWC</option>
+</select>
+<br/>
+学年：
+<select name="grade" size="1">
+<option value="1">1回生</option>
+<option value="2">2回生</option>
+<option value="3">3回生</option>
+<option value="4">4回生</option>
+</select>
+<br/>
+<input type="submit" value="追加"/>
+<% end %>
+
+<br>
+<%= link_to("トップへ戻る", "/") %>

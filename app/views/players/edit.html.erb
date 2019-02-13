@@ -1,0 +1,42 @@
+<h3> エントリー登録システム </h3>
+<% if @current_univ %>
+  ログイン中の大学: <%= @current_univ.u_name %> <br><br>
+<% end %>
+
+<h3>選手登録・変更</h3>
+<br>
+
+<h3>選手変更</h3>
+
+<%= form_tag("/players/update/#{@player.id}") do %>
+大学名：
+<input type="text" name="u_name" value="<%= @player.u_name %>" readonly />
+<br/>
+選手名：
+<input type="text" name="p_name" value="<%= @player.p_name %>"/>
+<br/>
+種目：
+<select name="typ" size="1">
+<option value="K" <% if @player.typ.eql?("K") %> selected <% end %> >K</option>
+<option value="C" <% if @player.typ.eql?("C") %> selected <% end %>>C</option>
+<option value="WK" <% if @player.typ.eql?("WK") %> selected <% end %>>WK</option>
+<option value="WC" <% if @player.typ.eql?("WC") %> selected <% end %>>WC</option>
+<option value="JK" <% if @player.typ.eql?("JK") %> selected <% end %>>JK</option>
+<option value="JC" <% if @player.typ.eql?("JC") %> selected <% end %>>JC</option>
+<option value="JWK" <% if @player.typ.eql?("JWK") %> selected <% end %>>JWK</option>
+<option value="JWC" <% if @player.typ.eql?("JWC") %> selected <% end %>>JWC</option>
+</select>
+<br/>
+学年：
+<select name="grade" size="1">
+<option value="1" <% if @player.grade == 1 %> selected <% end %>>1回生</option>
+<option value="2" <% if @player.grade == 2 %> selected <% end %>>2回生</option>
+<option value="3" <% if @player.grade == 3 %> selected <% end %>>3回生</option>
+<option value="4" <% if @player.grade == 4 %> selected <% end %>>4回生</option>
+</select>
+<br/>
+<input type="submit" value="変更"/>
+<% end %>
+
+<br>
+<%= link_to("トップへ戻る", "/") %>
