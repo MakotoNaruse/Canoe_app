@@ -10,7 +10,6 @@
 
 <table border = 1>
   <tr>
-    <th>仮No</th>
     <th>選手名</th>
     <th>レース</th>
     <th>ペア</th>
@@ -19,7 +18,6 @@
     <% entries = Entry.where(player_id: player.id).where("race_name LIKE ?", "%-2-%") %>
     <% entries.each do |entry| %>
       <tr>
-        <td> <%= player.id %> </td>
         <td> <%= player.p_name %> </td>
         <td> <%= entry.race_name %> </td>
         <% if entry.race_name.include?("-2-2") %>
