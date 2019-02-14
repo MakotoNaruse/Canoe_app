@@ -1,3 +1,14 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("エントリー登録システム", "/reg/top") %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class="main">
 <h3> ログイン </h3>
 <% if @error_message %>
   <%= @error_message %>
@@ -12,3 +23,4 @@
 
 <br>
 <%= link_to("トップへ戻る", "/") %>
+</div>

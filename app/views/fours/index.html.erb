@@ -1,0 +1,53 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("エントリー登録システム", "/reg/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_univ.u_name %>でログイン中　　　　　<%= link_to("ログアウト", "/logout", method: :post) %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>フォア・リレー登録</h2>
+<%= link_to("ペア登録に戻る", "/pairs/index") %> <br>
+この内容でよければ<%= link_to("登録内容確認へ", "/reg/confirm") %>
+<br>
+<h3>出場レース追加</h3>
+<%= form_tag("/fours/add") do %>
+レース：
+<select name="race_name" size="1">
+<option value="K-4-1000m">K-4-1000m</option>
+<option value="C-4-1000m">C-4-1000m</option>
+<option value="WK-4-500m">WK-4-500m</option>
+<option value="K-1-Relay">K-1-Relay</option>
+<option value="C-1-Relay">C-1-Relay</option>
+<option value="WK-1-Relay">WK-1-Relay</option>
+</select>
+<br/>
+<input type="submit" value="追加"/>
+<% end %>
+
+<h3>現在の登録内容</h3>
+<table border = 1>
+  <tr>
+    <td> レース名 </td>
+    <td> 操作 </td>
+  </tr>
+  <% @fours.each do |four| %>
+  <tr>
+    <td> <%= four.race_name %> </td>
+    <td> <%= link_to("削除", "/fours/destroy/#{four.id}", method: :post,
+                      data: { confirm: "#{four.race_name}を削除しますか？" }) %> </td>
+  </tr>
+  <% end %>
+</table>
+<br>
+<%= link_to("エントリー登録システムトップへ戻る", "/reg/top" ) %>
+<br><br>
+<%= link_to("トップへ戻る", "/") %>
+<br><br><br><br>
+</div>

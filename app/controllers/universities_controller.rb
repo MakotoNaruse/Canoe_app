@@ -52,6 +52,7 @@ class UniversitiesController < ApplicationController
 
   def confirm
     @players = Player.where(u_name: @current_univ.u_name).where(year: @year)
+    @fours = Four.where(university_id: @current_univ.id)
   end
 
 end

@@ -1,11 +1,20 @@
-<h1> エントリー登録システム </h1>
-<% if @current_univ %>
-  ログイン中の大学: <%= @current_univ.u_name %> <br>
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("エントリー登録システム", "/reg/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_univ.u_name %>でログイン中　　　　　<%= link_to("ログアウト", "/logout", method: :post) %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
 <% end %>
-
+<div class = "main">
 <h2>ペア登録・変更</h2>
 <%= link_to("エントリー登録に戻る", "/entries/index") %> <br>
-この内容でよければ<%= link_to("登録内容確認へ", "/reg/confirm") %> <br>
+この内容でよければ<%= link_to("フォア・リレー登録へ", "/fours/index") %> <br>
 <br>
 
 <table border = 1>
@@ -80,6 +89,8 @@
   <% end %>
 </table>
 <br>
-<%= link_to("選手登録トップへ戻る", "/reg/top" ) %>
+<%= link_to("エントリー登録システムトップへ戻る", "/reg/top" ) %>
 <br><br>
 <%= link_to("トップへ戻る", "/") %>
+<br><br><br><br>
+</div>

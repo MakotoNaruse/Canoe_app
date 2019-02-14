@@ -71,8 +71,12 @@ class PlayersController < ApplicationController
 
   def destroy
     @player = Player.find_by(id: params[:id])
-    @player.destroy
-    flash[:notice] = "選手を削除しました"
+    if @player.u_name != @current_univ.u_name
+      "権限がありません"
+    else
+      @player.destroy
+      flash[:notice] = "選手を削除しました"
+    end
     redirect_to("/players/index")
   end
 

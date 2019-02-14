@@ -1,0 +1,2 @@
+module FoursHelper
+end

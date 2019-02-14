@@ -1,10 +1,19 @@
-<h1> エントリー登録システム </h1>
-<% if @current_univ %>
-  ログイン中の大学: <%= @current_univ.u_name %> <br>
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("エントリー登録システム", "/reg/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_univ.u_name %>でログイン中　　　　　<%= link_to("ログアウト", "/logout", method: :post) %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
 <% end %>
-
+<div class = "main">
 <h2>登録内容確認</h2>
-<%= link_to("ペア登録に戻る", "/pairs/index") %> <br>
+<%= link_to("フォア・リレー登録に戻る", "/fours/index") %> <br>
 
 <h3>選手名簿</h3>
 <table border = 1>
@@ -65,7 +74,7 @@
             <% if pair_two %>
               <td> <%= Player.find_by(id: pair_two.player_id).p_name %> </td>
             <% else %>
-              <td> 未登録 </td>
+              <td> <font color=red>未登録</font> </td>
             <% end %>
           <% end %>
         <% else %>
@@ -77,7 +86,7 @@
             <% if pair %>
               <td> <%= Player.find_by(id: pair.player_id).p_name %> </td>
             <% else %>
-            <td> 未登録 </td>
+            <td> <font color=red>未登録</font> </td>
             <% end %>
           <% end %>
         <% end %>
@@ -86,7 +95,21 @@
   <% end %>
 </table>
 <%= link_to("ペア登録に戻る", "/pairs/index") %><br>
+
+<h3> フォア登録内容 </h3>
+<table border = 1>
+  <tr>
+    <td> レース名 </td>
+  </tr>
+  <% @fours.each do |four| %>
+  <tr>
+    <td> <%= four.race_name %> </td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to("フォア・リレー登録に戻る", "/fours/index") %><br>
 <br>
 以上の内容でよろしければ<br>
 <%= link_to("ログアウトして終了する", "/logout", method: :post) %>
 <br><br><br><br>
+</div>
