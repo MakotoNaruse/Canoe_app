@@ -1,0 +1,26 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class="main">
+<h3> ログイン </h3>
+<% if @error_message %>
+  <%= @error_message %>
+<% end %>
+<%= form_tag("/operations/login") do %>
+  <p>アカウント名</p>
+  <input name = "name" value = "<%= @name %>">
+  <p>パスワード</p>
+  <input type="password" name = "password">
+  <input type="submit" value="ログイン">
+<% end %>
+
+<br>
+<%= link_to("トップへ戻る", "/") %>
+</div>

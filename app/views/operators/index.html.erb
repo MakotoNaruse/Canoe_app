@@ -1,0 +1,37 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>運営アカウント管理</h2>
+
+<h3>アカウント一覧</h3>
+
+<table border = 1>
+  <tr>
+    <th>id</th>
+    <th>アカウント名</th>
+    <th>パスワード</th>
+    <th>操作</th>
+  </tr>
+  <% @operators.each do |operator| %>
+  <tr>
+    <td> <%= operator.id %> </td>
+    <td> <%= operator.name %> </td>
+    <td> <%= operator.password %> </td>
+    <td> <%= link_to("変更", "/operators/edit/#{operator.id}") %> </td>
+  </tr>
+  <% end %>
+</table>
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

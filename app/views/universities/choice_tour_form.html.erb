@@ -1,0 +1,31 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("エントリー登録システム", "/reg/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_univ.u_name %>でログイン中　　　　　<%= link_to("ログアウト", "/logout", method: :post) %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class="main">
+<h3> 大会選択 </h3>
+<%= form_tag("/choice") do %>
+  <input type="radio" name="tour" value="1" checked="checked">全日本インカレ <br>
+  <% if @current_univ.erea == "関西" %>
+    <input type="radio" name="tour" value="2">関西インカレ <br>
+  <% elsif @current_univ.erea == "関東" %>
+    <input type="radio" name="tour" value="3">関東インカレ <br>
+  <% end %>
+  <br>
+  <input type="submit" value="選択する">
+<% end %>
+
+<br><br>
+<%= link_to("エントリー登録システムトップへ戻る", "/reg/top" ) %>
+<br><br>
+<%= link_to("トップへ戻る", "/") %>
+</div>

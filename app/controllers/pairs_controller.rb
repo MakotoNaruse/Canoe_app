@@ -1,6 +1,8 @@
 class PairsController < ApplicationController
   before_action :forbid
   before_action :current
+  before_action :forbid_choice
+  before_action :current_tour
 
   def forbid
     if session[:univ_id] == nil
@@ -11,6 +13,27 @@ class PairsController < ApplicationController
   def current
     @current_univ = University.find_by(id: session[:univ_id])
     @year = Date.today.year
+  end
+
+  def forbid_choice
+    if session[:tour_id] == nil
+      redirect_to("/reg/choice")
+    elsif @current_univ.erea == "関東" && session[:tour_id].to_i == 2
+      redirect_to("/reg/choice")
+    elsif @current_univ.erea == "関西" && session[:tour_id].to_i == 3
+      redirect_to("/reg/choice")
+    end
+  end
+
+  def current_tour
+    @current_tour_id = session[:tour_id].to_i
+    if @current_tour_id == 1
+      @current_tour = "全日本インカレ"
+    elsif @current_tour_id == 2
+      @current_tour = "関西インカレ"
+    elsif @current_tour_id == 3
+      @current_tour = "関東インカレ"
+    end
   end
 
   def index
@@ -28,7 +51,8 @@ class PairsController < ApplicationController
     else
       @pair = Pair.new(
         player_id: params[:id],
-        pair_id: params[:pair][:id]
+        pair_id: params[:pair][:id],
+        tour: @current_tour_id
       )
       if @pair.save
         flash[:notice] = "ペアを登録しました"
@@ -50,7 +74,8 @@ class PairsController < ApplicationController
     else
       @pair_two = PairTwo.new(
         player_id: params[:id],
-        pair_id: params[:pair][:id]
+        pair_id: params[:pair][:id],
+        tour: @current_tour_id
       )
       if @pair_two.save
         flash[:notice] = "ペアを登録しました"
@@ -68,7 +93,7 @@ class PairsController < ApplicationController
     elsif @player.u_name != @current_univ.u_name
       flash[:notice] = "権限がありません"
     else
-      @pair = Pair.find_by(player_id: params[:id])
+      @pair = Pair.find_by(player_id: params[:id], tour: @current_tour_id)
       @pair.destroy
       flash[:notice] = "ペアを削除しました"
     end
@@ -82,7 +107,7 @@ class PairsController < ApplicationController
     elsif @player.u_name != @current_univ.u_name
       flash[:notice] = "権限がありません"
     else
-      @pair_two = PairTwo.find_by(player_id: params[:id])
+      @pair_two = PairTwo.find_by(player_id: params[:id], tour: @current_tour_id)
       @pair_two.destroy
       flash[:notice] = "ペアを削除しました"
       redirect_to("/pairs/index")

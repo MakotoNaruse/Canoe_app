@@ -3,7 +3,8 @@
     <%= link_to("エントリー登録システム", "/reg/top") %>
   </div>
   <div class = "header-menus">
-    <%= @current_univ.u_name %>でログイン中　　　　　<%= link_to("ログアウト", "/logout", method: :post) %>
+    <%= @current_univ.u_name %> でログイン中　　　　<%= link_to("ログアウト", "/logout", method: :post) %> <br>
+    <%= @current_tour %> を操作中　　　　<%= link_to("大会変更", "/reg/choice")  %>
   </div>
 </div>
 <% if flash[:notice] %>
@@ -13,7 +14,8 @@
 <% end %>
 <div class = "main">
 <h2>選手登録・変更</h2>
-この内容でよければ<%= link_to("エントリー登録へ", "/entries/index") %>
+この内容でよければ<%= link_to("エントリー登録へ", "/entries/index") %> <br>
+※選手名簿は各大会共通です。
 <br>
 <h3>選手追加</h3>
 <%= form_tag("/players/add") do %>

@@ -1,0 +1,42 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<div class="main">
+  <% if @current_op.id == 1 %>
+  <%= link_to("運営アカウント管理", "/operators/index") %> <br>
+  <br>
+  <% end %>
+  <% if @current_op.id >= 1 && @current_op.id <= 4 %>
+  <%= link_to("大学アカウント管理", "/operations/accounts/index") %> <br>
+  <br>
+  <% end %>
+  <% if @current_op.id >= 2 && @current_op.id <= 4 %>
+  選手名簿・ゼッケンナンバー割り振り <br>
+  <br>
+  エントリー一覧・レース作成 <br>
+  <br>
+  抽選実施・組み合わせ入力 <br>
+  <br>
+  <% end %>
+  <% if @current_op.id >= 5 && @current_op.id <= 7 %>
+  組み合わせ入力 <br>
+  <br>
+  結果順位入力 <br>
+  <br>
+  結果タイム入力 <br>
+  <br>
+  <% end %>
+  <br>
+  <%= link_to("トップへ戻る", "/") %>
+</div>

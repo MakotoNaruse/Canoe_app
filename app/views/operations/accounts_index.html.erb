@@ -1,0 +1,61 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>大学アカウント管理</h2>
+
+<h3>アカウント一覧</h3>
+
+<table border = 1>
+  <tr>
+    <th>id</th>
+    <th>大学名</th>
+    <th>読みがな</th>
+    <th>エリア</th>
+    <th>パスワード</th>
+    <th>操作</th>
+  </tr>
+  <% @universities.each do |university| %>
+  <tr>
+    <td> <%= university.id %> </td>
+    <td> <%= university.u_name %> </td>
+    <td> <%= university.read %> </td>
+    <td> <%= university.erea %> </td>
+    <td> <%= university.password %> </td>
+    <td> <%= link_to("変更", "/operations/accounts/edit/#{university.id}") %> </td>
+  </tr>
+  <% end %>
+</table>
+<br>
+<h3>アカウント追加</h3>
+<%= form_tag("/operations/accounts/add") do %>
+大学名：
+<input type="text" name="u_name" />
+<br/><br>
+読みがな：
+<input type="text" name="read"/>
+<br/><br>
+エリア：
+<input type="radio" name="erea" value="関西" > 関西
+<input type="radio" name="erea" value="関東" > 関東
+<br/><br>
+パスワード：
+<input type="text" name="password" />
+<br/><br>
+※保守のためアカウントを削除することはできないため注意してください<br>
+確認して → <input type="submit" value="追加"/>
+<% end %>
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

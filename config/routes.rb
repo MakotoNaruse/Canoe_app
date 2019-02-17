@@ -21,5 +21,20 @@ Rails.application.routes.draw do
   post "fours/add" => "fours#add"
   post "fours/destroy/:id" => "fours#destroy"
   get "/reg/confirm" => "universities#confirm"
+  get "/reg/choice" => "universities#choice_tour_form"
+  post "/choice" => "universities#choice"
+
+  get "operations/top" => "operations#top"
+  get "operations/login" => "operators#login_form"
+  post "operations/login" => "operators#login"
+  get "operators/index" => "operators#index"
+  get "operators/edit/:id" => "operators#edit"
+  post "operators/update/:id" => "operators#update"
+  post "operations/logout" => "operators#logout"
+  get "operations/accounts/index" => "operations#accounts_index"
+  post "operations/accounts/add" => "operations#accounts_add"
+  get "operations/accounts/edit/:id" => "operations#accounts_edit"
+  post "operations/accounts/update/:id" => "operations#accounts_update"
+  post "operations/accounts/destroy/:id" => "operations#accounts_destroy"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

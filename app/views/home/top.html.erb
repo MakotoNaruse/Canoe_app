@@ -1,12 +1,7 @@
 <div class = "header">
   <div class = "header-logo">
-    <%= link_to("学連カヌーWebシステム", "/reg/top") %>
+    <%= link_to("学連カヌーWebシステム", "/") %>
   </div>
-  <% if @current_univ %>
-  <div class="header-menus" >
-    <%= @current_univ.u_name %>でログイン中　　　　　<%= link_to("ログアウト", "/logout", method: :post) %>
-  </div>
-  <% end %>
 </div>
 <% if flash[:notice] %>
   <div class="flash" >
@@ -15,6 +10,8 @@
 <% end %>
 <div class = "main">
 <%= link_to("エントリー登録", "/reg/top" ) %><br>
+<br>
 スタートリスト・記録速報<br>
-管理ページ<br>
+<br>
+<%= link_to("管理ページ", "/operations/top") %> <br>
 </div>

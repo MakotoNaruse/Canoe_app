@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_050253) do
+ActiveRecord::Schema.define(version: 2019_02_17_054246) do
 
   create_table "entries", force: :cascade do |t|
     t.string "race_name"
     t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tour"
     t.index ["player_id"], name: "index_entries_on_player_id"
   end
 
@@ -25,6 +26,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_050253) do
     t.integer "university_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tour"
     t.index ["university_id"], name: "index_fours_on_university_id"
   end
 
@@ -34,11 +36,19 @@ ActiveRecord::Schema.define(version: 2019_02_14_050253) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "operators", force: :cascade do |t|
+    t.string "name"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pair_twos", force: :cascade do |t|
     t.integer "pair_id"
     t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tour"
     t.index ["player_id"], name: "index_pair_twos_on_player_id"
   end
 
@@ -47,6 +57,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_050253) do
     t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tour"
     t.index ["player_id"], name: "index_pairs_on_player_id"
   end
 
@@ -66,6 +77,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_050253) do
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "erea"
   end
 
 end

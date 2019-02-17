@@ -3,7 +3,8 @@
     <%= link_to("エントリー登録システム", "/reg/top") %>
   </div>
   <div class = "header-menus">
-    <%= @current_univ.u_name %>でログイン中　　　　　<%= link_to("ログアウト", "/logout", method: :post) %>
+    <%= @current_univ.u_name %> でログイン中　　　　<%= link_to("ログアウト", "/logout", method: :post) %> <br>
+    <%= @current_tour %> を操作中　　　　<%= link_to("大会変更", "/reg/choice")  %>
   </div>
 </div>
 <% if flash[:notice] %>
@@ -66,7 +67,7 @@
     <th>操作</th>
   </tr>
   <% @players.each do |player| %>
-    <% entries = Entry.where(player_id: player.id) %>
+    <% entries = Entry.where(player_id: player.id, tour: @current_tour_id) %>
     <% entries.each do |entry| %>
     <tr>
       <td> <%= player.p_name %> </td>

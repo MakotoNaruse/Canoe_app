@@ -1,0 +1,31 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class="main">
+<h2>運営アカウント管理</h2>
+
+<h3>パスワード変更</h3>
+
+<%= form_tag("/operators/update/#{@operator.id}") do %>
+アカウント名：
+<input type="text" name="name" value="<%= @operator.name %>" readonly />
+<br/>
+パスワード：
+<input type="text" name="password" value="<%= @operator.password %>"/>
+<br/>
+<input type="submit" value="変更"/>
+<% end %>
+<br>
+<%= link_to("運営アカウント管理へ戻る", "/operators/index" ) %>
+<br><br>
+<%= link_to("管理ページトップへ戻る", "/operations/top") %>
+</div>
