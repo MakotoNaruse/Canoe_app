@@ -37,6 +37,7 @@ class PlayersController < ApplicationController
 
   def index
     @players = Player.where(u_name: @current_univ.u_name, year: @year)
+                      .order({grade: :desc}, :typ)
   end
 
   def add
@@ -106,6 +107,10 @@ class PlayersController < ApplicationController
       @entries = Entry.where(player_id: params[:id])
       @entries.each do |entry|
         entry.destroy
+      end
+      @bibs = Bib.where(player_id: params[:id])
+      @bibs.each do |bib|
+        bib.destroy
       end
       @player.destroy
       flash[:notice] = "選手を削除しました"

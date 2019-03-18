@@ -19,16 +19,20 @@
 <h3>選手名簿</h3>
 <table border = 1>
   <tr>
+    <th>人数</th>
     <th>選手名</th>
     <th>種目</th>
     <th>学年</th>
   </tr>
+  <% count = 1 %>
   <% @players.each do |player| %>
   <tr>
+    <td> <%= count %> </td>
     <td> <%= player.p_name %> </td>
     <td> <%= player.typ %> </td>
     <td> <%= player.grade %> </td>
   </tr>
+  <% count += 1 %>
   <% end %>
 </table>
 <%= link_to("選手登録に戻る", "/players/index") %><br>
@@ -97,7 +101,7 @@
 </table>
 <%= link_to("ペア登録に戻る", "/pairs/index") %><br>
 
-<h3> フォア登録内容 </h3>
+<h3> フォア・リレー登録内容 </h3>
 <table border = 1>
   <tr>
     <th> レース名 </th>

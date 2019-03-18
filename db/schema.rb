@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_17_054246) do
+ActiveRecord::Schema.define(version: 2019_02_17_121246) do
+
+  create_table "bibs", force: :cascade do |t|
+    t.integer "player_id"
+    t.string "bib_no"
+    t.integer "tour"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_bibs_on_player_id"
+  end
 
   create_table "entries", force: :cascade do |t|
     t.string "race_name"
@@ -27,6 +36,7 @@ ActiveRecord::Schema.define(version: 2019_02_17_054246) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "tour"
+    t.integer "year"
     t.index ["university_id"], name: "index_fours_on_university_id"
   end
 
@@ -67,6 +77,19 @@ ActiveRecord::Schema.define(version: 2019_02_17_054246) do
     t.string "p_name"
     t.string "typ"
     t.integer "grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "university_id"
+    t.index ["university_id"], name: "index_players_on_university_id"
+  end
+
+  create_table "races", force: :cascade do |t|
+    t.integer "year"
+    t.integer "tour"
+    t.integer "race_no"
+    t.string "race_name"
+    t.string "stage"
+    t.integer "set"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

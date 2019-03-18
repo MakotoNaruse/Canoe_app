@@ -15,8 +15,19 @@
 <div class = "main">
 <h2>エントリー登録・変更</h2>
 <%= link_to("選手登録に戻る", "/players/index") %> <br>
-この内容でよければ<%= link_to("ペア登録へ", "/pairs/index") %>
+この内容でよければ<%= link_to("ペア登録へ", "/pairs/index") %> <br>
 <br>
+<%= link_to("全員1000m/500mのシングルにエントリー", "/entries/add1", method: :post,
+                  data: { confirm: "全員を1000m/500mのシングルにエントリーさせますか？" }) %> <br>
+<%= link_to("全員1000m/500mのペアにエントリー", "/entries/add2", method: :post,
+                  data: { confirm: "全員を1000m/500mのペアにエントリーさせますか？" }) %> <br>
+<%= link_to("全員200mのシングルにエントリー", "/entries/add3", method: :post,
+                  data: { confirm: "全員を200mのシングルにエントリーさせますか？" }) %> <br>
+<%= link_to("全員(ジュニア除く)200mのペアにエントリー", "/entries/add4", method: :post,
+                  data: { confirm: "全員(ジュニア除く)を200mのペアにエントリーさせますか？" }) %> <br>
+<%= link_to("全てのエントリーを削除", "/entries/delete", method: :post,
+                  data: { confirm: "本当に全てのエントリーを削除しますか？" }) %> <br>
+
 <h3>エントリー追加</h3>
 <%= form_tag("/entries/add") do %>
 選手名：

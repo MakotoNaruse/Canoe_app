@@ -37,14 +37,15 @@ class FoursController < ApplicationController
   end
 
   def index
-    @fours = Four.where(university_id: @current_univ.id, tour: @current_tour_id)
+    @fours = Four.where(university_id: @current_univ.id, tour: @current_tour_id, year: @year)
   end
 
   def add
     @search = Four.find_by(
       race_name: params[:race_name],
       university_id: @current_univ.id,
-      tour: @current_tour_id
+      tour: @current_tour_id,
+      year: @year
     )
     if @search
       flash[:notice] = "すでに登録されています"
@@ -52,7 +53,8 @@ class FoursController < ApplicationController
       @four = Four.new(
         race_name: params[:race_name],
         university_id: @current_univ.id,
-        tour: @current_tour_id
+        tour: @current_tour_id,
+        year: @year
       )
       if @four.save
         flash[:notice] = "エントリーを追加しました。"

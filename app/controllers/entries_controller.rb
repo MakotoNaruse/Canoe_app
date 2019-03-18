@@ -38,6 +38,7 @@ class EntriesController < ApplicationController
 
   def index
     @players = Player.where(u_name: @current_univ.u_name).where(year: @year)
+                        .order({grade: :desc}, :typ)
   end
 
   def add
@@ -75,4 +76,448 @@ class EntriesController < ApplicationController
     redirect_to("/entries/index")
   end
 
+  #全員が1000m/500mのシングルにエントリー
+  def add1
+    @players = Player.where(u_name: @current_univ.u_name).where(year: @year)
+                        .order({grade: :desc}, :typ)
+    @players.each do |player|
+      if player.typ == "K"
+        @search = Entry.find_by(
+          race_name: "K-1-1000m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "K-1-1000m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "C"
+        @search = Entry.find_by(
+          race_name: "C-1-1000m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "C-1-1000m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "WK"
+        @search = Entry.find_by(
+          race_name: "WK-1-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "WK-1-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "WC"
+        @search = Entry.find_by(
+          race_name: "WC-1-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "WC-1-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JK"
+        @search = Entry.find_by(
+          race_name: "JK-1-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JK-1-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JC"
+        @search = Entry.find_by(
+          race_name: "JC-1-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JC-1-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JWK"
+        @search = Entry.find_by(
+          race_name: "JWK-1-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JWK-1-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JWC"
+        @search = Entry.find_by(
+          race_name: "JWC-1-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JWC-1-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      end
+    end
+    flash[:notice] = "全員を1000m/500mのシングルにエントリーしました。"
+    redirect_to("/entries/index")
+  end
+
+  #全員が1000m/500mのペアにエントリー
+  def add2
+    @players = Player.where(u_name: @current_univ.u_name).where(year: @year)
+                        .order({grade: :desc}, :typ)
+    @players.each do |player|
+      if player.typ == "K"
+        @search = Entry.find_by(
+          race_name: "K-2-1000m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "K-2-1000m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "C"
+        @search = Entry.find_by(
+          race_name: "C-2-1000m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "C-2-1000m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "WK"
+        @search = Entry.find_by(
+          race_name: "WK-2-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "WK-2-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "WC"
+        @search = Entry.find_by(
+          race_name: "WC-2-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "WC-2-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JK"
+        @search = Entry.find_by(
+          race_name: "JK-2-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JK-2-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JC"
+        @search = Entry.find_by(
+          race_name: "JC-2-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JC-2-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JWK"
+        @search = Entry.find_by(
+          race_name: "JWK-2-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JWK-2-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JWC"
+        @search = Entry.find_by(
+          race_name: "JWC-2-500m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JWC-2-500m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      end
+    end
+    flash[:notice] = "全員を1000m/500mのペアにエントリーしました。"
+    redirect_to("/entries/index")
+  end
+
+  #全員が200mのシングルにエントリー
+  def add3
+    @players = Player.where(u_name: @current_univ.u_name).where(year: @year)
+                        .order({grade: :desc}, :typ)
+    @players.each do |player|
+      if player.typ == "K"
+        @search = Entry.find_by(
+          race_name: "K-1-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "K-1-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "C"
+        @search = Entry.find_by(
+          race_name: "C-1-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "C-1-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "WK"
+        @search = Entry.find_by(
+          race_name: "WK-1-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "WK-1-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "WC"
+        @search = Entry.find_by(
+          race_name: "WC-1-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "WC-1-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JK"
+        @search = Entry.find_by(
+          race_name: "JK-1-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JK-1-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JC"
+        @search = Entry.find_by(
+          race_name: "JC-1-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JC-1-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JWK"
+        @search = Entry.find_by(
+          race_name: "JWK-1-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JWK-1-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "JWC"
+        @search = Entry.find_by(
+          race_name: "JWC-1-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "JWC-1-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      end
+    end
+    flash[:notice] = "全員を200mのシングルにエントリーしました。"
+    redirect_to("/entries/index")
+  end
+
+  #全員(ジュニア除く)が200mのペアにエントリー
+  def add4
+    @players = Player.where(u_name: @current_univ.u_name).where(year: @year)
+                        .order({grade: :desc}, :typ)
+    @players.each do |player|
+      if player.typ == "K"
+        @search = Entry.find_by(
+          race_name: "K-2-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "K-2-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "C"
+        @search = Entry.find_by(
+          race_name: "C-2-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "C-2-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "WK"
+        @search = Entry.find_by(
+          race_name: "WK-2-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "WK-2-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      elsif player.typ == "WC"
+        @search = Entry.find_by(
+          race_name: "WC-2-200m",
+          player_id: player.id,
+          tour: @current_tour_id
+        )
+        if @search == nil
+          @entry = Entry.new(
+            race_name: "WC-2-200m",
+            player_id: player.id,
+            tour: @current_tour_id
+          )
+          @entry.save
+        end
+      end
+    end
+    flash[:notice] = "全員(ジュニア除く)を200mのペアにエントリーしました。"
+    redirect_to("/entries/index")
+  end
+
+  def delete
+    @players = Player.where(u_name: @current_univ.u_name).where(year: @year)
+    @players.each do |player|
+      Entry.where(player_id: player.id, tour: @current_tour_id).delete_all
+    end
+    flash[:notice] = "全てのエントリーを削除しました。"
+    redirect_to("/entries/index")
+  end
 end

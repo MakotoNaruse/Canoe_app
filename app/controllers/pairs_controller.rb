@@ -38,6 +38,7 @@ class PairsController < ApplicationController
 
   def index
     @players = Player.where(u_name: @current_univ.u_name).where(year: @year)
+                          .order(:typ, {grade: :desc})
   end
 
   def add
@@ -49,15 +50,23 @@ class PairsController < ApplicationController
     elsif @player.u_name != @current_univ.u_name || @player2.u_name != @current_univ.u_name
       flash[:notice] = "権限がありません"
     else
-      @pair = Pair.new(
-        player_id: params[:id],
-        pair_id: params[:pair][:id],
-        tour: @current_tour_id
-      )
-      if @pair.save
-        flash[:notice] = "ペアを登録しました"
+      @pair_search1 = Pair.find_by(player_id: params[:id])
+      @pair_search2 = Pair.find_by(pair_id: params[:id])
+      @pair_search3 = Pair.find_by(player_id: params[:pair][:id])
+      @pair_search4 = Pair.find_by(pair_id: params[:pair][:id])
+      if @pair_search1 || @pair_search2 || @pair_search3 || @pair_search4
+        flash[:notice] = "すでにペア登録がされています"
       else
-        flash[:notice] = "ペアを登録できませんでした"
+        @pair = Pair.new(
+          player_id: params[:id],
+          pair_id: params[:pair][:id],
+          tour: @current_tour_id
+        )
+        if @pair.save
+          flash[:notice] = "ペアを登録しました"
+        else
+          flash[:notice] = "ペアを登録できませんでした"
+        end
       end
     end
     redirect_to("/pairs/index")
@@ -72,15 +81,23 @@ class PairsController < ApplicationController
     elsif @player.u_name != @current_univ.u_name || @player2.u_name != @current_univ.u_name
       flash[:notice] = "権限がありません"
     else
-      @pair_two = PairTwo.new(
-        player_id: params[:id],
-        pair_id: params[:pair][:id],
-        tour: @current_tour_id
-      )
-      if @pair_two.save
-        flash[:notice] = "ペアを登録しました"
+      @pair_search1 = PairTwo.find_by(player_id: params[:id])
+      @pair_search2 = PairTwo.find_by(pair_id: params[:id])
+      @pair_search3 = PairTwo.find_by(player_id: params[:pair][:id])
+      @pair_search4 = PairTwo.find_by(pair_id: params[:pair][:id])
+      if @pair_search1 || @pair_search2 || @pair_search3 || @pair_search4
+        flash[:notice] = "すでにペア登録がされています"
       else
-        flash[:notice] = "ペアを登録できませんでした"
+        @pair_two = PairTwo.new(
+          player_id: params[:id],
+          pair_id: params[:pair][:id],
+          tour: @current_tour_id
+        )
+        if @pair_two.save
+          flash[:notice] = "ペアを登録しました"
+        else
+          flash[:notice] = "ペアを登録できませんでした"
+        end
       end
     end
     redirect_to("/pairs/index")

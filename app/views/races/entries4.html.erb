@@ -1,0 +1,33 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>エントリー一覧</h2>
+レース名： <%= @race_name %> <br>
+<table border=1>
+    <tr>
+      <th>大学名</th>
+    </tr>
+    <% @universities.each do |university| %>
+    <tr>
+      <td> <%= university.u_name %> </td>
+    </tr>
+    <% end %>
+</table>
+
+<br>
+<%= link_to("レース管理へ戻る", "/operations/races" ) %>
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

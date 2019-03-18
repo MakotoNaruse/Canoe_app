@@ -1,0 +1,89 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>エントリー一覧・レース作成</h2>
+
+<table border = 1>
+  <tr>
+    <th rowspan="2">レース名</th>
+    <th rowspan="2">エントリー<br>艇数</th>
+    <th rowspan="2">エントリー</th>
+    <th colspan="4">組数</th>
+    <th rowspan="2">操作</th>
+  </tr>
+  <tr>
+    <th>1次H</th>
+    <th>　H　</th>
+    <th>　SF　</th>
+    <th>　F　</th>
+  </tr>
+  <% @singles.each do |race_name| %>
+    <tr>
+      <td> <%= race_name %> </td>
+      <td> <%= Player.joins(:entries).where(year: @year,
+                      "entries.tour" => @tour, "entries.race_name" => race_name).count %></td>
+      <td>
+        <%= form_tag("/operations/entries1", {method: :get} ) do %>
+        <input type="hidden" name="race_name" value="<%= race_name %>" >
+        <input type="submit" value="一覧" >
+        <% end %>
+      </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "1次H").count %> </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "H").count %> </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "SF").count %> </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "F").count %> </td>
+      <td></td>
+    </tr>
+  <% end %>
+  <% @pairs.each do |race_name| %>
+    <tr>
+      <td> <%= race_name %> </td>
+      <td> <%= Player.joins(:entries).where(year: @year,
+                      "entries.tour" => @tour, "entries.race_name" => race_name).count/2 %></td>
+      <td>
+        <%= form_tag("/operations/entries2", {method: :get} ) do %>
+        <input type="hidden" name="race_name" value="<%= race_name %>" >
+        <input type="submit" value="一覧" >
+        <% end %>
+      </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "1次H").count %> </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "H").count %> </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "SF").count %> </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "F").count %> </td>
+      <td></td>
+    </tr>
+  <% end %>
+  <% @fours.each do |race_name| %>
+    <tr>
+      <td> <%= race_name %> </td>
+      <td> <%= University.joins(:fours).where("fours.year" => @year,
+                          "fours.tour" => @tour, "fours.race_name" => race_name).count %></td>
+      <td>
+        <%= form_tag("/operations/entries4", {method: :get} ) do %>
+        <input type="hidden" name="race_name" value="<%= race_name %>" >
+        <input type="submit" value="一覧" >
+        <% end %>
+      </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "1次H").count %> </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "H").count %> </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "SF").count %> </td>
+      <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "F").count %> </td>
+      <td></td>
+    </tr>
+  <% end %>
+</table>
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>
