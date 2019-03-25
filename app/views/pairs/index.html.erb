@@ -14,8 +14,8 @@
 <% end %>
 <div class = "main">
 <h2>ペア登録・変更</h2>
-<%= link_to("エントリー登録に戻る", "/entries/index") %> <br>
-この内容でよければ<%= link_to("フォア・リレー登録へ", "/fours/index") %> <br>
+<%= link_to("エントリー登録に戻る", "/entries/index", class: "btn-squar") %> <br>
+この内容でよければ<%= link_to("フォア・リレー登録へ", "/fours/index", class: "btn-squar") %> <br>
 <br>
 
 <table border = 1 class="pair_table">
@@ -35,7 +35,7 @@
           <% if pair_two %>
             <td>
             <%= Player.find_by(id: pair_two.pair_id).p_name %>
-            <%= link_to("削除", "/pairs/destroytwo/#{player.id}", method: :post,
+            <%= link_to("削除", "/pairs/destroytwo/#{player.id}", class: "btn-red", method: :post,
                   data: { confirm: "#{player.p_name}・#{Player.find_by(id: pair_two.pair_id).p_name}ペアを削除しますか？" }) %>
             </td>
           <% else %>
@@ -43,7 +43,7 @@
             <% if pair_two %>
               <td>
               <%= Player.find_by(id: pair_two.player_id).p_name %>
-              <%= link_to("削除", "/pairs/destroytwo/#{pair_two.player_id}", method: :post,
+              <%= link_to("削除", "/pairs/destroytwo/#{pair_two.player_id}", class: "btn-red", method: :post,
                     data: { confirm: "#{player.p_name}・#{Player.find_by(id: pair_two.player_id).p_name}ペアを削除しますか？" }) %>
               </td>
             <% else %>
@@ -63,7 +63,7 @@
           <% if pair %>
             <td>
             <%= Player.find_by(id: pair.pair_id).p_name %>
-            <%= link_to("削除", "/pairs/destroy/#{player.id}", method: :post,
+            <%= link_to("削除", "/pairs/destroy/#{player.id}", class: "btn-red", method: :post,
                   data: { confirm: "#{player.p_name}・#{Player.find_by(id: pair.pair_id).p_name}ペアを削除しますか？" }) %>
             </td>
           <% else %>
@@ -71,7 +71,7 @@
             <% if pair %>
               <td>
               <%= Player.find_by(id: pair.player_id).p_name %>
-              <%= link_to("削除", "/pairs/destroy/#{pair.player_id}", method: :post,
+              <%= link_to("削除", "/pairs/destroy/#{pair.player_id}", class: "btn-red", method: :post,
                     data: { confirm: "#{player.p_name}・#{Player.find_by(id: pair.player_id).p_name}ペアを削除しますか？" }) %>
               </td>
             <% else %>
@@ -92,8 +92,8 @@
   <% end %>
 </table>
 <br>
-<%= link_to("エントリー登録システムトップへ戻る", "/reg/top" ) %>
+<%= link_to("エントリー登録システムトップへ戻る", "/reg/top", class: "btn-squar" ) %>
 <br><br>
-<%= link_to("トップへ戻る", "/") %>
+<%= link_to("トップへ戻る", "/", class: "btn-squar") %>
 <br><br><br><br>
 </div>

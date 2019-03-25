@@ -14,7 +14,7 @@
 <% end %>
 <div class = "main">
 <h2>選手登録・変更</h2>
-この内容でよければ<%= link_to("エントリー登録へ", "/entries/index") %> <br>
+この内容でよければ<%= link_to("エントリー登録へ", "/entries/index", class: "btn-squar") %> <br>
 ※選手名簿は各大会共通です。
 <br>
 <h3>選手追加</h3>
@@ -62,15 +62,15 @@
     <td> <%= player.p_name %> </td>
     <td> <%= player.typ %> </td>
     <td> <%= player.grade %> </td>
-    <td> <%= link_to("変更", "/players/edit/#{player.id}") %> </td>
-    <td> <%= link_to("削除", "/players/destroy/#{player.id}", method: :post,
+    <td> <%= link_to("変更", "/players/edit/#{player.id}", class: "btn-green") %> </td>
+    <td> <%= link_to("削除", "/players/destroy/#{player.id}", class: "btn-red", method: :post,
                       data: { confirm: "選手名: #{player.p_name} を削除しますか？" }) %> </td>
   </tr>
   <% end %>
 </table>
 <br>
-<%= link_to("エントリー登録システムトップへ戻る", "/reg/top" ) %>
+<%= link_to("エントリー登録システムトップへ戻る", "/reg/top", class: "btn-squar" ) %>
 <br><br>
-<%= link_to("トップへ戻る", "/") %>
+<%= link_to("トップへ戻る", "/", class: "btn-squar") %>
 <br><br><br><br>
 </div>

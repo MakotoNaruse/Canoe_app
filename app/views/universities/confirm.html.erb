@@ -14,7 +14,7 @@
 <% end %>
 <div class = "main">
 <h2>登録内容確認</h2>
-<%= link_to("フォア・リレー登録に戻る", "/fours/index") %> <br>
+<%= link_to("フォア・リレー登録に戻る", "/fours/index", class: "btn-squar") %> <br>
 
 <h3>選手名簿</h3>
 <table border = 1>
@@ -35,7 +35,8 @@
   <% count += 1 %>
   <% end %>
 </table>
-<%= link_to("選手登録に戻る", "/players/index") %><br>
+<br>
+<%= link_to("選手登録に戻る", "/players/index", class: "btn-squar") %><br>
 
 <h3>エントリー登録内容</h3>
 <table border = 1>
@@ -55,7 +56,8 @@
     <% end %>
   <% end %>
 </table>
-<%= link_to("エントリー登録に戻る", "/entries/index") %><br>
+<br>
+<%= link_to("エントリー登録に戻る", "/entries/index", class: "btn-squar") %><br>
 
 <h3>ペア登録内容</h3>
 <table border = 1>
@@ -99,7 +101,8 @@
     <% end %>
   <% end %>
 </table>
-<%= link_to("ペア登録に戻る", "/pairs/index") %><br>
+<br>
+<%= link_to("ペア登録に戻る", "/pairs/index", class: "btn-squar") %><br>
 
 <h3> フォア・リレー登録内容 </h3>
 <table border = 1>
@@ -112,9 +115,10 @@
   </tr>
   <% end %>
 </table>
-<%= link_to("フォア・リレー登録に戻る", "/fours/index") %><br>
+<br>
+<%= link_to("フォア・リレー登録に戻る", "/fours/index", class: "btn-squar") %><br>
 <br>
 以上の内容でよろしければ<br>
-<%= link_to("ログアウトして終了する", "/logout", method: :post) %>
+<%= link_to("ログアウトして終了する", "/logout", class: "btn-squar", method: :post) %>
 <br><br><br><br>
 </div>

@@ -14,18 +14,18 @@
 <% end %>
 <div class = "main">
 <h2>エントリー登録・変更</h2>
-<%= link_to("選手登録に戻る", "/players/index") %> <br>
-この内容でよければ<%= link_to("ペア登録へ", "/pairs/index") %> <br>
+<%= link_to("選手登録に戻る", "/players/index", class: "btn-squar") %> <br>
+この内容でよければ<%= link_to("ペア登録へ", "/pairs/index", class: "btn-squar") %> <br>
 <br>
-<%= link_to("全員1000m/500mのシングルにエントリー", "/entries/add1", method: :post,
+<%= link_to("全員1000m/500mのシングルにエントリー", "/entries/add1", class: "btn-green", method: :post,
                   data: { confirm: "全員を1000m/500mのシングルにエントリーさせますか？" }) %> <br>
-<%= link_to("全員1000m/500mのペアにエントリー", "/entries/add2", method: :post,
+<%= link_to("全員1000m/500mのペアにエントリー", "/entries/add2", class: "btn-green", method: :post,
                   data: { confirm: "全員を1000m/500mのペアにエントリーさせますか？" }) %> <br>
-<%= link_to("全員200mのシングルにエントリー", "/entries/add3", method: :post,
+<%= link_to("全員200mのシングルにエントリー", "/entries/add3", class: "btn-green", method: :post,
                   data: { confirm: "全員を200mのシングルにエントリーさせますか？" }) %> <br>
-<%= link_to("全員(ジュニア除く)200mのペアにエントリー", "/entries/add4", method: :post,
+<%= link_to("全員(ジュニア除く)200mのペアにエントリー", "/entries/add4", class: "btn-green", method: :post,
                   data: { confirm: "全員(ジュニア除く)を200mのペアにエントリーさせますか？" }) %> <br>
-<%= link_to("全てのエントリーを削除", "/entries/delete", method: :post,
+<%= link_to("全てのエントリーを削除", "/entries/delete", class: "btn-red", method: :post,
                   data: { confirm: "本当に全てのエントリーを削除しますか？" }) %> <br>
 
 <h3>エントリー追加</h3>
@@ -84,7 +84,7 @@
       <td> <%= player.p_name %> </td>
       <td> <%= player.typ %> </td>
       <td> <%= entry.race_name %> </td>
-      <td> <%= link_to("削除", "/entries/destroy/#{entry.id}", method: :post,
+      <td> <%= link_to("削除", "/entries/destroy/#{entry.id}", class: "btn-red", method: :post,
                         data: { confirm: "#{player.p_name} #{entry.race_name}を削除しますか？" }) %> </td>
     </tr>
     <% end %>

@@ -14,8 +14,8 @@
 <% end %>
 <div class = "main">
 <h2>フォア・リレー登録</h2>
-<%= link_to("ペア登録に戻る", "/pairs/index") %> <br>
-この内容でよければ<%= link_to("登録内容確認へ", "/reg/confirm") %>
+<%= link_to("ペア登録に戻る", "/pairs/index", class: "btn-squar") %> <br>
+この内容でよければ<%= link_to("登録内容確認へ", "/reg/confirm", class: "btn-squar") %>
 <br>
 <h3>出場レース追加</h3>
 <%= form_tag("/fours/add") do %>
@@ -41,14 +41,14 @@
   <% @fours.each do |four| %>
   <tr>
     <td> <%= four.race_name %> </td>
-    <td> <%= link_to("削除", "/fours/destroy/#{four.id}", method: :post,
+    <td> <%= link_to("削除", "/fours/destroy/#{four.id}", class: "btn-red", method: :post,
                       data: { confirm: "#{four.race_name}を削除しますか？" }) %> </td>
   </tr>
   <% end %>
 </table>
 <br>
-<%= link_to("エントリー登録システムトップへ戻る", "/reg/top" ) %>
+<%= link_to("エントリー登録システムトップへ戻る", "/reg/top", class: "btn-squar" ) %>
 <br><br>
-<%= link_to("トップへ戻る", "/") %>
+<%= link_to("トップへ戻る", "/", class: "btn-squar") %>
 <br><br><br><br>
 </div>
