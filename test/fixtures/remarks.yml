@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  race: one
+  rane: 1
+  rank: 1
+
+two:
+  race: two
+  rane: 1
+  rank: 1

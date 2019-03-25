@@ -1,2 +1,49 @@
-<h1>Ranks#add</h1>
-<p>Find me in app/views/ranks/add.html.erb</p>
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+
+<h2>順位入力</h2>
+※全て半角数字で入力してください
+<%= form_tag("/operations/ranks/add") do %>
+レースNo：
+<input type="text" name="race_no" />
+<br/>
+１位：
+<input type="text" name="rank1"/>レーン<br>
+２位：
+<input type="text" name="rank2"/>レーン<br>
+３位：
+<input type="text" name="rank3"/>レーン<br>
+４位：
+<input type="text" name="rank4"/>レーン<br>
+５位：
+<input type="text" name="rank5"/>レーン<br>
+６位：
+<input type="text" name="rank6"/>レーン<br>
+７位：
+<input type="text" name="rank7"/>レーン<br>
+８位：
+<input type="text" name="rank8"/>レーン<br>
+９位：
+<input type="text" name="rank9"/>レーン<br>
+(１０位：)
+<input type="text" name="rank10"/>レーン<br>
+<br>
+<input type="submit" value="確認して登録する"/>
+<% end %>
+
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

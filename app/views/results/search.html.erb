@@ -1,0 +1,26 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+
+<h2>タイム入力</h2>
+※半角数字で入力してください
+<%= form_tag("/operations/results/add", {method: :get} ) do %>
+レースNo：
+<input type="text" style="width:20px;" name="race_no" />　<input type="submit" value="次へ"/>
+<% end %>
+
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

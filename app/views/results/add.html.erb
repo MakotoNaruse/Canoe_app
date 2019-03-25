@@ -1,2 +1,49 @@
-<h1>Results#add</h1>
-<p>Find me in app/views/results/add.html.erb</p>
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+
+<h2>タイム入力</h2>
+※全て半角数字で入力してください <br>
+<br>
+<%= form_tag("/operations/results/add") do %>
+レースNo：<%= @race.race_no %> <br>
+<br/>
+<table border=1>
+  <tr>
+    <th>順位</th>
+    <th>レーン</th>
+    <th colspan=3>タイム</th>
+  </tr>
+
+  <% for num in 1..10 do %>
+    <% if @ranks[num] %>
+    <tr>
+      <td> <%= num %> 位</td>
+      <td> <%= @ranks[num] %> </td>
+      <td><input type="text" style="width:20px;" name="m<%= @ranks[num]%>"/></td>
+      <td><input type="text" style="width:20px;" name="s<%= @ranks[num]%>"/></td>
+      <td><input type="text" style="width:20px;" name="c<%= @ranks[num]%>"/></td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>
+<br>
+<input type="hidden" name="race_id" value="<%= @race.id %>" >
+<input type="submit" value="確認して登録する"/>
+<% end %>
+
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

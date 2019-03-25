@@ -1,0 +1,49 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("速報システム", "/") %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>速報システム・過去結果データベース</h2>
+<% @races.each do |race| %>
+  レースNo. <%= race.race_no %> <%= race.race_name %> <%= race.stage %>-<%= race.set %>
+  <table border=1>
+    <tr>
+      <th>レーン</th>
+      <th>No</th>
+      <th>氏名</th>
+      <th>大学名</th>
+      <th>順位</th>
+      <th colspan=3>タイム</th>
+      <th>備考</th>
+    </tr>
+    <% race.combinations.each do |combi| %>
+    <tr>
+      <td> <%= combi.rane %> </td>
+      <td> <%= Bib.find_by(player_id: combi.player_id, tour: @tour).bib_no %> </td>
+      <% player = Player.find_by(id: combi.player_id) %>
+      <td> <%= player.p_name %> </td>
+      <td> <%= player.u_name %> </td>
+      <% rank = Rank.find_by(race_id: race.id, rane: combi.rane) %>
+      <td> <%= if rank then rank.rank else "" end %> </td>
+      <% result = Result.find_by(race_id: race.id, rane: combi.rane) %>
+      <td> <%= if result then result.m else "" end %> </td>
+      <td> <%= if result then result.s else "" end %> </td>
+      <td> <%= if result then result.c else "" end %> </td>
+      <td> <%= if result then result.option else "" end %> </td>
+    </tr>
+    <% end %>
+  </table>
+  <br>
+<% end %>
+
+
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

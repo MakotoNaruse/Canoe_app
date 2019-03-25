@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'remarks/add'
   get 'results/add'
   get 'ranks/add'
   get 'combinations/index'
@@ -63,7 +64,11 @@ Rails.application.routes.draw do
   get "operations/ranks/comfirm" => "ranks#comfirm"
   post "operations/ranks/add" => "ranks#added"
   get "operations/results/add" => "results#add"
-  get "operations/results/comfirm" => "results#comfirm"
+  get "operations/results/search" => "results#search"
   post "operations/results/add" => "results#added"
+  get "operations/remarks/add" => "remarks#add"
+  post "operations/remarks/add" => "remarks#added"
+
+  get "/results" => "combinations#results"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

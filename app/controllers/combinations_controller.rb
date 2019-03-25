@@ -211,7 +211,7 @@ class CombinationsController < ApplicationController
     race = Race.find_by(year: @year, tour: @tour, race_no: race_no)
     if !race
       flash[:notice] = "レースが存在せず追加できませんでした"
-      redirect_to("/operations/combinations/add")
+      redirect_to("/operations/combinations/add") and return
     end
     bibs = Array.new(11)
     bibs[0] = params[:rane0].to_i
@@ -237,6 +237,10 @@ class CombinationsController < ApplicationController
     end
     flash[:notice] = "組み合わせを追加しました"
     redirect_to("/operations/combinations/add")
+  end
+
+  def results
+    @races = Race.includes(:combinations).where(year: @year, tour: @tour).order(:race_no)
   end
 
 end

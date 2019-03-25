@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_25_094335) do
+ActiveRecord::Schema.define(version: 2019_03_25_095308) do
 
   create_table "bibs", force: :cascade do |t|
     t.integer "player_id"
@@ -110,6 +110,15 @@ ActiveRecord::Schema.define(version: 2019_03_25_094335) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["race_id"], name: "index_ranks_on_race_id"
+  end
+
+  create_table "remarks", force: :cascade do |t|
+    t.integer "race_id"
+    t.integer "rane"
+    t.integer "rank"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["race_id"], name: "index_remarks_on_race_id"
   end
 
   create_table "results", force: :cascade do |t|

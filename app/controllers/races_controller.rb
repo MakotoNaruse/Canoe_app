@@ -7,6 +7,9 @@ class RacesController < ApplicationController
     if session[:op_id] == nil
       redirect_to("/operations/login")
     end
+    if session[:op_id].to_i >= 5
+      redirect_to("/operations/top")
+    end
   end
 
   def current
