@@ -13,11 +13,16 @@
   </div>
 <% end %>
 <div class="main">
-  Step0. <%= link_to("選手登録", "/players/index") %> <br>
-  Step1. <%= link_to("エントリー登録", "/entries/index") %> <br>
-  Step2. <%= link_to("ペア登録", "/pairs/index") %> <br>
-  Step3. <%= link_to("フォア・リレー登録", "/fours/index") %> <br>
-  Step4. <%= link_to("登録内容確認", "/reg/confirm") %> <br>
+  Step0. <%= link_to("選手登録", "/players/index", class: "btn-squar") %> <br>
   <br>
-  <%= link_to("トップへ戻る", "/") %>
+  Step1. <%= link_to("エントリー登録", "/entries/index", class: "btn-squar") %> <br>
+  <br>
+  Step2. <%= link_to("ペア登録", "/pairs/index", class: "btn-squar") %> <br>
+  <br>
+  Step3. <%= link_to("フォア・リレー登録", "/fours/index", class: "btn-squar") %> <br>
+  <br>
+  Step4. <%= link_to("登録内容確認", "/reg/confirm", class: "btn-squar") %> <br>
+  <br>
+  <br>
+  <%= link_to("トップへ戻る", "/", class: "btn-squar") %>
 </div>

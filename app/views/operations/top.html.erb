@@ -13,32 +13,33 @@
 <% end %>
 
 <div class="main">
+  <br>
   <% if @current_op.id == 1 %>
-  <%= link_to("運営アカウント管理", "/operators/index") %> <br>
+  <%= link_to("運営アカウント管理", "/operators/index", class: "btn-squar") %> <br>
   <br>
   <% end %>
   <% if @current_op.id >= 1 && @current_op.id <= 4 %>
-  <%= link_to("大学アカウント管理", "/operations/accounts/index") %> <br>
+  <%= link_to("大学アカウント管理", "/operations/accounts/index", class: "btn-squar") %> <br>
   <br>
   <% end %>
   <% if @current_op.id >= 2 && @current_op.id <= 4 %>
-  <%= link_to("選手名簿・ゼッケン割り振り", "/operations/bibs") %> <br>
+  <%= link_to("選手名簿・ゼッケン割り振り", "/operations/bibs", class: "btn-squar") %> <br>
   <br>
-  <%= link_to("エントリー一覧・レース作成", "/operations/races") %> <br>
+  <%= link_to("エントリー一覧・レース作成", "/operations/races", class: "btn-squar") %> <br>
   <br>
-  <%= link_to("抽選実施・組み合わせ入力", "/operations/combinations") %> <br>
+  <%= link_to("抽選実施・組み合わせ入力", "/operations/combinations", class: "btn-squar") %> <br>
   <br>
   <% end %>
   <% if @current_op.id >= 5 && @current_op.id <= 7 %>
-  <%= link_to("組み合わせ確認", "/operations/combinations") %> <br>
+  <%= link_to("組み合わせ確認", "/operations/combinations", class: "btn-squar") %> <br>
   <br>
-  <%= link_to("組み合わせ入力", "/operations/combinations/add") %> <br>
+  <%= link_to("組み合わせ入力", "/operations/combinations/add", class: "btn-squar") %> <br>
   <br>
-  <%= link_to("順位入力", "/operations/ranks/add") %> <br>
+  <%= link_to("順位入力", "/operations/ranks/add", class: "btn-squar") %> <br>
   <br>
-  <%= link_to("タイム入力", "/operations/results/search") %> <br>
+  <%= link_to("タイム入力", "/operations/results/search", class: "btn-squar") %> <br>
   <br>
   <% end %>
   <br>
-  <%= link_to("トップへ戻る", "/") %>
+  <%= link_to("トップへ戻る", "/", class: "btn-squar") %>
 </div>

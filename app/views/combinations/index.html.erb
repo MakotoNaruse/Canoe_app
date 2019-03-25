@@ -21,44 +21,27 @@
 <br>
 <% end %>
 <h2>組み合わせ一覧</h2>
-<table border=1>
-  <tr>
-    <th>レースNo</th>
-    <th>レース名</th>
-    <th colspan=2>　組　</th>
-    <th>レーン</th>
-    <th>ゼッケン</th>
-    <th>氏名</th>
-    <th>大学名</th>
-  </tr>
   <% @races.each do |race| %>
-  <% race.combinations.each do |combi| %>
-  <tr>
-    <td> <%= race.race_no %> </td>
-    <td> <%= race.race_name %> </td>
-    <td> <%= race.stage %> </td>
-    <td>　<%= race.set %>　</td>
-    <td> <%= combi.rane %> </td>
-    <td> <%= Bib.find_by(player_id: combi.player_id, tour: @tour).bib_no %> </td>
-    <% player = Player.find_by(id: combi.player_id) %>
-    <td> <%= player.p_name %> </td>
-    <td> <%= player.u_name %> </td>
-  </tr>
+  レースNo. <%= race.race_no %> <%= race.race_name %> <%= race.stage %>-<%= race.set %>
+  <table border=1>
+    <tr>
+      <th>レーン</th>
+      <th>ゼッケン</th>
+      <th>氏名</th>
+      <th>大学名</th>
+    </tr>
+    <% race.combinations.each do |combi| %>
+    <tr>
+      <td> <%= combi.rane %> </td>
+      <td> <%= Bib.find_by(player_id: combi.player_id, tour: @tour).bib_no %> </td>
+      <% player = Player.find_by(id: combi.player_id) %>
+      <td> <%= player.p_name %> </td>
+      <td> <%= player.u_name %> </td>
+    </tr>
+    <% end %>
+  </table>
+  <br>
   <% end %>
-</table>
-<br>
-<table border=1>
-  <tr>
-    <th>レースNo</th>
-    <th>レース名</th>
-    <th colspan=2>　組　</th>
-    <th>レーン</th>
-    <th>ゼッケン</th>
-    <th>氏名</th>
-    <th>大学名</th>
-  </tr>
-  <% end %>
-</table>
 
 <br>
 <%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
