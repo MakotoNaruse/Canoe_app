@@ -7,7 +7,6 @@ class CreateRaces < ActiveRecord::Migration[5.2]
       t.string :race_name
       t.string :stage
       t.integer :set
-
       t.timestamps
     end
   end

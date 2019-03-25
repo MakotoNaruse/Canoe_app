@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'results/add'
+  get 'ranks/add'
+  get 'combinations/index'
   get 'races/index'
   get "/" => "home#top"
   get "/login" => "universities#login_form"
@@ -45,8 +48,22 @@ Rails.application.routes.draw do
   get "operations/bibs" => "bibs#index"
   post "operations/bibs/assign" => "bibs#assign"
   get "operations/races" => "races#index"
+  post "operations/races/make" => "races#make"
+  post "/operations/races/change" => "races#change"
+  get "operations/races/show" => "races#show"
   get "operations/entries1" => "races#entries1"
   get "operations/entries2" => "races#entries2"
   get "operations/entries4" => "races#entries4"
+  get "operations/combinations" => "combinations#index"
+  post "operations/combinations/lott" => "combinations#lott"
+  get "operations/combinations/add" => "combinations#add"
+  get "operations/combinations/comfirm" => "combinations#comfirm"
+  post "operations/combinations/add" => "combinations#added"
+  get "operations/ranks/add" => "ranks#add"
+  get "operations/ranks/comfirm" => "ranks#comfirm"
+  post "operations/ranks/add" => "ranks#added"
+  get "operations/results/add" => "results#add"
+  get "operations/results/comfirm" => "results#comfirm"
+  post "operations/results/add" => "results#added"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

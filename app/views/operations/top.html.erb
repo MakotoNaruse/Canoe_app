@@ -26,15 +26,17 @@
   <br>
   <%= link_to("エントリー一覧・レース作成", "/operations/races") %> <br>
   <br>
-  抽選実施・組み合わせ入力 <br>
+  <%= link_to("抽選実施・組み合わせ入力", "/operations/combinations") %> <br>
   <br>
   <% end %>
   <% if @current_op.id >= 5 && @current_op.id <= 7 %>
-  組み合わせ入力 <br>
+  <%= link_to("組み合わせ確認", "/operations/combinations") %> <br>
   <br>
-  結果順位入力 <br>
+  <%= link_to("組み合わせ入力", "/operations/combinations/add") %> <br>
   <br>
-  結果タイム入力 <br>
+  <%= link_to("組み合わせ入力", "/operations/combinations/add") %> <br>
+  <br>
+  <%= link_to("組み合わせ入力", "/operations/combinations/add") %> <br>
   <br>
   <% end %>
   <br>

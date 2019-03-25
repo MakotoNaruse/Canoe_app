@@ -88,6 +88,7 @@ class PlayersController < ApplicationController
     if @player.u_name != @current_univ.u_name
       "権限がありません"
     else
+      # 以下の記述はdependent: :destroy で代用可能？
       @pairs = Pair.where(player_id: params[:id])
       @pairs.each do |pair|
         pair.destroy

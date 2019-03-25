@@ -1,0 +1,57 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+
+<h2>組み合わせ入力確認</h2>
+<%= link_to("前のページへ戻る", "/operations/combinations/add" ) %> <br><br>
+レースNo:<%= @race.race_no %>　<%= @race.race_name %>　<%= @race.stage %>　<%= @race.set %>組目 <br>
+<table border=1>
+  <tr>
+    <th>レーンNo</th>
+    <th>ゼッケンNo</th>
+    <th>氏名</th>
+    <th>大学名</th>
+  </tr>
+  <% for num in 0..10 do %>
+    <% if @bibs[num] != 0 %>
+      <tr>
+        <td> <%= num %> </td>
+        <td> <%= @bibs[num] %> </td>
+        <td> <%= @names[num] %> </td>
+        <td> <%= @univs[num] %> </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+<br>
+<%= form_tag("/operations/combinations/add") do %>
+<input type="hidden" name="race_no" value="<%= @race.race_no %>" >
+<input type="hidden" name="rane0" value="<%= @bibs[0] %>" >
+<input type="hidden" name="rane1" value="<%= @bibs[1] %>" >
+<input type="hidden" name="rane2" value="<%= @bibs[2] %>" >
+<input type="hidden" name="rane3" value="<%= @bibs[3] %>" >
+<input type="hidden" name="rane4" value="<%= @bibs[4] %>" >
+<input type="hidden" name="rane5" value="<%= @bibs[5] %>" >
+<input type="hidden" name="rane6" value="<%= @bibs[6] %>" >
+<input type="hidden" name="rane7" value="<%= @bibs[7] %>" >
+<input type="hidden" name="rane8" value="<%= @bibs[8] %>" >
+<input type="hidden" name="rane9" value="<%= @bibs[9] %>" >
+<input type="hidden" name="rane10" value="<%= @bibs[10] %>" >
+よろしければ<input type="submit" value="確定する"/>
+<% end %>
+
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

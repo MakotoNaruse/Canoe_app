@@ -1,0 +1,51 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+
+<h2>組み合わせ入力</h2>
+※全て半角数字で入力してください
+<%= form_tag("/operations/combinations/comfirm", {method: :get}) do %>
+レースNo：
+<input type="text" name="race_no" />
+<br/>
+１レーン：
+<input type="text" name="rane1"/><br>
+２レーン：
+<input type="text" name="rane2"/><br>
+３レーン：
+<input type="text" name="rane3"/><br>
+４レーン：
+<input type="text" name="rane4"/><br>
+５レーン：
+<input type="text" name="rane5"/><br>
+６レーン：
+<input type="text" name="rane6"/><br>
+７レーン：
+<input type="text" name="rane7"/><br>
+８レーン：
+<input type="text" name="rane8"/><br>
+９レーン：
+<input type="text" name="rane9"/><br>
+(１０レーン：)
+<input type="text" name="rane10"/><br>
+(０レーン：)
+<input type="text" name="rane0"/><br>
+
+<input type="submit" value="確認画面へ"/>
+<% end %>
+
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

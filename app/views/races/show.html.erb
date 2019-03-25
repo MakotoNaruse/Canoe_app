@@ -1,0 +1,56 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>レース詳細</h2>
+<%= link_to("レース一覧へ戻る", "/operations/races") %><br>
+<br>
+レース名：　<%= @race_name %><br>
+<br>
+
+<table border=1>
+  <tr>
+    <th>レースNo</th>
+    <th>レース名</th>
+    <th colspan=2>　組　</th>
+    <th> 変更操作 </th>
+  </tr>
+  <% @races.each do |race| %>
+  <tr>
+    <td> <%= race.race_no %> </td>
+    <td> <%= race.race_name %> </td>
+    <td> <%= race.stage %> </td>
+    <td>　<%= race.set %>　</td>
+    <td>
+      <% if race.set == 1 %>
+      <%= form_tag("/operations/races/change") do %>
+      レースNoを
+      <input type="hidden" name="race_name" value="<%= race.race_name %>" >
+      <input type="hidden" name="stage" value="<%= race.stage %>" >
+      <input type="hidden" name="mode" value="1" >
+      <input type="text" style="width:20px;" name="race_no" >
+      に
+      <input type="submit" value="変更" >
+      <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<br>
+<%= link_to("レース一覧へ戻る", "/operations/races") %><br>
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_17_121246) do
+ActiveRecord::Schema.define(version: 2019_03_25_094335) do
 
   create_table "bibs", force: :cascade do |t|
     t.integer "player_id"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2019_02_17_121246) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_bibs_on_player_id"
+  end
+
+  create_table "combinations", force: :cascade do |t|
+    t.integer "race_id"
+    t.integer "rane"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["race_id"], name: "index_combinations_on_race_id"
   end
 
   create_table "entries", force: :cascade do |t|
@@ -92,6 +101,27 @@ ActiveRecord::Schema.define(version: 2019_02_17_121246) do
     t.integer "set"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ranks", force: :cascade do |t|
+    t.integer "race_id"
+    t.integer "rane"
+    t.integer "rank"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["race_id"], name: "index_ranks_on_race_id"
+  end
+
+  create_table "results", force: :cascade do |t|
+    t.integer "race_id"
+    t.integer "rane"
+    t.string "m"
+    t.string "s"
+    t.string "c"
+    t.string "option"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["race_id"], name: "index_results_on_race_id"
   end
 
   create_table "universities", force: :cascade do |t|

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  race: one
+  rane: 1
+  m: MyString
+  s: MyString
+  c: MyString
+  option: MyString
+
+two:
+  race: two
+  rane: 1
+  m: MyString
+  s: MyString
+  c: MyString
+  option: MyString

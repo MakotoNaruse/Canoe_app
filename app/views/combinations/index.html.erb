@@ -1,0 +1,66 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<% if @current_op.id <= 4 %>
+<h2>抽選実施・組み合わせ入力</h2>
+
+<%= link_to("自動抽選を実施する", "/operations/combinations/lott", method: :post,
+              data: { confirm: "本当に実行しますか？" }) %><br>
+※ボタンを押すと抽選が変わります。抽選確定以降は押さないでください。 <br>
+<br>
+<% end %>
+<h2>組み合わせ一覧</h2>
+<table border=1>
+  <tr>
+    <th>レースNo</th>
+    <th>レース名</th>
+    <th colspan=2>　組　</th>
+    <th>レーン</th>
+    <th>ゼッケン</th>
+    <th>氏名</th>
+    <th>大学名</th>
+  </tr>
+  <% @races.each do |race| %>
+  <% race.combinations.each do |combi| %>
+  <tr>
+    <td> <%= race.race_no %> </td>
+    <td> <%= race.race_name %> </td>
+    <td> <%= race.stage %> </td>
+    <td>　<%= race.set %>　</td>
+    <td> <%= combi.rane %> </td>
+    <td> <%= Bib.find_by(player_id: combi.player_id, tour: @tour).bib_no %> </td>
+    <% player = Player.find_by(id: combi.player_id) %>
+    <td> <%= player.p_name %> </td>
+    <td> <%= player.u_name %> </td>
+  </tr>
+  <% end %>
+</table>
+<br>
+<table border=1>
+  <tr>
+    <th>レースNo</th>
+    <th>レース名</th>
+    <th colspan=2>　組　</th>
+    <th>レーン</th>
+    <th>ゼッケン</th>
+    <th>氏名</th>
+    <th>大学名</th>
+  </tr>
+  <% end %>
+</table>
+
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

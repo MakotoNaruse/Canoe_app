@@ -14,6 +14,11 @@
 <div class = "main">
 <h2>エントリー一覧・レース作成</h2>
 
+<%= link_to("レースを自動生成する", "/operations/races/make", method: :post,
+              data: { confirm: "本当に実行しますか？" }) %><br>
+※２回目以降に自動生成を行うとレースNoがリセットされます <br>
+<br>
+
 <table border = 1>
   <tr>
     <th rowspan="2">レース名</th>
@@ -43,7 +48,12 @@
       <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "H").count %> </td>
       <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "SF").count %> </td>
       <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "F").count %> </td>
-      <td></td>
+      <td>
+        <%= form_tag("/operations/races/show", {method: :get} ) do %>
+        <input type="hidden" name="race_name" value="<%= race_name %>" >
+        <input type="submit" value="作成・更新" >
+        <% end %>
+      </td>
     </tr>
   <% end %>
   <% @pairs.each do |race_name| %>
@@ -61,7 +71,12 @@
       <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "H").count %> </td>
       <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "SF").count %> </td>
       <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "F").count %> </td>
-      <td></td>
+      <td>
+        <%= form_tag("/operations/races/show", {method: :get} ) do %>
+        <input type="hidden" name="race_name" value="<%= race_name %>" >
+        <input type="submit" value="作成・更新" >
+        <% end %>
+      </td>
     </tr>
   <% end %>
   <% @fours.each do |race_name| %>
@@ -79,10 +94,47 @@
       <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "H").count %> </td>
       <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "SF").count %> </td>
       <td> <%= Race.where(year: @year, tour: @tour, race_name: race_name, stage: "F").count %> </td>
-      <td></td>
+      <td>
+        <%= form_tag("/operations/races/show", {method: :get} ) do %>
+        <input type="hidden" name="race_name" value="<%= race_name %>" >
+        <input type="submit" value="作成・更新" >
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
+<br>
+<h2>レース一覧</h2>
+<table border=1>
+  <tr>
+    <th>レースNo</th>
+    <th>レース名</th>
+    <th colspan=2>　組　</th>
+    <th> 変更操作 </th>
+  </tr>
+  <% @races.each do |race| %>
+  <tr>
+    <td> <%= race.race_no %> </td>
+    <td> <%= race.race_name %> </td>
+    <td> <%= race.stage %> </td>
+    <td>　<%= race.set %>　</td>
+    <td>
+      <% if race.set == 1 %>
+      <%= form_tag("/operations/races/change") do %>
+      レースNoを
+      <input type="hidden" name="race_name" value="<%= race.race_name %>" >
+      <input type="hidden" name="stage" value="<%= race.stage %>" >
+      <input type="hidden" name="mode" value="2" >
+      <input type="text" style="width:20px;" name="race_no" >
+      に
+      <input type="submit" value="変更" >
+      <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
 <br>
 <%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
 <br><br><br><br>
