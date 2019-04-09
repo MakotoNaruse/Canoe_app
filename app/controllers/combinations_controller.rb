@@ -313,6 +313,11 @@ class CombinationsController < ApplicationController
       univs = Array.new(1)
       entries = Four.where(year: @year, tour: @tour, race_name: race_name)
 
+      #エントリーがない場合はスキップ
+      if entries.first == nil
+        next
+      end
+
       #大学idを配列に格納
       count = 0
       entries.each do |entry|
@@ -324,11 +329,7 @@ class CombinationsController < ApplicationController
       univs.shuffle!
 
       #各組に振り分ける
-      if entries.first == nil
-        number = 0
-      else
-        number = entries.count #艇数
-      end
+      number = entries.count #艇数
       total_set = (number + 8) / 9
       combi = Array.new(total_set).map{Array.new(9, 0)}
       set = 0
