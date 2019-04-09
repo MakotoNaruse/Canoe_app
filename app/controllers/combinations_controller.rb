@@ -324,7 +324,11 @@ class CombinationsController < ApplicationController
       univs.shuffle!
 
       #各組に振り分ける
-      number = entries.count #艇数
+      if entries.first == nil
+        number = 0
+      else
+        number = entries.count #艇数
+      end
       total_set = (number + 8) / 9
       combi = Array.new(total_set).map{Array.new(9, 0)}
       set = 0
