@@ -64,7 +64,7 @@
     </tr>
     <tr>
       <% pair = Player.find_by(id: player.pairs.first.pair_id ) %>
-      <td> <%= if bib = Bib.find_by(player_id: pair.id, tour: @tour) then bib.bib_no %> </td>
+      <td> <%= if bib = Bib.find_by(player_id: pair.id, tour: @tour) then bib.bib_no end %> </td>
       <td> <%= pair.p_name %> </td>
     </tr>
     <% end %>
