@@ -1,0 +1,106 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+
+<h2>フォア・リレー組み合わせ入力</h2>
+<%= form_tag("/operations/fours/combi_add" ) do %>
+レースNo:<%= @race.race_no %>　<%= @race.race_name %> <%= @race.stage %>-<%= @race.set %> <br>
+<br/>
+１レーン：
+<select name="rane1">
+  <option value="">---</option>
+  <% @universities.each do |univ| %>
+  <option value="<%= univ.u_name %>"><%= univ.u_name %></option>
+  <% end %>
+</select><br>
+２レーン：
+<select name="rane2">
+  <option value="">---</option>
+  <% @universities.each do |univ| %>
+  <option value="<%= univ.u_name %>"><%= univ.u_name %></option>
+  <% end %>
+</select><br>
+３レーン：
+<select name="rane3">
+  <option value="">---</option>
+  <% @universities.each do |univ| %>
+  <option value="<%= univ.u_name %>"><%= univ.u_name %></option>
+  <% end %>
+</select><br>
+４レーン：
+<select name="rane4">
+  <option value="">---</option>
+  <% @universities.each do |univ| %>
+  <option value="<%= univ.u_name %>"><%= univ.u_name %></option>
+  <% end %>
+</select><br>
+５レーン：
+<select name="rane5">
+  <option value="">---</option>
+  <% @universities.each do |univ| %>
+  <option value="<%= univ.u_name %>"><%= univ.u_name %></option>
+  <% end %>
+</select><br>
+６レーン：
+<select name="rane6">
+  <option value="">---</option>
+  <% @universities.each do |univ| %>
+  <option value="<%= univ.u_name %>"><%= univ.u_name %></option>
+  <% end %>
+</select><br>
+７レーン：
+<select name="rane7">
+  <option value="">---</option>
+  <% @universities.each do |univ| %>
+  <option value="<%= univ.u_name %>"><%= univ.u_name %></option>
+  <% end %>
+</select><br>
+８レーン：
+<select name="rane8">
+  <option value="">---</option>
+  <% @universities.each do |univ| %>
+  <option value="<%= univ.u_name %>"><%= univ.u_name %></option>
+  <% end %>
+</select><br>
+９レーン：
+<select name="rane9">
+  <option value="">---</option>
+  <% @universities.each do |univ| %>
+  <option value="<%= univ.u_name %>"><%= univ.u_name %></option>
+  <% end %>
+</select><br>
+(１０レーン：)
+<select name="rane10">
+  <option value="">---</option>
+  <% @universities.each do |univ| %>
+  <option value="<%= univ.u_name %>"><%= univ.u_name %></option>
+  <% end %>
+</select><br>
+(０レーン：)
+<select name="rane0">
+  <option value="">---</option>
+  <% @universities.each do |univ| %>
+  <option value="<%= univ.u_name %>"><%= univ.u_name %></option>
+  <% end %>
+</select><br>
+
+<input type="hidden" name="race_id" value="<%= @race.id %>">
+
+<input type="submit" value="登録する"/>
+<% end %>
+
+<br>
+<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br><br><br><br>
+</div>

@@ -25,6 +25,9 @@
 選手名：
 <input type="text" name="p_name" value="<%= @player.p_name %>"/>
 <br/>
+読みがな：
+<input type="text" name="reading" value="<%= @player.reading %>"/>
+<br/>
 種目：
 <select name="typ" size="1">
 <option value="K" <% if @player.typ.eql?("K") %> selected <% end %> >K</option>

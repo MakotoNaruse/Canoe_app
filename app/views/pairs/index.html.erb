@@ -17,10 +17,11 @@
 <%= link_to("エントリー登録に戻る", "/entries/index", class: "btn-squar") %> <br>
 この内容でよければ<%= link_to("フォア・リレー登録へ", "/fours/index", class: "btn-squar") %> <br>
 <br>
-
+<div class="pairs">
 <table border = 1 class="pair_table">
   <tr>
     <th>選手名</th>
+    <th>学年</th>
     <th>レース</th>
     <th>ペア</th>
   </tr>
@@ -29,6 +30,7 @@
     <% entries.each do |entry| %>
       <tr>
         <td> <%= player.p_name %> </td>
+        <td> <%= player.grade %> </td>
         <td> <%= entry.race_name %> </td>
         <% if entry.race_name.include?("-2-2") %>
           <% pair_two = PairTwo.find_by(player_id: player.id, tour: @current_tour_id) %>
@@ -91,6 +93,7 @@
     <% end %>
   <% end %>
 </table>
+</div>
 <br>
 <%= link_to("エントリー登録システムトップへ戻る", "/reg/top", class: "btn-squar" ) %>
 <br><br>

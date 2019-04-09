@@ -74,6 +74,7 @@
   <tr>
     <th>選手名</th>
     <th>種目</th>
+    <th>学年</th>
     <th>参加レース</th>
     <th>操作</th>
   </tr>
@@ -83,6 +84,7 @@
     <tr>
       <td> <%= player.p_name %> </td>
       <td> <%= player.typ %> </td>
+      <td> <%= player.grade %> </td>
       <td> <%= entry.race_name %> </td>
       <td> <%= link_to("削除", "/entries/destroy/#{entry.id}", class: "btn-red", method: :post,
                         data: { confirm: "#{player.p_name} #{entry.race_name}を削除しますか？" }) %> </td>

@@ -23,9 +23,11 @@
 <h2>組み合わせ一覧</h2>
   <% @races.each do |race| %>
   レースNo. <%= race.race_no %> <%= race.race_name %> <%= race.stage %>-<%= race.set %>
+  <% if race.race_name.include?("-1-") && !race.race_name.include?("Relay") %>
+  <div class="combinations">
   <table border=1>
     <tr>
-      <th>レーン</th>
+      <th>ra<br>ne</th>
       <th>ゼッケン</th>
       <th>氏名</th>
       <th>大学名</th>
@@ -40,7 +42,78 @@
     </tr>
     <% end %>
   </table>
+  </div>
   <br>
+
+  <% elsif race.race_name.include?("-2-") %>
+  <div class="combinations">
+  <table border=1>
+    <tr>
+      <th>ra<br>ne</th>
+      <th>ゼッケン</th>
+      <th>氏名</th>
+      <th>大学名</th>
+    </tr>
+    <% race.combinations.each do |combi| %>
+    <tr>
+      <td rowspan=2> <%= combi.rane %> </td>
+      <td> <%= Bib.find_by(player_id: combi.player_id, tour: @tour).bib_no %> </td>
+      <% player = Player.includes(:pairs).find_by(id: combi.player_id) %>
+      <td> <%= player.p_name %> </td>
+      <td rowspan="2"> <%= player.u_name %> </td>
+    </tr>
+    <tr>
+      <% pair = Player.find_by(id: player.pairs.first.pair_id ) %>
+      <td> <%= Bib.find_by(player_id: pair.id, tour: @tour).bib_no %> </td>
+      <td> <%= pair.p_name %> </td>
+    </tr>
+    <% end %>
+  </table>
+  </div>
+  <br>
+
+  <% elsif race.race_name.include?("-4-") || race.race_name.include?("Relay") %>
+  <div class="combinations">
+  <table border=1>
+    <tr>
+      <th>ra<br>ne</th>
+      <th>ゼッケン</th>
+      <th>氏名</th>
+      <th>大学名</th>
+    </tr>
+    <% combi_fours =  CombinationFour.where(race_id: race.id ) %>
+    <% combi_fours.each do |combi| %>
+    <tr>
+      <td rowspan=4> <%= combi.rane %> </td>
+      <% bib = Bib.find_by(player_id: combi.player_id1, tour: @tour) %>
+      <td> <%= if bib then bib.bib_no else "" end %> </td>
+      <% player = Player.find_by(id: combi.player_id1) %>
+      <td> <%= if player then player.p_name else "" end %> </td>
+      <td rowspan="4"> <%= combi.u_name %> </td>
+    </tr>
+    <tr>
+      <% bib = Bib.find_by(player_id: combi.player_id2, tour: @tour) %>
+      <td> <%= if bib then bib.bib_no else "" end %> </td>
+      <% player = Player.find_by(id: combi.player_id2) %>
+      <td> <%= if player then player.p_name else "" end %> </td>
+    </tr>
+    <tr>
+      <% bib = Bib.find_by(player_id: combi.player_id3, tour: @tour) %>
+      <td> <%= if bib then bib.bib_no else "" end %> </td>
+      <% player = Player.find_by(id: combi.player_id3) %>
+      <td> <%= if player then player.p_name else "" end %> </td>
+    </tr>
+    <tr>
+      <% bib = Bib.find_by(player_id: combi.player_id4, tour: @tour) %>
+      <td> <%= if bib then bib.bib_no else "" end %> </td>
+      <% player = Player.find_by(id: combi.player_id4) %>
+      <td> <%= if player then player.p_name else "" end %> </td>
+    </tr>
+    <% end %>
+  </table>
+  </div>
+  <br>
+  <% end %>
   <% end %>
 
 <br>

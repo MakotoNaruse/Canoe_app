@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_25_095308) do
+ActiveRecord::Schema.define(version: 2019_04_09_075359) do
 
   create_table "bibs", force: :cascade do |t|
     t.integer "player_id"
@@ -19,6 +19,19 @@ ActiveRecord::Schema.define(version: 2019_03_25_095308) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_bibs_on_player_id"
+  end
+
+  create_table "combination_fours", force: :cascade do |t|
+    t.integer "race_id"
+    t.integer "rane"
+    t.string "u_name"
+    t.integer "player_id1"
+    t.integer "player_id2"
+    t.integer "player_id3"
+    t.integer "player_id4"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["race_id"], name: "index_combination_fours_on_race_id"
   end
 
   create_table "combinations", force: :cascade do |t|
@@ -89,6 +102,7 @@ ActiveRecord::Schema.define(version: 2019_03_25_095308) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "university_id"
+    t.string "reading"
     t.index ["university_id"], name: "index_players_on_university_id"
   end
 

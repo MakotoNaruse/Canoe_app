@@ -37,7 +37,7 @@ class PlayersController < ApplicationController
 
   def index
     @players = Player.where(u_name: @current_univ.u_name, year: @year)
-                      .order({grade: :desc}, :typ)
+                      .order({grade: :desc}, :typ, :reading)
   end
 
   def add
@@ -46,7 +46,8 @@ class PlayersController < ApplicationController
       year: @year,
       p_name: params[:p_name],
       typ: params[:typ],
-      grade: params[:grade].to_i
+      grade: params[:grade].to_i,
+      reading: params[:reading]
     )
     if @player.save
       flash[:notice] = "選手を追加しました。"
@@ -74,6 +75,7 @@ class PlayersController < ApplicationController
     @player.p_name = params[:p_name]
     @player.typ = params[:typ]
     @player.grade = params[:grade].to_i
+    @player.reading = params[:reading]
     if @player.save
       flash[:notice] = "選手を変更しました。"
       redirect_to("/players/index")

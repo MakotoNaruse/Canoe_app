@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'combination_fours/add'
   get 'remarks/add'
   get 'results/add'
   get 'ranks/add'
@@ -66,9 +67,17 @@ Rails.application.routes.draw do
   get "operations/results/add" => "results#add"
   get "operations/results/search" => "results#search"
   post "operations/results/add" => "results#added"
-  get "operations/remarks/add" => "remarks#add"
-  post "operations/remarks/add" => "remarks#added"
+  get "/operations/results/option" => "results#option"
+  post "/operations/results/option_add" => "results#option_add"
+  get "/operations/fours/search" => "combination_fours#search"
+  get "/operations/fours/add" => "combination_fours#add"
+  post "/operations/fours/add" => "combination_fours#added"
+  get "/operations/fours/combi_search" => "combination_fours#combi_search"
+  get "/operations/fours/combi_add" => "combination_fours#combi_add"
+  post "/operations/fours/combi_add" => "combination_fours#combi_added"
 
   get "/results" => "combinations#results"
+  get "/search" => "combinations#search"
+  get "/results_name" => "combinations#results_name"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

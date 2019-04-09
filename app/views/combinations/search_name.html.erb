@@ -1,0 +1,27 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("学連Webシステム", "/") %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>速報システム・データベース</h2>
+<%= form_tag("/results_name", {method: :get}) do %>
+大学名:
+<input type="text" name="u_name"><br>
+選手名:
+<input type="text" name="p_name">
+<br><br>
+<input type="submit" value="検索">
+<% end %>
+<br>
+
+
+<br>
+<br>
+<br><br><br><br>
+</div>

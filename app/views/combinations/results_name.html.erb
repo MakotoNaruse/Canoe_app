@@ -1,0 +1,181 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("学連Webシステム", "/") %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>速報システム・データベース</h2>
+<%= form_tag("/results_name", {method: :get}) do %>
+大学名:
+<input type="text" name="u_name" value="<%= @u_name %>"><br>
+選手名:
+<input type="text" name="p_name" value="<%= @p_name %>"><br>
+開催年:
+<select name="year" size="1">
+  <% for yr in ( @year* -1 )..-2017 do %>
+  <option value="<%= -yr %>"><%= -yr %>年</option>
+  <% end %>
+</select><br>
+大会:
+<select name="tour">
+  <option value="1" <% if @tr.to_i == 1 then %> selected <% end %> >全日本インカレ</option>
+  <option value="2" <% if @tr.to_i == 2 then %> selected <% end %> >関西インカレ</option>
+  <option value="3" <% if @tr.to_i == 3 then %> selected <% end %> >関東インカレ</option>
+</select>
+<br><br>
+<input type="submit" value="検索">
+<% end %>
+<br>
+<h3>検索結果</h3>
+<% @players.each do |player| %>
+  大学名: <%= player.u_name %>　選手名: <%= player.p_name %> <br>
+  <div class="results_name">
+  <table border=1>
+    <tr>
+      <th>レース名</th>
+      <th colspan=2>組</th>
+      <th>順位</th>
+      <th colspan=3>タイム</th>
+      <th>備考</th>
+      <th>詳細</th>
+    </tr>
+  <% combinations = Combination.where(player_id: player.id) %>
+  <% combinations.each do |combination| %>
+    <% race = Race.find_by(id: combination.race_id, tour: @tr, year: @yr ) %>
+    <% if race %>
+    <% rank = Rank.find_by(race_id: race.id, rane: combination.rane) %>
+    <% result = Result.find_by(race_id: race.id, rane: combination.rane) %>
+    <tr>
+      <td> <%= race.race_name %> </td>
+      <td> <%= race.stage %> </td>
+      <td> <%= race.set %> </td>
+      <td> <%= if rank then rank.rank else "" end %> </td>
+      <td> <%= if result then result.m else "" end %> </td>
+      <td> <%= if result then result.s else "" end %> </td>
+      <td> <%= if result then result.c else "" end %> </td>
+      <td> <%= if result then result.option else "" end %> </td>
+      <td>
+        <%= form_tag("/results", {method: :get}) do %>
+        <input type="hidden" name="year" value="<%= @yr %>">
+        <input type="hidden" name="tour" value="<%= @tr %>">
+        <input type="hidden" name="race_no" value="">
+        <input type="hidden" name="race_name" value="<%= race.race_name %>">
+        <input type="hidden" name="stage" value="<%= race.stage %>">
+        <input type="hidden" name="set" value="<%= race.set %>">
+        <input type="submit" value="詳細">
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  <% end %>
+  <% pair = Pair.find_by(pair_id: player.id, tour: @tr) %>
+  <% pairtwo = PairTwo.find_by(pair_id: player.id, tour: @tr) %>
+  <% if pair %>
+    <% combinations = Combination.where(player_id: pair.player_id) %>
+    <% combinations.each do |combination| %>
+      <% race = Race.find_by(id: combination.race_id, tour: @tr, year: @yr ) %>
+      <% if race && ( race.race_name.include?("-2-1") || race.race_name.include?("-2-5") )  %>
+      <% rank = Rank.find_by(race_id: race.id, rane: combination.rane) %>
+      <% result = Result.find_by(race_id: race.id, rane: combination.rane) %>
+      <tr>
+        <td> <%= race.race_name %> </td>
+        <td> <%= race.stage %> </td>
+        <td> <%= race.set %> </td>
+        <td> <%= if rank then rank.rank else "" end %> </td>
+        <td> <%= if result then result.m else "" end %> </td>
+        <td> <%= if result then result.s else "" end %> </td>
+        <td> <%= if result then result.c else "" end %> </td>
+        <td> <%= if result then result.option else "" end %> </td>
+        <td>
+          <%= form_tag("/results", {method: :get}) do %>
+          <input type="hidden" name="year" value="<%= @yr %>">
+          <input type="hidden" name="tour" value="<%= @tr %>">
+          <input type="hidden" name="race_no" value="">
+          <input type="hidden" name="race_name" value="<%= race.race_name %>">
+          <input type="hidden" name="stage" value="<%= race.stage %>">
+          <input type="hidden" name="set" value="<%= race.set %>">
+          <input type="submit" value="詳細">
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if pairtwo %>
+    <% combinations = Combination.where(player_id: pairtwo.player_id) %>
+    <% combinations.each do |combination| %>
+      <% race = Race.find_by(id: combination.race_id, tour: @tr ) %>
+      <% if race && race.race_name.include?("-2-2") %>
+      <% rank = Rank.find_by(race_id: race.id, rane: combination.rane) %>
+      <% result = Result.find_by(race_id: race.id, rane: combination.rane) %>
+      <tr>
+        <td> <%= race.race_name %> </td>
+        <td> <%= race.stage %> </td>
+        <td> <%= race.set %> </td>
+        <td> <%= if rank then rank.rank else "" end %> </td>
+        <td> <%= if result then result.m else "" end %> </td>
+        <td> <%= if result then result.s else "" end %> </td>
+        <td> <%= if result then result.c else "" end %> </td>
+        <td> <%= if result then result.option else "" end %> </td>
+        <td>
+          <%= form_tag("/results", {method: :get}) do %>
+          <input type="hidden" name="year" value="<%= @yr %>">
+          <input type="hidden" name="tour" value="<%= @tr %>">
+          <input type="hidden" name="race_no" value="">
+          <input type="hidden" name="race_name" value="<%= race.race_name %>">
+          <input type="hidden" name="stage" value="<%= race.stage %>">
+          <input type="hidden" name="set" value="<%= race.set %>">
+          <input type="submit" value="詳細">
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% fours = CombinationFour.where(player_id1: player.id)
+                            .or(CombinationFour.where(player_id2: player.id))
+                            .or(CombinationFour.where(player_id3: player.id))
+                            .or(CombinationFour.where(player_id4: player.id)) %>
+  <% fours.each do |four| %>
+    <% race = Race.find_by(id: four.race_id, year: @yr, tour: @tr ) %>
+    <% if race %>
+    <% rank = Rank.find_by(race_id: race.id, rane: four.rane) %>
+    <% result = Result.find_by(race_id: race.id, rane: four.rane) %>
+    <tr>
+      <td> <%= race.race_name %> </td>
+      <td> <%= race.stage %> </td>
+      <td> <%= race.set %> </td>
+      <td> <%= if rank then rank.rank else "" end %> </td>
+      <td> <%= if result then result.m else "" end %> </td>
+      <td> <%= if result then result.s else "" end %> </td>
+      <td> <%= if result then result.c else "" end %> </td>
+      <td> <%= if result then result.option else "" end %> </td>
+      <td>
+        <%= form_tag("/results", {method: :get}) do %>
+        <input type="hidden" name="year" value="<%= @yr %>">
+        <input type="hidden" name="tour" value="<%= @tr %>">
+        <input type="hidden" name="race_no" value="">
+        <input type="hidden" name="race_name" value="<%= race.race_name %>">
+        <input type="hidden" name="stage" value="<%= race.stage %>">
+        <input type="hidden" name="set" value="<%= race.set %>">
+        <input type="submit" value="詳細">
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  <% end %>
+  </table>
+  </div>
+  <br>
+<% end %>
+
+
+<br>
+<br>
+<br><br><br><br>
+</div>

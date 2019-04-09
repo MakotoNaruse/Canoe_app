@@ -13,29 +13,28 @@
 <% end %>
 <div class = "main">
 
-<h2>タイム入力</h2>
+<h2>フォア・リレー届け入力</h2>
 ※全て半角数字で入力してください <br>
 <br>
-<%= form_tag("/operations/results/add") do %>
+<%= form_tag("/operations/fours/add") do %>
 レースNo:<%= @race.race_no %>　<%= @race.race_name %>　<%= @race.stage %>-<%= @race.set %><br>
 <br/>
 <table border=1>
   <tr>
-    <th>順位</th>
     <th>レーン</th>
-    <th colspan=3>タイム</th>
+    <th>大学名</th>
+    <th colspan=4>ゼッケン</th>
   </tr>
 
-  <% for num in 1..10 do %>
-    <% if @ranks[num] %>
+  <% @fours.each do |four| %>
     <tr>
-      <td> <%= num %> 位</td>
-      <td> <%= @ranks[num] %> </td>
-      <td><input type="text" style="width:20px;" name="m<%= @ranks[num]%>"/></td>
-      <td><input type="text" style="width:20px;" name="s<%= @ranks[num]%>"/></td>
-      <td><input type="text" style="width:20px;" name="c<%= @ranks[num]%>"/></td>
+      <td> <%= four.rane %> </td>
+      <td> <%= four.u_name %> </td>
+      <td><input type="text" style="width:20px;" name="pid1<%= four.rane %>"/></td>
+      <td><input type="text" style="width:20px;" name="pid2<%= four.rane %>"/></td>
+      <td><input type="text" style="width:20px;" name="pid3<%= four.rane %>"/></td>
+      <td><input type="text" style="width:20px;" name="pid4<%= four.rane %>"/></td>
     </tr>
-    <% end %>
   <% end %>
 </table>
 <br>

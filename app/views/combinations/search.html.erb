@@ -1,0 +1,117 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("学連Webシステム", "/") %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>速報システム・データベース</h2>
+<h3>レースから検索</h3>
+<%= form_tag("/results", {method: :get}) do %>
+開催年:
+<select name="year" size="1">
+  <% for yr in ( @year* -1 )..-2017 do %>
+  <option value="<%= -yr %>"><%= -yr %>年</option>
+  <% end %>
+</select>　
+大会:
+<select name="tour">
+  <option value="1">全日本インカレ</option>
+  <option value="2">関西インカレ</option>
+  <option value="3">関東インカレ</option>
+</select>
+<br><br>
+レースNo:
+<select name="race_no">
+  <option value="">全て</option>
+  <% for num in 1..200 do %>
+  <option value="<%= num %>"><%= num %></option>
+  <% end %>
+</select>
+<br>
+または <br>
+レース名:
+<select name="race_name" size="1">
+<option value="">全て</option>
+<option value="K-1-1000m">K-1-1000m</option>
+<option value="K-2-1000m">K-2-1000m</option>
+<option value="K-4-1000m">K-4-1000m</option>
+<option value="K-1-Relay">K-1-Relay</option>
+<option value="C-1-1000m">C-1-1000m</option>
+<option value="C-2-1000m">C-2-1000m</option>
+<option value="C-4-1000m">C-4-1000m</option>
+<option value="C-1-Relay">C-1-Relay</option>
+<option value="WK-1-500m">WK-1-500m</option>
+<option value="WK-2-500m">WK-2-500m</option>
+<option value="WK-4-500m">WK-4-500m</option>
+<option value="WK-1-Relay">WK-1-Relay</option>
+<option value="WC-1-500m">WC-1-500m</option>
+<option value="WC-2-500m">WC-2-500m</option>
+<option value="JK-1-500m">JK-1-500m</option>
+<option value="JK-2-500m">JK-2-500m</option>
+<option value="JC-1-500m">JC-1-500m</option>
+<option value="JC-2-500m">JC-2-500m</option>
+<option value="JWK-1-500m">JWK-1-500m</option>
+<option value="JWK-2-500m">JWK-2-500m</option>
+<option value="JWC-1-500m">JWC-1-500m</option>
+<option value="JWC-2-500m">JWC-2-500m</option>
+<option value="K-1-200m">K-1-200m</option>
+<option value="K-2-200m">K-2-200m</option>
+<option value="C-1-200m">C-1-200m</option>
+<option value="C-2-200m">C-2-200m</option>
+<option value="WK-1-200m">WK-1-200m</option>
+<option value="WK-2-200m">WK-2-200m</option>
+<option value="WC-1-200m">WC-1-200m</option>
+<option value="WC-2-200m">WC-2-200m</option>
+<option value="JK-1-200m">JK-1-200m</option>
+<option value="JC-1-200m">JC-1-200m</option>
+<option value="JWK-1-200m">JWK-1-200m</option>
+<option value="JWC-1-200m">JWC-1-200m</option>
+</select><br>
+ステージ:
+<select name="stage">
+  <option value="">全て</option>
+  <option value="1次H">1次H</option>
+  <option value="H">H</option>
+  <option value="SF">SF</option>
+  <option value="F">F</option>
+</select>
+組:
+<select name="set">
+  <option value="">全て</option>
+  <% for num in 1..12 do %>
+  <option value="<%= num %>"><%= num %>組目</option>
+  <% end %>
+</select>
+<br><br>
+<input type="submit" value="検索">
+<% end %>
+<br>
+<h3>大学名・選手名から検索</h3>
+<%= form_tag("/results_name", {method: :get}) do %>
+大学名:
+<input type="text" name="u_name"><br>
+選手名:
+<input type="text" name="p_name"><br>
+開催年:
+<select name="year" size="1">
+  <% for yr in ( @year* -1 )..-2017 do %>
+  <option value="<%= -yr %>"><%= -yr %>年</option>
+  <% end %>
+</select><br>
+大会:
+<select name="tour">
+  <option value="1" <% if @tr.to_i == 1 then %> selected <% end %> >全日本インカレ</option>
+  <option value="2" <% if @tr.to_i == 2 then %> selected <% end %> >関西インカレ</option>
+  <option value="3" <% if @tr.to_i == 3 then %> selected <% end %> >関東インカレ</option>
+</select>
+<br><br>
+<input type="submit" value="検索">
+<% end %>
+<br>
+<br><br><br><br>
+</div>

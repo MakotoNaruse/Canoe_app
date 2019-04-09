@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  race: one
+  rane: 1
+  u_name: MyString
+  player_id1: 1
+  player_id2: 1
+  player_id3: 1
+  player_id4: 1
+
+two:
+  race: two
+  rane: 1
+  u_name: MyString
+  player_id1: 1
+  player_id2: 1
+  player_id3: 1
+  player_id4: 1

@@ -25,6 +25,9 @@
 選手名：
 <input type="text" name="p_name"/>
 <br/>
+読みがな：
+<input type="text" name="reading"/>
+<br/>
 種目：
 <select name="typ" size="1">
 <option value="K">K</option>
@@ -49,10 +52,11 @@
 <% end %>
 
 <h3>現在の選手登録内容</h3>
-
+<div class="players" >
 <table border = 1>
   <tr>
     <th>選手名</th>
+    <th>読みがな</th>
     <th>種目</th>
     <th>学年</th>
     <th colspan=2>操作</th>
@@ -60,6 +64,7 @@
   <% @players.each do |player| %>
   <tr>
     <td> <%= player.p_name %> </td>
+    <td> <%= player.reading %> </td>
     <td> <%= player.typ %> </td>
     <td> <%= player.grade %> </td>
     <td> <%= link_to("変更", "/players/edit/#{player.id}", class: "btn-green") %> </td>
@@ -68,6 +73,7 @@
   </tr>
   <% end %>
 </table>
+</div>
 <br>
 <%= link_to("エントリー登録システムトップへ戻る", "/reg/top", class: "btn-squar" ) %>
 <br><br>

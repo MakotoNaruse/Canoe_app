@@ -77,15 +77,55 @@ class ResultsController < ApplicationController
     cs[10] = params[:c10]
     for num in 1..10 do
       if cs[num] != "" && ss[num] != ""
-        result = Result.where(race_id: race_id, rane: num)
+        result = Result.find_by(race_id: race_id, rane: num)
         if result
-          result.destroy_all
+          result.m = ms[num]
+          result.s = ss[num]
+          result.c = cs[num]
+          result.save
+        else
+          result = Result.new(race_id: race_id, rane: num, m: ms[num], s: ss[num], c: cs[num])
+          result.save
         end
-        result = Result.new(race_id: race_id, rane: num, m: ms[num], s: ss[num], c: cs[num])
-        result.save
       end
     end
     flash[:notice] = "タイムを追加しました"
     redirect_to("/operations/results/search")
   end
+
+  def option
+
+  end
+
+  def option_add
+    race_no = params[:race_no].to_i
+    race = Race.find_by(year: @year, tour: @tour, race_no: race_no)
+    options = Array.new(11)
+    options[0] = params[:rane0]
+    options[1] = params[:rane1]
+    options[2] = params[:rane2]
+    options[3] = params[:rane3]
+    options[4] = params[:rane4]
+    options[5] = params[:rane5]
+    options[6] = params[:rane6]
+    options[7] = params[:rane7]
+    options[8] = params[:rane8]
+    options[9] = params[:rane9]
+    options[10] = params[:rane10]
+    for num in 1..11 do
+      if options[num] != ""
+        result = Result.find_by(race_id: race.id, rane: num)
+        if result
+          result.option = options[num]
+          result.save
+        else
+          result = Result.new(race_id: race.id, rane: num, option: options[num])
+          result.save
+        end
+      end
+    end
+    flash[:notice] = "備考を追加しました"
+    redirect_to("/operations/top")
+  end
+
 end

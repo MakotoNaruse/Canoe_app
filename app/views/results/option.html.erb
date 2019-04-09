@@ -13,9 +13,9 @@
 <% end %>
 <div class = "main">
 
-<h2>組み合わせ入力</h2>
-※全て半角数字で入力してください
-<%= form_tag("/operations/combinations/comfirm", {method: :get}) do %>
+<h2>備考入力</h2>
+<br>
+<%= form_tag("/operations/results/option_add") do %>
 レースNo：
 <input type="text" name="race_no" /><br>
 <br/>
@@ -41,8 +41,8 @@
 <input type="text" name="rane10"/><br>
 (０レーン：)
 <input type="text" name="rane0"/><br>
-
-<input type="submit" value="確認画面へ"/>
+<br>
+<input type="submit" value="確認して登録する"/>
 <% end %>
 
 <br>

@@ -10,11 +10,95 @@
 <% end %>
 <div class = "main">
 <h2>速報システム・データベース</h2>
+<%= form_tag("/results", {method: :get}) do %>
+開催年:
+<select name="year" size="1">
+  <% for yr in 2017..@year do %>
+  <option value="<%= yr %>" <% if yr == @yr.to_i then %> selected <% end %> ><%= yr %>年</option>
+  <% end %>
+</select>　
+大会:
+<select name="tour">
+  <option value="1" <% if @tr.to_i == 1 then %> selected <% end %> >全日本インカレ</option>
+  <option value="2" <% if @tr.to_i == 2 then %> selected <% end %> >関西インカレ</option>
+  <option value="3" <% if @tr.to_i == 3 then %> selected <% end %> >関東インカレ</option>
+</select>
+<br><br>
+レースNo:
+<select name="race_no">
+  <option value="">全て</option>
+  <% for num in 1..200 do %>
+  <option value="<%= num %>" <% if num == @race_no.to_i then %> selected <% end %> ><%= num %></option>
+  <% end %>
+</select>
+<br>
+または <br>
+レース名:
+<select name="race_name" size="1">
+<option value="">全て</option>
+<option value="K-1-1000m"<% if @race_name == "K-1-1000m" then %> selected <% end %>>K-1-1000m</option>
+<option value="K-2-1000m"<% if @race_name == "K-2-1000m" then %> selected <% end %>>K-2-1000m</option>
+<option value="K-4-1000m"<% if @race_name == "K-4-1000m" then %> selected <% end %>>K-4-1000m</option>
+<option value="K-1-Relay"<% if @race_name == "K-1-Relay" then %> selected <% end %>>K-1-Relay</option>
+<option value="C-1-1000m"<% if @race_name == "C-1-1000m" then %> selected <% end %>>C-1-1000m</option>
+<option value="C-2-1000m"<% if @race_name == "C-2-1000m" then %> selected <% end %>>C-2-1000m</option>
+<option value="C-4-1000m"<% if @race_name == "C-4-1000m" then %> selected <% end %>>C-4-1000m</option>
+<option value="C-1-Relay"<% if @race_name == "C-1-Relay" then %> selected <% end %>>C-1-Relay</option>
+<option value="WK-1-500m"<% if @race_name == "WK-1-500m" then %> selected <% end %>>WK-1-500m</option>
+<option value="WK-2-500m"<% if @race_name == "WK-2-500m" then %> selected <% end %>>WK-2-500m</option>
+<option value="WK-4-500m"<% if @race_name == "WK-4-500m" then %> selected <% end %>>WK-4-500m</option>
+<option value="WK-1-Relay"<% if @race_name == "WK-1-Relay" then %> selected <% end %>>WK-1-Relay</option>
+<option value="WC-1-500m"<% if @race_name == "WC-1-500m" then %> selected <% end %>>WC-1-500m</option>
+<option value="WC-2-500m"<% if @race_name == "WC-2-500m" then %> selected <% end %>>WC-2-500m</option>
+<option value="JK-1-500m"<% if @race_name == "JK-1-500m" then %> selected <% end %>>JK-1-500m</option>
+<option value="JK-2-500m"<% if @race_name == "JK-2-500m" then %> selected <% end %>>JK-2-500m</option>
+<option value="JC-1-500m"<% if @race_name == "JC-1-500m" then %> selected <% end %>>JC-1-500m</option>
+<option value="JC-2-500m"<% if @race_name == "JC-2-500m" then %> selected <% end %>>JC-2-500m</option>
+<option value="JWK-1-500m"<% if @race_name == "JWK-1-500m" then %> selected <% end %>>JWK-1-500m</option>
+<option value="JWK-2-500m"<% if @race_name == "JWK-2-500m" then %> selected <% end %>>JWK-2-500m</option>
+<option value="JWC-1-500m"<% if @race_name == "JWC-1-500m" then %> selected <% end %>>JWC-1-500m</option>
+<option value="JWC-2-500m"<% if @race_name == "JWC-2-500m" then %> selected <% end %>>JWC-2-500m</option>
+<option value="K-1-200m"<% if @race_name == "K-1-200m" then %> selected <% end %>>K-1-200m</option>
+<option value="K-2-200m"<% if @race_name == "K-2-200m" then %> selected <% end %>>K-2-200m</option>
+<option value="C-1-200m"<% if @race_name == "C-1-200m" then %> selected <% end %>>C-1-200m</option>
+<option value="C-2-200m"<% if @race_name == "C-2-200m" then %> selected <% end %>>C-2-200m</option>
+<option value="WK-1-200m"<% if @race_name == "WK-1-200m" then %> selected <% end %>>WK-1-200m</option>
+<option value="WK-2-200m"<% if @race_name == "WK-2-200m" then %> selected <% end %>>WK-2-200m</option>
+<option value="WC-1-200m"<% if @race_name == "WC-1-200m" then %> selected <% end %>>WC-1-200m</option>
+<option value="WC-2-200m"<% if @race_name == "WC-2-200m" then %> selected <% end %>>WC-2-200m</option>
+<option value="JK-1-200m"<% if @race_name == "JK-1-200m" then %> selected <% end %>>JK-1-200m</option>
+<option value="JC-1-200m"<% if @race_name == "JC-1-200m" then %> selected <% end %>>JC-1-200m</option>
+<option value="JWK-1-200m"<% if @race_name == "JWK-1-200m" then %> selected <% end %>>JWK-1-200m</option>
+<option value="JWC-1-200m"<% if @race_name == "JWC-1-200m" then %> selected <% end %>>JWC-1-200m</option>
+</select><br>
+ステージ:
+<select name="stage">
+  <option value="">全て</option>
+  <option value="1次H" <% if @stage == "1次H" then %> selected <% end %>>1次H</option>
+  <option value="H" <% if @stage == "H" then %> selected <% end %>>H</option>
+  <option value="SF" <% if @stage == "SF" then %> selected <% end %>>SF</option>
+  <option value="F" <% if @stage == "F" then %> selected <% end %>>F</option>
+</select>
+組:
+<select name="set">
+  <option value="">全て</option>
+  <% for num in 1..12 do %>
+  <option value="<%= num %>" <% if num == @set.to_i then %> selected <% end %>><%= num %>組目</option>
+  <% end %>
+</select>
+<br><br>
+<input type="submit" value="検索">
+<% end %>
+<br>
+<h3>検索結果</h3>
+<% if @races.first %>
 <% @races.each do |race| %>
   レースNo. <%= race.race_no %> <%= race.race_name %> <%= race.stage %>-<%= race.set %>
+  <% if race.race_name.include?("-1-") && !race.race_name.include?("Relay") %>
+  <div class="results">
   <table border=1>
     <tr>
-      <th>レーン</th>
+      <th>ra<br>ne</th>
       <th>No</th>
       <th>氏名</th>
       <th>大学名</th>
@@ -25,7 +109,7 @@
     <% race.combinations.each do |combi| %>
     <tr>
       <td> <%= combi.rane %> </td>
-      <td> <%= Bib.find_by(player_id: combi.player_id, tour: @tour).bib_no %> </td>
+      <td> <%= Bib.find_by(player_id: combi.player_id, tour: race.tour).bib_no %> </td>
       <% player = Player.find_by(id: combi.player_id) %>
       <td> <%= player.p_name %> </td>
       <td> <%= player.u_name %> </td>
@@ -39,11 +123,104 @@
     </tr>
     <% end %>
   </table>
+  </div>
   <br>
+
+  <% elsif race.race_name.include?("-2-") %>
+  <div class="results">
+  <table border=1>
+    <tr>
+      <th>ra<br>ne</th>
+      <th>No</th>
+      <th>氏名</th>
+      <th>大学名</th>
+      <th>順位</th>
+      <th colspan=3>タイム</th>
+      <th>備考</th>
+    </tr>
+    <% race.combinations.each do |combi| %>
+    <tr>
+      <td rowspan=2> <%= combi.rane %> </td>
+      <td> <%= Bib.find_by(player_id: combi.player_id, tour: race.tour).bib_no %> </td>
+      <% player = Player.includes(:pairs).find_by(id: combi.player_id) %>
+      <td> <%= player.p_name %> </td>
+      <td rowspan=2> <%= player.u_name %> </td>
+      <% rank = Rank.find_by(race_id: race.id, rane: combi.rane) %>
+      <td rowspan=2> <%= if rank then rank.rank else "" end %> </td>
+      <% result = Result.find_by(race_id: race.id, rane: combi.rane) %>
+      <td rowspan=2> <%= if result then result.m else "" end %> </td>
+      <td rowspan=2> <%= if result then result.s else "" end %> </td>
+      <td rowspan=2> <%= if result then result.c else "" end %> </td>
+      <td rowspan=2> <%= if result then result.option else "" end %> </td>
+    </tr>
+    <tr>
+      <% pair = Player.find_by(id: player.pairs.first.pair_id ) %>
+      <td> <%= Bib.find_by(player_id: pair.id, tour: race.tour).bib_no %> </td>
+      <td> <%= pair.p_name %> </td>
+    </tr>
+    <% end %>
+  </table>
+  </div>
+  <br>
+
+  <% elsif race.race_name.include?("-4-") || race.race_name.include?("Relay") %>
+  <div class="results">
+  <table border=1>
+    <tr>
+      <th>ra<br>ne</th>
+      <th>No</th>
+      <th>氏名</th>
+      <th>大学名</th>
+      <th>順位</th>
+      <th colspan=3>タイム</th>
+      <th>備考</th>
+    </tr>
+    <% combi_fours =  CombinationFour.where(race_id: race.id ) %>
+    <% combi_fours.each do |combi| %>
+    <tr>
+      <td rowspan=4> <%= combi.rane %> </td>
+      <% bib = Bib.find_by(player_id: combi.player_id1, tour: @tr) %>
+      <td> <%= if bib then bib.bib_no else "" end %> </td>
+      <% player = Player.find_by(id: combi.player_id1) %>
+      <td> <%= if player then player.p_name else "" end %> </td>
+      <td rowspan="4"> <%= combi.u_name %> </td>
+      <% rank = Rank.find_by(race_id: race.id, rane: combi.rane) %>
+      <td rowspan=4> <%= if rank then rank.rank else "" end %> </td>
+      <% result = Result.find_by(race_id: race.id, rane: combi.rane) %>
+      <td rowspan=4> <%= if result then result.m else "" end %> </td>
+      <td rowspan=4> <%= if result then result.s else "" end %> </td>
+      <td rowspan=4> <%= if result then result.c else "" end %> </td>
+      <td rowspan=4> <%= if result then result.option else "" end %> </td>
+    </tr>
+    <tr>
+      <% bib = Bib.find_by(player_id: combi.player_id2, tour: @tr) %>
+      <td> <%= if bib then bib.bib_no else "" end %> </td>
+      <% player = Player.find_by(id: combi.player_id2) %>
+      <td> <%= if player then player.p_name else "" end %> </td>
+    </tr>
+    <tr>
+      <% bib = Bib.find_by(player_id: combi.player_id3, tour: @tr) %>
+      <td> <%= if bib then bib.bib_no else "" end %> </td>
+      <% player = Player.find_by(id: combi.player_id3) %>
+      <td> <%= if player then player.p_name else "" end %> </td>
+    </tr>
+    <tr>
+      <% bib = Bib.find_by(player_id: combi.player_id4, tour: @tr) %>
+      <td> <%= if bib then bib.bib_no else "" end %> </td>
+      <% player = Player.find_by(id: combi.player_id4) %>
+      <td> <%= if player then player.p_name else "" end %> </td>
+    </tr>
+    <% end %>
+  </table>
+  </div>
+  <br>
+  <% end %>
+<% end %>
+<% else %>
+レースが見つかりませんでした。 <br>
 <% end %>
 
-
 <br>
-<%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+<br>
 <br><br><br><br>
 </div>
