@@ -10,6 +10,7 @@
 <% end %>
 <div class = "main">
 <h2>速報システム・データベース</h2>
+<h3>レースから検索</h3>
 <%= form_tag("/results", {method: :get}) do %>
 開催年:
 <select name="year" size="1">
@@ -93,7 +94,16 @@
 <h3>検索結果</h3>
 <% if @races.first %>
 <% @races.each do |race| %>
+  <% if race.stage == "F" %>
+    <% set = Race.where(year: @year, tour: @tour, race_name: race.race_name, stage: race.stage).count %>
+    <% if set == 1 %>
+      レースNo. <%= race.race_no %> <%= race.race_name %> F
+    <% else %>
+      レースNo. <%= race.race_no %> <%= race.race_name %> <%= if race.set == 1 then "A" else "B" end %>F
+    <% end %>
+  <% else %>
   レースNo. <%= race.race_no %> <%= race.race_name %> <%= race.stage %>-<%= race.set %>
+  <% end %>
   <% if race.race_name.include?("-1-") && !race.race_name.include?("Relay") %>
   <div class="results">
   <table border=1>
