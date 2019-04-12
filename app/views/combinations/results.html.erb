@@ -99,7 +99,7 @@
     <% if set == 1 %>
       レースNo. <%= race.race_no %> <%= race.race_name %> F
     <% else %>
-      レースNo. <%= race.race_no %> <%= race.race_name %> <%= if race.set == 1 then "A" else "B" end %>F
+      レースNo. <%= race.race_no %> <%= race.race_name %> <%= if race.set == 1 then "B" else "A" end %>F
     <% end %>
   <% else %>
   レースNo. <%= race.race_no %> <%= race.race_name %> <%= race.stage %>-<%= race.set %>
