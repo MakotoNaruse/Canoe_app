@@ -13,10 +13,25 @@ class AccountsController < ApplicationController
   def current
     @current_op = Operator.find_by(id: session[:op_id])
     @year = Date.today.year
+    if @current_op
+      if @current_op.id == 2 || @current_op.id == 5
+        @tour = 1
+      elsif @current_op.id == 3 || @current_op.id == 6
+        @tour = 2
+      elsif @current_op.id == 4 || @current_op.id == 7
+        @tour = 3
+      end
+    end
   end
 
   def index
-    @universities = University.all
+    if @current_op.id <= 2
+      @universities = University.all
+    elsif @current_op.id == 3
+      @universities = University.where(erea: "関西")
+    elsif @current_op.id == 4
+      @universities = University.where(erea: "関東")
+    end
   end
 
   def add

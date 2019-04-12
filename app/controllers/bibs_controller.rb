@@ -40,27 +40,71 @@ class BibsController < ApplicationController
       @tour = 3
     end
 
-
-
-    i = 1
-    @universies.each do |university|
-      players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ)
-      players.each do |player|
-        @bib = Bib.find_by(player_id: player.id, tour: @tour )
-        if @bib
-          @bib.bib_no = i.to_s
-          @bib.save
-        else
-          @bib = Bib.new(
-                  player_id: player.id,
-                  tour: @tour,
-                  bib_no: i.to_s
-                 )
-          @bib.save
+    #支部大会の場合、ゼッケンは数字のみ
+    if @tour == 2 || @tour == 3
+      i = 1
+      @universies.each do |university|
+        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ)
+        players.each do |player|
+          @bib = Bib.find_by(player_id: player.id, tour: @tour )
+          if @bib
+            @bib.bib_no = i.to_s
+            @bib.save
+          else
+            @bib = Bib.new(
+                    player_id: player.id,
+                    tour: @tour,
+                    bib_no: i.to_s
+                   )
+            @bib.save
+          end
+          i += 1
         end
-        i += 1
       end
     end
+
+    # インカレの場合、関西にはw、関東にはeを付与する
+    if @tour == 1
+      i = 1
+      @universies.where(erea: "関東").each do |university|
+        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ)
+        players.each do |player|
+          @bib = Bib.find_by(player_id: player.id, tour: @tour )
+          if @bib
+            @bib.bib_no = i.to_s + 'e'
+            @bib.save
+          else
+            @bib = Bib.new(
+                    player_id: player.id,
+                    tour: @tour,
+                    bib_no: i.to_s + 'e'
+                   )
+            @bib.save
+          end
+          i += 1
+        end
+      end
+      i = 1
+      @universies.where(erea: "関西").each do |university|
+        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ)
+        players.each do |player|
+          @bib = Bib.find_by(player_id: player.id, tour: @tour )
+          if @bib
+            @bib.bib_no = i.to_s + 'w'
+            @bib.save
+          else
+            @bib = Bib.new(
+                    player_id: player.id,
+                    tour: @tour,
+                    bib_no: i.to_s + 'w'
+                   )
+            @bib.save
+          end
+          i += 1
+        end
+      end
+    end
+
     flash[:notice] = "ゼッケンを割り振りました"
     redirect_to("/operations/bibs")
   end

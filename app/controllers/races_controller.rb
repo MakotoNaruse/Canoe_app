@@ -314,4 +314,28 @@ class RacesController < ApplicationController
     end
   end
 
+  def add
+    race_name = params[:race_name]
+    stage = params[:stage]
+    set = params[:set]
+    race_no = params[:race_no]
+    race = Race.new(year: @year, tour: @tour, race_name: race_name, stage: stage, set: set.to_i)
+    race.race_no = race_no.to_i if race_no != ""
+    if race.save
+      flash[:notice] = "レースを作成しました"
+      redirect_to controller: 'races', action: 'show' , race_name: race_name
+    else
+      flash[:notice] = "エラー：レースを追加できませんでした。"
+      redirect_to controller: 'races', action: 'show' , race_name: race_name
+    end
+
+  end
+
+  def delete
+    race = Race.find(params[:race_id])
+    race.destroy
+    flash[:notice] = "レースを削除しました"
+    redirect_to controller: 'races', action: 'show' , race_name: race.race_name
+  end
+
 end

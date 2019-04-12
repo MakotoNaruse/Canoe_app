@@ -53,6 +53,8 @@ Rails.application.routes.draw do
   post "operations/races/make" => "races#make"
   post "/operations/races/change" => "races#change"
   get "operations/races/show" => "races#show"
+  post "/operations/races/add" => "races#add"
+  post "operations/races/delete" => "races#delete"
   get "operations/entries1" => "races#entries1"
   get "operations/entries2" => "races#entries2"
   get "operations/entries4" => "races#entries4"

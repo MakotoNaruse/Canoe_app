@@ -23,7 +23,8 @@
     <th>レースNo</th>
     <th>レース名</th>
     <th colspan=2>　組　</th>
-    <th> 変更操作 </th>
+    <th> 変更 </th>
+    <th> 削除 </th>
   </tr>
   <% @races.each do |race| %>
   <tr>
@@ -44,9 +45,41 @@
       <% end %>
       <% end %>
     </td>
+    <td>
+      <%= form_tag("/operations/races/delete") do %>
+        <input type="hidden" name="race_id" value="<%= race.id %>">
+        <input type="submit" value="削除">
+      <% end %>
+    </td>
   </tr>
   <% end %>
 </table>
+<br>
+<h3>レース追加</h3>
+<%= form_tag("/operations/races/add") do %>
+レースNo:
+<input type="text" name="race_no"/>
+<br/>
+レース名：
+<input type="text" name="race_name" value="<%= @race_name %>" readonly />
+<br/>
+ステージ：
+<select name="stage" size="1">
+  <option value="1次H">1次H</option>
+  <option value="H">H</option>
+  <option value="SF">SF</option>
+  <option value="F">F</option>
+</select>
+<br/>
+組：
+<select name="set" size="1">
+<% for num in 1..12 do %>
+  <option value="<%= num %>"><%= num %>組目</option>
+<% end %>
+</select>
+<br/>
+<input type="submit" value="追加"/>
+<% end %>
 
 <br>
 <%= link_to("レース一覧へ戻る", "/operations/races") %><br>
