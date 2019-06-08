@@ -1,0 +1,94 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("エントリー登録システム", "/reg/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_univ.u_name %> でログイン中　　　　<%= link_to("ログアウト", "/logout", method: :post) %> <br>
+    <%= @current_tour %> を操作中　　　　<%= link_to("大会変更", "/reg/choice")  %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>補欠登録・変更</h2>
+<%= link_to("ペア登録に戻る", "/pairs/index", class: "btn-squar") %> <br>
+この内容でよければ<%= link_to("フォア・リレー登録へ", "/fours/index", class: "btn-squar") %> <br>
+
+
+<h3>補欠追加</h3>
+※既に正選手として当該種目にエントリーしている選手は補欠登録することはできません。 <br>
+※１つの種目で１人が複数の補欠登録をすることはできません。 <br>
+※各種目、１人まで補欠登録できます。(ただしC2は2人まで) <br>
+※ペアの補欠登録を行う場合は２人のうちどちらかを正選手として登録してください。 <br>
+<br>
+<%= form_tag("/substitutes/add") do %>
+レース：
+<select name="race_name" size="1">
+<option value="K-1-1000m">K-1-1000m</option>
+<option value="K-2-1000m">K-2-1000m</option>
+<option value="C-1-1000m">C-1-1000m</option>
+<option value="C-2-1000m">C-2-1000m</option>
+<option value="WK-1-500m">WK-1-500m</option>
+<option value="WK-2-500m">WK-2-500m</option>
+<option value="WC-1-500m">WC-1-500m</option>
+<option value="WC-2-500m">WC-2-500m</option>
+<option value="JK-1-500m">JK-1-500m</option>
+<option value="JK-2-500m">JK-2-500m</option>
+<option value="JC-1-500m">JC-1-500m</option>
+<option value="JC-2-500m">JC-2-500m</option>
+<option value="JWK-1-500m">JWK-1-500m</option>
+<option value="JWK-2-500m">JWK-2-500m</option>
+<option value="JWC-1-500m">JWC-1-500m</option>
+<option value="JWC-2-500m">JWC-2-500m</option>
+<option value="K-1-200m">K-1-200m</option>
+<option value="K-2-200m">K-2-200m</option>
+<option value="C-1-200m">C-1-200m</option>
+<option value="C-2-200m">C-2-200m</option>
+<option value="WK-1-200m">WK-1-200m</option>
+<option value="WK-2-200m">WK-2-200m</option>
+<option value="WC-1-200m">WC-1-200m</option>
+<option value="WC-2-200m">WC-2-200m</option>
+<option value="JK-1-200m">JK-1-200m</option>
+<option value="JC-1-200m">JC-1-200m</option>
+<option value="JWK-1-200m">JWK-1-200m</option>
+<option value="JWC-1-200m">JWC-1-200m</option>
+</select>
+<br>
+正選手(ペアの場合はどちらか)：
+<%= collection_select("regular", "player_id", @players, :id, :p_name) %>
+<br/>
+補欠：
+<%= collection_select("substitute", "player_id", @players, :id, :p_name) %>
+<br>
+<input type="submit" value="追加"/>
+<% end %>
+
+<h3>現在の補欠登録内容</h3>
+<div class="substitutes">
+<table border = 1>
+  <tr>
+    <th>レース名</th>
+    <th>正選手</th>
+    <th>補欠</th>
+    <th>操作</th>
+  </tr>
+  <% @substitutes.each do |sub| %>
+    <tr>
+      <td> <%= sub.race_name %> </td>
+      <td> <%= Player.find_by(id: sub.main_id).p_name %> </td>
+      <td> <%= Player.find_by(id: sub.sub_id).p_name %> </td>
+      <td> <%= link_to("削除", "/substitutes/destroy/#{sub.id}", class: "btn-red", method: :post,
+                        data: { confirm: "この補欠を削除しますか？" }) %> </td>
+    </tr>
+  <% end %>
+</table>
+</div>
+<br>
+<%= link_to("エントリー登録システムトップへ戻る", "/reg/top" ) %>
+<br><br>
+<%= link_to("トップへ戻る", "/") %>
+<br><br><br><br>
+</div>

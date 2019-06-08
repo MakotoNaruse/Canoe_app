@@ -23,7 +23,11 @@
   <br>
   <% end %>
   <% if @current_op.id >= 2 && @current_op.id <= 4 %>
+  <%= link_to("エントリー期間設定", "/operations/entry_time", class: "btn-squar") %> <br>
+  <br>
   <%= link_to("選手名簿・ゼッケン割り振り", "/operations/bibs", class: "btn-squar") %> <br>
+  <br>
+  <%= link_to("補欠確認", "/operations/substitutes", class: "btn-squar") %> <br>
   <br>
   <%= link_to("エントリー一覧・レース作成", "/operations/races", class: "btn-squar") %> <br>
   <br>
@@ -31,6 +35,8 @@
   <br>
   <% end %>
   <% if @current_op.id >= 5 && @current_op.id <= 7 %>
+  <%= link_to("補欠確認", "/operations/substitutes", class: "btn-squar") %> <br>
+  <br>
   <%= link_to("組み合わせ確認", "/operations/combinations", class: "btn-squar") %> <br>
   <br>
   <%= link_to("組み合わせ入力", "/operations/combinations/add", class: "btn-squar") %> <br>

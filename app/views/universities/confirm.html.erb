@@ -15,7 +15,9 @@
 <div class = "main">
 <h2>登録内容確認</h2>
 <%= link_to("フォア・リレー登録に戻る", "/fours/index", class: "btn-squar") %> <br>
-
+<br>
+この画面のスクリーンショットを控えとして保存してください。 <br>
+確認日時：　<%= DateTime.now.strftime("%Y年 %m月 %d日 %H:%M:%S") %>
 <h3>選手名簿</h3>
 <table border = 1>
   <tr>
@@ -103,6 +105,24 @@
 </table>
 <br>
 <%= link_to("ペア登録に戻る", "/pairs/index", class: "btn-squar") %><br>
+
+<h3>補欠登録内容</h3>
+<table border = 1>
+  <tr>
+    <th>レース名</th>
+    <th>正選手</th>
+    <th>補欠</th>
+  </tr>
+  <% @substitutes.each do |sub| %>
+    <tr>
+      <td> <%= sub.race_name %> </td>
+      <td> <%= Player.find_by(id: sub.main_id).p_name %> </td>
+      <td> <%= Player.find_by(id: sub.sub_id).p_name %> </td>
+    </tr>
+  <% end %>
+</table>
+<br>
+<%= link_to("補欠登録に戻る", "/substitutes/index", class: "btn-squar") %><br>
 
 <h3> フォア・リレー登録内容 </h3>
 <table border = 1>

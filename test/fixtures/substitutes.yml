@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  main_id: 1
+  race_name: MyString
+  sub_id: 1
+  year: 1
+  tour: 1
+
+two:
+  main_id: 1
+  race_name: MyString
+  sub_id: 1
+  year: 1
+  tour: 1

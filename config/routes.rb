@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'combination_fours/add'
   get 'remarks/add'
   get 'results/add'
@@ -28,6 +29,9 @@ Rails.application.routes.draw do
   post "/pairs/addtwo/:id" => "pairs#addtwo"
   post "/pairs/destroy/:id" => "pairs#destroy"
   post "/pairs/destroytwo/:id" => "pairs#destroytwo"
+  get 'substitutes/index' => "substitutes#index"
+  post 'substitutes/add' => "substitutes#add"
+  post 'substitutes/destroy/:id' => "substitutes#destroy"
   get 'fours/index' => "fours#index"
   post "fours/add" => "fours#add"
   post "fours/destroy/:id" => "fours#destroy"
@@ -77,6 +81,9 @@ Rails.application.routes.draw do
   get "/operations/fours/combi_search" => "combination_fours#combi_search"
   get "/operations/fours/combi_add" => "combination_fours#combi_add"
   post "/operations/fours/combi_add" => "combination_fours#combi_added"
+  get "/operations/substitutes" => "operations#substitutes"
+  get "/operations/entry_time" => "operations#entry_time"
+  post "/operations/entry_time/change" => "operations#entry_time_change"
 
   get "/results" => "combinations#results"
   get "/search" => "combinations#search"

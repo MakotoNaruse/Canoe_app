@@ -1,0 +1,76 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<div class="main">
+  <h2>エントリー期間設定</h2>
+  設定する大会：<% if @tour == 1 %>全日本インカレ<% elsif @tour == 2 %>関西インカレ<% else %>関東インカレ<% end %> <br>
+  <br>
+  設定した期間外は大学アカウントでは選手登録ページにアクセスできなくなります。 <br>
+  <br>
+
+  <% if @tour == 1 %>
+    <%= form_tag("/operations/entry_time/change") do %>
+      エントリー開始 <br>
+      <input type="text" name="start_mounth" style="width:20px;" value="<%= @op.find(2).command %>"/>月
+      <input type="text" name="start_day" style="width:20px;" value="<%= @op.find(3).command %>"/>日　
+      <input type="text" name="start_hour" style="width:20px;" value="<%= @op.find(4).command %>"/>：
+      <input type="text" name="start_minute" style="width:20px;" value="<%= @op.find(5).command %>"/><br>
+      <br>
+      エントリー終了 <br>
+      <input type="text" name="finish_mounth" style="width:20px;" value="<%= @op.find(14).command %>"/>月
+      <input type="text" name="finish_day" style="width:20px;" value="<%= @op.find(15).command %>"/>日　
+      <input type="text" name="finish_hour" style="width:20px;" value="<%= @op.find(16).command %>"/>：
+      <input type="text" name="finish_minute" style="width:20px;" value="<%= @op.find(17).command %>"/><br>
+      <br>
+      <input type="submit" value="変更する" >
+    <% end %>
+  <% end %>
+  <% if @tour == 2 %>
+    <%= form_tag("/operations/entry_time/change") do %>
+      エントリー開始 <br>
+      <input type="text" name="start_mounth" style="width:20px;" value="<%= @op.find(6).command %>"/>月
+      <input type="text" name="start_day" style="width:20px;" value="<%= @op.find(7).command %>"/>日　
+      <input type="text" name="start_hour" style="width:20px;" value="<%= @op.find(8).command %>"/>：
+      <input type="text" name="start_minute" style="width:20px;" value="<%= @op.find(9).command %>"/><br>
+      <br>
+      エントリー終了 <br>
+      <input type="text" name="finish_mounth" style="width:20px;" value="<%= @op.find(18).command %>"/>月
+      <input type="text" name="finish_day" style="width:20px;" value="<%= @op.find(19).command %>"/>日　
+      <input type="text" name="finish_hour" style="width:20px;" value="<%= @op.find(20).command %>"/>：
+      <input type="text" name="finish_minute" style="width:20px;" value="<%= @op.find(21).command %>"/><br>
+      <br>
+      <input type="submit" value="変更する" >
+    <% end %>
+  <% end %>
+  <% if @tour == 3 %>
+    <%= form_tag("/operations/entry_time/change") do %>
+      エントリー開始 <br>
+      <input type="text" name="start_mounth" style="width:20px;" value="<%= @op.find(10).command %>"/>月
+      <input type="text" name="start_day" style="width:20px;" value="<%= @op.find(11).command %>"/>日　
+      <input type="text" name="start_hour" style="width:20px;" value="<%= @op.find(12).command %>"/>：
+      <input type="text" name="start_minute" style="width:20px;" value="<%= @op.find(13).command %>"/><br>
+      <br>
+      エントリー終了 <br>
+      <input type="text" name="finish_mounth" style="width:20px;" value="<%= @op.find(22).command %>"/>月
+      <input type="text" name="finish_day" style="width:20px;" value="<%= @op.find(23).command %>"/>日　
+      <input type="text" name="finish_hour" style="width:20px;" value="<%= @op.find(24).command %>"/>：
+      <input type="text" name="finish_minute" style="width:20px;" value="<%= @op.find(25).command %>"/><br>
+      <br>
+      <input type="submit" value="変更する" >
+    <% end %>
+  <% end %>
+  <br><br>
+  <%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+  <br><br><br><br>
+</div>
