@@ -41,6 +41,7 @@ class CombinationsController < ApplicationController
     start = DateTime.new(@year, op.find(27).command.to_i, op.find(28).command.to_i, op.find(29).command.to_i, op.find(30).command.to_i, 0, 0.375)
     finish = DateTime.new(@year, op.find(31).command.to_i, op.find(32).command.to_i, op.find(33).command.to_i, op.find(34).command.to_i, 0, 0.375)
     now = DateTime.now
+    now.
     if now > start && now < finish && session[:op_id] == nil
       redirect_to("/forbid_by_time")
     end
