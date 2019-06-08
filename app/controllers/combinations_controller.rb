@@ -3,6 +3,7 @@ class CombinationsController < ApplicationController
   skip_before_action :forbid, only: [:results, :results_name, :search]
   before_action :current
   before_action :lists
+  before_action :forbid_time, only: [:results, :results_name, :search]
 
   def forbid
     if session[:op_id] == nil
@@ -34,6 +35,21 @@ class CombinationsController < ApplicationController
                "K-2-200m", "C-2-200m", "WK-2-200m", "WC-2-200m"]
     @fours = ["K-4-1000m", "C-4-1000m", "WK-4-500m",
              "K-1-Relay", "C-1-Relay", "WK-1-Relay"]
+  end
+
+  def forbid_time
+    op = Operation.all
+    start = DateTime.new(@year, op.find(27).command.to_i, op.find(28).command.to_i, op.find(29).command.to_i, op.find(30).command.to_i, 0, 0.375)
+    finish = DateTime.new(@year, op.find(31).command.to_i, op.find(32).command.to_i, op.find(33).command.to_i, op.find(34).command.to_i, 0, 0.375)
+    now = DateTime.now
+    if now > start && now < finish
+      redirect_to("/forbid_by_time")
+    end
+  end
+
+  def forbid_by_time
+    op = Operation.all
+    @finish = DateTime.new(@year, op.find(31).command.to_i, op.find(32).command.to_i, op.find(33).command.to_i, op.find(34).command.to_i, 0, 0.375)
   end
 
   def index

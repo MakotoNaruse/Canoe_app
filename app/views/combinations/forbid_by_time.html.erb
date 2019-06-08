@@ -1,0 +1,19 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("学連Webシステム", "/") %>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class = "main">
+<h2>速報システム・データベース</h2>
+<br>
+現在、抽選作業中のためアクセスができません。 <br>
+<%= @finish.strftime("%m月 %d日 %H:%M:%S") %>頃よりアクセス可能となる予定です。 <br>
+※予定時間は変更となる場合があります。
+<br>
+<br><br><br><br>
+</div>

@@ -84,9 +84,12 @@ Rails.application.routes.draw do
   get "/operations/substitutes" => "operations#substitutes"
   get "/operations/entry_time" => "operations#entry_time"
   post "/operations/entry_time/change" => "operations#entry_time_change"
+  get "/operations/result_time" => "operations#result_time"
+  post "/operations/result_time/change" => "operations#result_time_change"
 
   get "/results" => "combinations#results"
   get "/search" => "combinations#search"
   get "/results_name" => "combinations#results_name"
+  get "/forbid_by_time" => "combinations#forbid_by_time"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

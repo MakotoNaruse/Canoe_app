@@ -1,0 +1,37 @@
+<div class = "header">
+  <div class = "header-logo">
+    <%= link_to("大会管理システム", "/operations/top") %>
+  </div>
+  <div class = "header-menus">
+    <%= @current_op.name %> でログイン中　　　　<%= link_to("ログアウト", "/operations/logout", method: :post) %> <br>
+  </div>
+</div>
+<% if flash[:notice] %>
+  <div class="flash" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<div class="main">
+  <h2>結果ページアクセス制限期間設定</h2>
+  設定した期間内は運営アカウトでのみ結果ページにアクセスできなくなります。 <br>
+  <br>
+  <%= form_tag("/operations/result_time/change") do %>
+    制限開始 <br>
+    <input type="text" name="start_mounth" style="width:20px;" value="<%= @op.find(27).command %>"/>月
+    <input type="text" name="start_day" style="width:20px;" value="<%= @op.find(28).command %>"/>日　
+    <input type="text" name="start_hour" style="width:20px;" value="<%= @op.find(29).command %>"/>：
+    <input type="text" name="start_minute" style="width:20px;" value="<%= @op.find(30).command %>"/><br>
+    <br>
+    制限終了 <br>
+    <input type="text" name="finish_mounth" style="width:20px;" value="<%= @op.find(31).command %>"/>月
+    <input type="text" name="finish_day" style="width:20px;" value="<%= @op.find(32).command %>"/>日　
+    <input type="text" name="finish_hour" style="width:20px;" value="<%= @op.find(33).command %>"/>：
+    <input type="text" name="finish_minute" style="width:20px;" value="<%= @op.find(34).command %>"/><br>
+    <br>
+    <input type="submit" value="変更する" >
+  <% end %>
+  <br><br>
+  <%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
+  <br><br><br><br>
+</div>

@@ -123,4 +123,45 @@ class OperationsController < ApplicationController
     end
   end
 
+  def result_time
+    @op = Operation.all
+  end
+
+  def result_time_change
+    begin
+      # 日付が違う場合は以下でArgumentErrorが発生
+      start = DateTime.new(@year, params[:start_mounth].to_i, params[:start_day].to_i, params[:start_hour].to_i, params[:start_minute].to_i, 0, 0.375)
+      finish = DateTime.new(@year, params[:finish_mounth].to_i, params[:finish_day].to_i, params[:finish_hour].to_i, params[:finish_minute].to_i, 0, 0.375)
+      op = Operation.find(27)
+      op.command = params[:start_mounth]
+      op.save
+      op = Operation.find(28)
+      op.command = params[:start_day]
+      op.save
+      op = Operation.find(29)
+      op.command = params[:start_hour]
+      op.save
+      op = Operation.find(30)
+      op.command = params[:start_minute]
+      op.save
+      op = Operation.find(31)
+      op.command = params[:finish_mounth]
+      op.save
+      op = Operation.find(32)
+      op.command = params[:finish_day]
+      op.save
+      op = Operation.find(33)
+      op.command = params[:finish_hour]
+      op.save
+      op = Operation.find(34)
+      op.command = params[:finish_minute]
+      op.save
+      flash[:notice] = "制限期間を変更しました"
+      redirect_to("/operations/result_time")
+    rescue ArgumentError => ex
+      flash[:notice] = "入力された日付と時刻が正しくありません"
+      redirect_to("/operations/result_time")
+    end
+  end
+
 end

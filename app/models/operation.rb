@@ -27,4 +27,13 @@ class Operation < ApplicationRecord
   # id24 kantou finish hour
   # id25 kantou finish minute 22 / 23 24:25
 
+  # id27 result start mounth
+  # id28 result start day
+  # id29 result start hour
+  # id30 result start minute  27 / 28 29:30
+  # id31 result finish mounth
+  # id32 result finish day
+  # id33 result finish hour
+  # id34 result finish minute 31 / 32 33:34
+
 end

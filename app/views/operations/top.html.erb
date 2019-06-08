@@ -25,6 +25,8 @@
   <% if @current_op.id >= 2 && @current_op.id <= 4 %>
   <%= link_to("エントリー期間設定", "/operations/entry_time", class: "btn-squar") %> <br>
   <br>
+  <%= link_to("結果ページアクセス制限期間設定", "/operations/result_time", class: "btn-squar") %> <br>
+  <br>
   <%= link_to("選手名簿・ゼッケン割り振り", "/operations/bibs", class: "btn-squar") %> <br>
   <br>
   <%= link_to("補欠確認", "/operations/substitutes", class: "btn-squar") %> <br>
