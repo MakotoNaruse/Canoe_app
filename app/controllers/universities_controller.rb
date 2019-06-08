@@ -54,7 +54,7 @@ class UniversitiesController < ApplicationController
         finish = DateTime.new(@year, op.find(22).command.to_i, op.find(23).command.to_i, op.find(24).command.to_i, op.find(25).command.to_i, 0, 0.375)
       end
       now = DateTime.now
-      if now < start || now > finish
+      if ( now < start || now > finish ) && session[:op_id] == nil
         flash[:notice] = "この大会はエントリー期間外です"
         redirect_to("/reg/choice")
       end

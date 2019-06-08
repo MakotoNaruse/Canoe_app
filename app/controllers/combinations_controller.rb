@@ -1,6 +1,5 @@
 class CombinationsController < ApplicationController
-  before_action :forbid
-  skip_before_action :forbid, only: [:results, :results_name, :search]
+  before_action :forbid, only: [:index, :lott, :add, :added, :comfirm]
   before_action :current
   before_action :lists
   before_action :forbid_time, only: [:results, :results_name, :search]
@@ -42,7 +41,7 @@ class CombinationsController < ApplicationController
     start = DateTime.new(@year, op.find(27).command.to_i, op.find(28).command.to_i, op.find(29).command.to_i, op.find(30).command.to_i, 0, 0.375)
     finish = DateTime.new(@year, op.find(31).command.to_i, op.find(32).command.to_i, op.find(33).command.to_i, op.find(34).command.to_i, 0, 0.375)
     now = DateTime.now
-    if now > start && now < finish
+    if now > start && now < finish && session[:op_id] == nil
       redirect_to("/forbid_by_time")
     end
   end

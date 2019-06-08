@@ -22,6 +22,23 @@ class PlayersController < ApplicationController
       redirect_to("/reg/choice")
     elsif @current_univ.erea == "関西" && session[:tour_id].to_i == 3
       redirect_to("/reg/choice")
+    else
+      op = Operation.all
+      if session[:tour_id].to_i == 1
+        start = DateTime.new(@year, op.find(2).command.to_i, op.find(3).command.to_i, op.find(4).command.to_i, op.find(5).command.to_i, 0, 0.375)
+        finish = DateTime.new(@year, op.find(14).command.to_i, op.find(15).command.to_i, op.find(16).command.to_i, op.find(17).command.to_i, 0, 0.375)
+      elsif session[:tour_id].to_i == 2
+        start = DateTime.new(@year, op.find(6).command.to_i, op.find(7).command.to_i, op.find(8).command.to_i, op.find(9).command.to_i, 0, 0.375)
+        finish = DateTime.new(@year, op.find(18).command.to_i, op.find(19).command.to_i, op.find(20).command.to_i, op.find(21).command.to_i, 0, 0.375)
+      elsif session[:tour_id].to_i == 3
+        start = DateTime.new(@year, op.find(10).command.to_i, op.find(11).command.to_i, op.find(12).command.to_i, op.find(13).command.to_i, 0, 0.375)
+        finish = DateTime.new(@year, op.find(22).command.to_i, op.find(23).command.to_i, op.find(24).command.to_i, op.find(25).command.to_i, 0, 0.375)
+      end
+      now = DateTime.now
+      if ( now < start || now > finish ) && session[:op_id] == nil
+        flash[:notice] = "この大会はエントリー期間外です"
+        redirect_to("/reg/choice")
+      end
     end
   end
 

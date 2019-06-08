@@ -14,11 +14,11 @@
 <div class="main">
 <h3> 大会選択 </h3>
 <%= form_tag("/choice") do %>
-  <input type="radio" name="tour" value="1" checked="checked">全日本インカレ <br>
+  <input type="radio" name="tour" value="1"<% if @current_tour_id != 2 && @current_tour_id != 3 %> checked<% end %>>全日本インカレ <br>
   <% if @current_univ.erea == "関西" %>
-    <input type="radio" name="tour" value="2">関西インカレ <br>
+    <input type="radio" name="tour" value="2"<% if @current_tour_id == 2 %> checked<% end %>>関西インカレ <br>
   <% elsif @current_univ.erea == "関東" %>
-    <input type="radio" name="tour" value="3">関東インカレ <br>
+    <input type="radio" name="tour" value="3"<% if @current_tour_id == 3 %> checked<% end %>>関東インカレ <br>
   <% end %>
   <br>
   <input type="submit" value="選択する">
