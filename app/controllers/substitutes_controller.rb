@@ -65,24 +65,22 @@ class SubstitutesController < ApplicationController
     @search = Substitute.find_by(
       u_name: @current_univ.u_name,
       race_name: params[:race_name],
-      main_id: params[:regular][:player_id],
       sub_id: params[:substitute][:player_id],
       year: @year,
       tour: @current_tour_id
     )
-    @regular = Player.find_by(id: params[:regular][:player_id])
     @sub = Player.find_by(id: params[:substitute][:player_id])
     if @search
       flash[:notice] = "すでに登録済の補欠です"
-    elsif @regular == nil || @sub == nil
+    elsif @sub == nil
       flash[:notice] = "権限がありません"
-    elsif @regular.u_name != @current_univ.u_name || @sub.u_name != @current_univ.u_name
+    elsif @sub.u_name != @current_univ.u_name
       flash[:notice] = "権限がありません"
     else
       @substitute = Substitute.new(
         u_name: @current_univ.u_name,
         race_name: params[:race_name],
-        main_id: params[:regular][:player_id],
+        main_id: params[:substitute][:player_id],
         sub_id: params[:substitute][:player_id],
         year: @year,
         tour: @current_tour_id

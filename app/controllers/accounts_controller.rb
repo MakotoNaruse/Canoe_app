@@ -26,11 +26,11 @@ class AccountsController < ApplicationController
 
   def index
     if @current_op.id <= 2
-      @universities = University.all
+      @universities = University.all.order("erea DESC, :id")
     elsif @current_op.id == 3
-      @universities = University.where(erea: "関西")
+      @universities = University.where(erea: "関西").order(:id)
     elsif @current_op.id == 4
-      @universities = University.where(erea: "関東")
+      @universities = University.where(erea: "関東").order(:id)
     end
   end
 
