@@ -7,6 +7,6 @@ class HomeController < ApplicationController
   end
 
   def top
-
+    @count = Operation.find(1).command
   end
 end
