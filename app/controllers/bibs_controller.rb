@@ -17,26 +17,44 @@ class BibsController < ApplicationController
 
   def index
     if @current_op.id == 2
-      @universies = University.order(:erea, :read)
+      # 開発用
+      # @universies = University.order(:erea).order(:read)
+      # 本番用
+      @universies = University.order(:erea).order('read COLLATE "C" ASC')
       @tour = 1
     elsif @current_op.id == 3
-      @universies = University.where(erea: "関西").order("read")
+      # 開発用
+      # @universies = University.where(erea: "関西").order(:read)
+      # 本番用
+      @universies = University.where(erea: "関西").order('read COLLATE "C" ASC')
       @tour = 2
     elsif @current_op.id == 4
-      @universies = University.where(erea: "関東").order("read")
+      # 開発用
+      # @universies = University.where(erea: "関東").order(:read)
+      # 本番用
+      @universies = University.where(erea: "関東").order('read COLLATE "C" ASC')
       @tour = 3
     end
   end
 
   def assign
     if @current_op.id == 2
-      @universies = University.order(:erea, :read)
+      # 開発用
+      # @universies = University.order(:erea).order(:read)
+      # 本番用
+      @universies = University.order(:erea).order('read COLLATE "C" ASC')
       @tour = 1
     elsif @current_op.id == 3
-      @universies = University.where(erea: "関西").order("read")
+      # 開発用
+      # @universies = University.where(erea: "関西").order(:read)
+      # 本番用
+      @universies = University.where(erea: "関西").order('read COLLATE "C" ASC')
       @tour = 2
     elsif @current_op.id == 4
-      @universies = University.where(erea: "関東").order("read")
+      # 開発用
+      # @universies = University.where(erea: "関東").order(:read)
+      # 本番用
+      @universies = University.where(erea: "関東").order('read COLLATE "C" ASC')
       @tour = 3
     end
 
@@ -44,7 +62,10 @@ class BibsController < ApplicationController
     if @tour == 2 || @tour == 3
       i = 1
       @universies.each do |university|
-        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ)
+        # 開発用
+        # players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order(:reading)
+        # 本番用
+        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
         players.each do |player|
           @bib = Bib.find_by(player_id: player.id, tour: @tour )
           if @bib
@@ -67,7 +88,10 @@ class BibsController < ApplicationController
     if @tour == 1
       i = 1
       @universies.where(erea: "関東").each do |university|
-        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ)
+        # 開発用
+        # players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order(:reading)
+        # 本番用
+        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
         players.each do |player|
           @bib = Bib.find_by(player_id: player.id, tour: @tour )
           if @bib
@@ -86,7 +110,10 @@ class BibsController < ApplicationController
       end
       i = 1
       @universies.where(erea: "関西").each do |university|
-        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ)
+        # 開発用
+        # players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order(:reading)
+        # 本番用
+        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
         players.each do |player|
           @bib = Bib.find_by(player_id: player.id, tour: @tour )
           if @bib
