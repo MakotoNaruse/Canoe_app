@@ -67,10 +67,10 @@ class PairsController < ApplicationController
     elsif @player.u_name != @current_univ.u_name || @player2.u_name != @current_univ.u_name
       flash[:notice] = "権限がありません"
     else
-      @pair_search1 = Pair.find_by(player_id: params[:id])
-      @pair_search2 = Pair.find_by(pair_id: params[:id])
-      @pair_search3 = Pair.find_by(player_id: params[:pair][:id])
-      @pair_search4 = Pair.find_by(pair_id: params[:pair][:id])
+      @pair_search1 = Pair.find_by(player_id: params[:id], tour: @current_tour_id)
+      @pair_search2 = Pair.find_by(pair_id: params[:id], tour: @current_tour_id)
+      @pair_search3 = Pair.find_by(player_id: params[:pair][:id], tour: @current_tour_id)
+      @pair_search4 = Pair.find_by(pair_id: params[:pair][:id], tour: @current_tour_id)
       if @pair_search1 || @pair_search2 || @pair_search3 || @pair_search4
         flash[:notice] = "すでにペア登録がされています"
       else
