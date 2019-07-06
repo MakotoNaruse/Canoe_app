@@ -110,13 +110,11 @@
 <table border = 1>
   <tr>
     <th>レース名</th>
-    <th>正選手</th>
     <th>補欠</th>
   </tr>
   <% @substitutes.each do |sub| %>
     <tr>
       <td> <%= sub.race_name %> </td>
-      <td> <%= Player.find_by(id: sub.main_id).p_name %> </td>
       <td> <%= Player.find_by(id: sub.sub_id).p_name %> </td>
     </tr>
   <% end %>
