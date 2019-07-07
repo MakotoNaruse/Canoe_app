@@ -21,12 +21,26 @@
       <th>名前２</th>
     </tr>
     <% @entries2.each do |player| %>
-    <% player.pairs.each do |pair| %>
-    <tr>
-      <td> <%= player.u_name %> </td>
-      <td> <%= player.p_name %> </td>
-      <td> <%= Player.find_by(id: pair.pair_id).p_name %> </td>
-    </tr>
+    <% if @race_name.include?("200") %>
+      <% player.pair_twos.each do |pair| %>
+        <% if pair.tour == @tour %>
+          <tr>
+            <td> <%= player.u_name %> </td>
+            <td> <%= player.p_name %> </td>
+            <td> <%= Player.find_by(id: pair.pair_id).p_name %> </td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% else %>
+      <% player.pairs.each do |pair| %>
+        <% if pair.tour == @tour %>
+          <tr>
+            <td> <%= player.u_name %> </td>
+            <td> <%= player.p_name %> </td>
+            <td> <%= Player.find_by(id: pair.pair_id).p_name %> </td>
+          </tr>
+        <% end %>
+      <% end %>
     <% end %>
     <% end %>
 </table>
