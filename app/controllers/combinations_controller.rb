@@ -222,7 +222,8 @@ class CombinationsController < ApplicationController
 
 
       else
-        entries = Player.includes(:pairs).joins(:entries).where(year: @year).where("entries.tour" => @tour).where("entries.race_name" => race_name )
+        entries = Player.includes(:pairs).joins(:entries).where(year: @year)
+                          .where("entries.tour" => @tour).where("entries.race_name" => race_name )
                             .order(:u_name)
 
                             # 選手idを配列に格納
@@ -232,16 +233,18 @@ class CombinationsController < ApplicationController
                             univ = Array.new(1)
                             entries.each do |player|
                               player.pairs.each do |pair|
-                                univ[count] = player.u_name
-                                if count != 0
-                                  if univ[count] != univ[count-1]
-                                    player_id = 0
-                                    univ_id += 1
+                                if pair.tour == @tour
+                                  univ[count] = player.u_name
+                                  if count != 0
+                                    if univ[count] != univ[count-1]
+                                      player_id = 0
+                                      univ_id += 1
+                                    end
                                   end
+                                  players[univ_id][player_id] = player.id
+                                  count += 1
+                                  player_id += 1
                                 end
-                                players[univ_id][player_id] = player.id
-                                count += 1
-                                player_id += 1
                               end
                             end
       end
