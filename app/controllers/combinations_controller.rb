@@ -197,31 +197,56 @@ class CombinationsController < ApplicationController
         entries = Player.includes(:pairs).joins(:entries).where(year: @year)
                             .where("entries.tour" => @tour).where("entries.race_name" => race_name ).where("pairs.tour" => @tour)
                             .order(:u_name)
+
+                            # 選手idを配列に格納
+                            univ_id = 0
+                            player_id = 0
+                            count = 0
+                            univ = Array.new(1)
+                            entries.each do |player|
+                              player.pair_twos.each do |pair|
+                                univ[count] = player.u_name
+                                if count != 0
+                                  if univ[count] != univ[count-1]
+                                    player_id = 0
+                                    univ_id += 1
+                                  end
+                                end
+                                players[univ_id][player_id] = player.id
+                                count += 1
+                                player_id += 1
+                              end
+                            end
+
+
+
+
       else
         entries = Player.includes(:pair_twos).joins(:entries).where(year: @year)
                             .where("entries.tour" => @tour).where("entries.race_name" => race_name ).where("pair_twos.tour" => @tour)
                             .order(:u_name)
+
+                            # 選手idを配列に格納
+                            univ_id = 0
+                            player_id = 0
+                            count = 0
+                            univ = Array.new(1)
+                            entries.each do |player|
+                              player.pairs.each do |pair|
+                                univ[count] = player.u_name
+                                if count != 0
+                                  if univ[count] != univ[count-1]
+                                    player_id = 0
+                                    univ_id += 1
+                                  end
+                                end
+                                players[univ_id][player_id] = player.id
+                                count += 1
+                                player_id += 1
+                              end
+                            end
       end
 
-      # 選手idを配列に格納
-      univ_id = 0
-      player_id = 0
-      count = 0
-      univ = Array.new(1)
-      entries.each do |player|
-        player.pairs.each do |pair|
-          univ[count] = player.u_name
-          if count != 0
-            if univ[count] != univ[count-1]
-              player_id = 0
-              univ_id += 1
-            end
-          end
-          players[univ_id][player_id] = player.id
-          count += 1
-          player_id += 1
-        end
-      end
 
       # 大学内でシャッフル
       players.each do |players_univ|
