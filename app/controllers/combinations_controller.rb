@@ -193,9 +193,15 @@ class CombinationsController < ApplicationController
     #ペアの抽選
     @pairs.each do |race_name|
       players = Array.new(20).map{Array.new(1,0)}
-      entries = Player.includes(:pairs).joins(:entries).where(year: @year)
-                            .where("entries.tour" => @tour).where("entries.race_name" => race_name )
+      if race_name.include?("200")
+        entries = Player.includes(:pairs).joins(:entries).where(year: @year)
+                            .where("entries.tour" => @tour).where("entries.race_name" => race_name ).where("pairs.tour" => @tour)
                             .order(:u_name)
+      else
+        entries = Player.includes(:pair_twos).joins(:entries).where(year: @year)
+                            .where("entries.tour" => @tour).where("entries.race_name" => race_name ).where("pair_twos.tour" => @tour)
+                            .order(:u_name)
+      end
 
       # 選手idを配列に格納
       univ_id = 0
