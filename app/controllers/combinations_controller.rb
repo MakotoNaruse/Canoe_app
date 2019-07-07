@@ -194,8 +194,8 @@ class CombinationsController < ApplicationController
     @pairs.each do |race_name|
       players = Array.new(20).map{Array.new(1,0)}
       if race_name.include?("200")
-        entries = Player.includes(:pairs).joins(:entries).where(year: @year)
-                            .where("entries.tour" => @tour).where("entries.race_name" => race_name ).where("pairs.tour" => @tour)
+        entries = Player.includes(:pair_twos).joins(:entries).where(year: @year)
+                            .where("entries.tour" => @tour).where("entries.race_name" => race_name ).where("pair_twos.tour" => @tour)
                             .order(:u_name)
 
                             # 選手idを配列に格納
@@ -222,8 +222,8 @@ class CombinationsController < ApplicationController
 
 
       else
-        entries = Player.includes(:pair_twos).joins(:entries).where(year: @year)
-                            .where("entries.tour" => @tour).where("entries.race_name" => race_name ).where("pair_twos.tour" => @tour)
+        entries = Player.includes(:pairs).joins(:entries).where(year: @year)
+                            .where("entries.tour" => @tour).where("entries.race_name" => race_name ).where("pairs.tour" => @tour)
                             .order(:u_name)
 
                             # 選手idを配列に格納
