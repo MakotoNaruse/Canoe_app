@@ -58,7 +58,11 @@
     <tr>
       <td rowspan=2> <%= combi.rane %> </td>
       <td> <%= Bib.find_by(player_id: combi.player_id, tour: @tour).bib_no %> </td>
-      <% player = Player.includes(:pairs).find_by(id: combi.player_id) %>
+      <% if combi.race_name.include?("200") %>
+        <% player = Player.includes(:pair_twos).find_by(id: combi.player_id) %>
+      <% else %>
+        <% player = Player.includes(:pairs).find_by(id: combi.player_id) %>
+      <% end %>
       <td> <%= player.p_name %> </td>
       <td rowspan="2"> <%= player.u_name %> </td>
     </tr>
