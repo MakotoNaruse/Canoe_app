@@ -52,7 +52,7 @@ class CombinationsController < ApplicationController
   end
 
   def index
-    @races = Race.includes(:combinations).where(year: @year, tour: @tour).order(:race_no)
+    @races = Race.joins(:combinations).includes(:combinations).where(year: @year, tour: @tour).order("combinations.rane").order(:race_no)
   end
 
 
@@ -534,7 +534,7 @@ class CombinationsController < ApplicationController
     @race_name = params[:race_name]
     @stage = params[:stage]
     @set = params[:set]
-    @races = Race.includes(:combinations).order(:race_no)
+    @races = Race.joins(:combinations).includes(:combinations).order("combinations.rane").order(:race_no)
     if @yr != "" then @races = @races.where(year: @yr.to_i) end
     if @tr != "" then @races = @races.where(tour: @tr.to_i) end
     if @race_no != "" then @races = @races.where(race_no: @race_no.to_i) end
