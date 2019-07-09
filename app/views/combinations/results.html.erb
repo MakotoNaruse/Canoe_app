@@ -97,7 +97,7 @@
 <% @races.each do |race| %>
   <% if race.stage == "F" %>
     <% set = Race.where(year: @year, tour: @tour, race_name: race.race_name, stage: race.stage).count %>
-    <% if set == 1 %>
+    <% if set <= 1 %>
       レースNo. <%= race.race_no %> <%= race.race_name %> F
     <% else %>
       レースNo. <%= race.race_no %> <%= race.race_name %> <%= if race.set == 1 then "B" else "A" end %>F
