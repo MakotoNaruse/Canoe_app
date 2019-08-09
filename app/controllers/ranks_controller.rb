@@ -49,12 +49,10 @@ class RanksController < ApplicationController
         redirect_to("/operations/ranks/add") and return
       end
     end
+    ranks = Rank.where(race_id: race.id)
+    ranks.destroy_all
     for num in 1..10 do
       if ranks[num] != 0
-        rank = Rank.find_by(race_id: race.id, rank: num)
-        if rank
-          rank.destroy
-        end
         rank = Rank.new(race_id: race.id, rane: ranks[num], rank: num)
         rank.save
       end
