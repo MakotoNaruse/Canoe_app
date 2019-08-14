@@ -60,6 +60,20 @@ class CombinationsController < ApplicationController
     #フラグ
     warning = 0
 
+    @race_name = params[:race_name]
+    if @race_name != ""
+      if @singles.include?(@race_name)
+        @singles = [@race_name]
+        @pairs = []
+        @fours = []
+      end
+      if @pairs.include?(@race_name)
+        @singles = []
+        @pairs = [@race_name]
+        @fours = []
+      end
+    end
+
     #シングルの抽選
     @singles.each do |race_name|
       players = Array.new(20).map{Array.new(1,0)}

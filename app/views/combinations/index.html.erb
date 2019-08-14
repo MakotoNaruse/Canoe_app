@@ -19,7 +19,44 @@
               data: { confirm: "本当に実行しますか？" }) %><br>
 ※ボタンを押すと抽選が変わります。抽選確定以降は押さないでください。 <br>
 <br>
+<%= form_tag("/operations/combinations/lott") do %>
+レース：
+<select name="race_name" size="1">
+<option value="K-1-1000m">K-1-1000m</option>
+<option value="K-2-1000m">K-2-1000m</option>
+<option value="C-1-1000m">C-1-1000m</option>
+<option value="C-2-1000m">C-2-1000m</option>
+<option value="WK-1-500m">WK-1-500m</option>
+<option value="WK-2-500m">WK-2-500m</option>
+<option value="WC-1-500m">WC-1-500m</option>
+<option value="WC-2-500m">WC-2-500m</option>
+<option value="JK-1-500m">JK-1-500m</option>
+<option value="JK-2-500m">JK-2-500m</option>
+<option value="JC-1-500m">JC-1-500m</option>
+<option value="JC-2-500m">JC-2-500m</option>
+<option value="JWK-1-500m">JWK-1-500m</option>
+<option value="JWK-2-500m">JWK-2-500m</option>
+<option value="JWC-1-500m">JWC-1-500m</option>
+<option value="JWC-2-500m">JWC-2-500m</option>
+<option value="K-1-200m">K-1-200m</option>
+<option value="K-2-200m">K-2-200m</option>
+<option value="C-1-200m">C-1-200m</option>
+<option value="C-2-200m">C-2-200m</option>
+<option value="WK-1-200m">WK-1-200m</option>
+<option value="WK-2-200m">WK-2-200m</option>
+<option value="WC-1-200m">WC-1-200m</option>
+<option value="WC-2-200m">WC-2-200m</option>
+<option value="JK-1-200m">JK-1-200m</option>
+<option value="JC-1-200m">JC-1-200m</option>
+<option value="JWK-1-200m">JWK-1-200m</option>
+<option value="JWC-1-200m">JWC-1-200m</option>
+</select>
+<br/>
+<input type="submit" value="この種目のみ抽選を実施する"/>
+
 <% end %>
+<% end %>
+
 <h2>組み合わせ一覧</h2>
   <% @races.each do |race| %>
   レースNo. <%= race.race_no %> <%= race.race_name %> <%= race.stage %>-<%= race.set %>
