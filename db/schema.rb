@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_26_024154) do
+ActiveRecord::Schema.define(version: 2019_08_16_134049) do
 
   create_table "bibs", force: :cascade do |t|
     t.integer "player_id"
@@ -145,6 +145,26 @@ ActiveRecord::Schema.define(version: 2019_04_26_024154) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["race_id"], name: "index_results_on_race_id"
+  end
+
+  create_table "scores", force: :cascade do |t|
+    t.string "u_name"
+    t.integer "year"
+    t.integer "tour"
+    t.float "mk_score"
+    t.float "mc_score"
+    t.float "m_score"
+    t.float "jmk_score"
+    t.float "jmc_score"
+    t.float "jm_score"
+    t.float "wk_score"
+    t.float "wc_score"
+    t.float "w_score"
+    t.float "jwk_score"
+    t.float "jwc_score"
+    t.float "jw_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "substitutes", force: :cascade do |t|

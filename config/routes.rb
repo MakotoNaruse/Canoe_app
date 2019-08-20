@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   post "/operations/entry_time/change" => "operations#entry_time_change"
   get "/operations/result_time" => "operations#result_time"
   post "/operations/result_time/change" => "operations#result_time_change"
+  get '/operations/scores/index' => "scores#index"
 
   get "/results" => "combinations#results"
   get "/search" => "combinations#search"
