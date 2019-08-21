@@ -198,7 +198,7 @@
       <th colspan=3>タイム</th>
       <th>備考</th>
     </tr>
-    <% combi_fours =  CombinationFour.where(race_id: race.id ) %>
+    <% combi_fours =  CombinationFour.where(race_id: race.id).order(:rane) %>
     <% combi_fours.each do |combi| %>
     <tr>
       <td rowspan=4> <%= combi.rane %> </td>
