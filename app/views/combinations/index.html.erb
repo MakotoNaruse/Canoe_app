@@ -106,6 +106,7 @@
         <% player = Player.includes(:pairs).find_by(id: combi.player_id) %>
       <% end %>
       <td> <%= player.p_name %> </td>
+      <td> <%= player.reading %> </td>
       <td rowspan="2"> <%= player.u_name %> </td>
     </tr>
     <tr>
