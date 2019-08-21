@@ -479,17 +479,17 @@ class CombinationsController < ApplicationController
     end
 
     @bibs = Array.new(11)
-    @bibs[0] = params[:rane0].to_i
-    @bibs[1] = params[:rane1].to_i
-    @bibs[2] = params[:rane2].to_i
-    @bibs[3] = params[:rane3].to_i
-    @bibs[4] = params[:rane4].to_i
-    @bibs[5] = params[:rane5].to_i
-    @bibs[6] = params[:rane6].to_i
-    @bibs[7] = params[:rane7].to_i
-    @bibs[8] = params[:rane8].to_i
-    @bibs[9] = params[:rane9].to_i
-    @bibs[10] = params[:rane10].to_i
+    @bibs[0] = params[:rane0]
+    @bibs[1] = params[:rane1]
+    @bibs[2] = params[:rane2]
+    @bibs[3] = params[:rane3]
+    @bibs[4] = params[:rane4]
+    @bibs[5] = params[:rane5]
+    @bibs[6] = params[:rane6]
+    @bibs[7] = params[:rane7]
+    @bibs[8] = params[:rane8]
+    @bibs[9] = params[:rane9]
+    @bibs[10] = params[:rane10]
 
     @names = Array.new(11)
     @univs = Array.new(11)
