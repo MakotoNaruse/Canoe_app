@@ -95,8 +95,8 @@
 <h3>検索結果</h3>
 <% if @races.first %>
 <% @races.each do |race| %>
-  <% if race.stage == "F" %>
-    <% set = Race.where(year: @year, tour: @tour, race_name: race.race_name, stage: race.stage).count %>
+  <% if race.stage == 'F' %>
+    <% set = Race.where(year: @year, tour: @tour, race_name: race.race_name, stage: "F").count %>
     <% if set <= 1 %>
       レースNo. <%= race.race_no %> <%= race.race_name %> F
     <% else %>
