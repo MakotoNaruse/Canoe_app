@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  u_name: MyString
+  year: 1
+  tour: 1
+  mk_score: 1.5
+  mc_score: 1.5
+  m_score: 1.5
+  jmk_score: 1.5
+  jmc_score: 1.5
+  jm_score: 1.5
+  wk_score: 1.5
+  wc_score: 1.5
+  w_score: 1.5
+  jwk_score: 1.5
+  jwc_score: 1.5
+  jw_score: 1.5
+
+two:
+  u_name: MyString
+  year: 1
+  tour: 1
+  mk_score: 1.5
+  mc_score: 1.5
+  m_score: 1.5
+  jmk_score: 1.5
+  jmc_score: 1.5
+  jm_score: 1.5
+  wk_score: 1.5
+  wc_score: 1.5
+  w_score: 1.5
+  jwk_score: 1.5
+  jwc_score: 1.5
+  jw_score: 1.5

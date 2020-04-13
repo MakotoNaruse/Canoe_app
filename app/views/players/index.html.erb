@@ -16,7 +16,8 @@
 <h2>選手登録・変更</h2>
 この内容でよければ<%= link_to("エントリー登録へ", "/entries/index", class: "btn-squar") %> <br>
 ※選手名簿は各大会共通です。<br>
-※いずれかの大会に出場する選手は選手名簿に追加してください。
+※いずれかの大会に出場する選手は選手名簿に追加してください。<br>
+※選手は削除できませんので慎重に追加してください。<br>
 <br>
 <h3>選手追加</h3>
 <%= form_tag("/players/add") do %>
@@ -60,7 +61,7 @@
     <th>読みがな</th>
     <th>種目</th>
     <th>学年</th>
-    <th colspan=2>操作</th>
+    <th>操作</th>
   </tr>
   <% @players.each do |player| %>
   <tr>
@@ -69,8 +70,8 @@
     <td> <%= player.typ %> </td>
     <td> <%= player.grade %> </td>
     <td> <%= link_to("変更", "/players/edit/#{player.id}", class: "btn-green") %> </td>
-    <td> <%= link_to("削除", "/players/destroy/#{player.id}", class: "btn-red", method: :post,
-                      data: { confirm: "選手名: #{player.p_name} を削除しますか？" }) %> </td>
+    <!-- <td> <%= link_to("削除", "/players/destroy/#{player.id}", class: "btn-red", method: :post,
+                      data: { confirm: "選手名: #{player.p_name} を削除しますか？" }) %> </td> -->
   </tr>
   <% end %>
 </table>

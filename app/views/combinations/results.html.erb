@@ -36,7 +36,6 @@
 または <br>
 レース名:
 <select name="race_name" size="1">
-<option value="">全て</option>
 <option value="K-1-1000m"<% if @race_name == "K-1-1000m" then %> selected <% end %>>K-1-1000m</option>
 <option value="K-2-1000m"<% if @race_name == "K-2-1000m" then %> selected <% end %>>K-2-1000m</option>
 <option value="K-4-1000m"<% if @race_name == "K-4-1000m" then %> selected <% end %>>K-4-1000m</option>
@@ -96,9 +95,9 @@
 <h3>検索結果</h3>
 <% if @races.first %>
 <% @races.each do |race| %>
-  <% if race.stage == "F" %>
-    <% set = Race.where(year: @year, tour: @tour, race_name: race.race_name, stage: race.stage).count %>
-    <% if set == 1 %>
+  <% if race.stage == 'F' %>
+    <% set = Race.where(year: @yr, tour: @tr, race_name: race.race_name, stage: "F").count %>
+    <% if set <= 1 %>
       レースNo. <%= race.race_no %> <%= race.race_name %> F
     <% else %>
       レースNo. <%= race.race_no %> <%= race.race_name %> <%= if race.set == 1 then "B" else "A" end %>F
@@ -118,7 +117,8 @@
       <th colspan=3>タイム</th>
       <th>備考</th>
     </tr>
-    <% race.combinations.each do |combi| %>
+    <% combinations = Combination.where(race_id: race.id).order(:rane) %>
+    <% combinations.each do |combi| %>
     <tr>
       <td> <%= combi.rane %> </td>
       <td> <%= Bib.find_by(player_id: combi.player_id, tour: race.tour).bib_no %> </td>
@@ -150,11 +150,16 @@
       <th colspan=3>タイム</th>
       <th>備考</th>
     </tr>
-    <% race.combinations.each do |combi| %>
+    <% combinations = Combination.where(race_id: race.id).order(:rane) %>
+    <% combinations.each do |combi| %>
     <tr>
       <td rowspan=2> <%= combi.rane %> </td>
       <td> <%= Bib.find_by(player_id: combi.player_id, tour: race.tour).bib_no %> </td>
-      <% player = Player.includes(:pairs).find_by(id: combi.player_id) %>
+      <% if race.race_name.include?("200") %>
+        <% player = Player.includes(:pair_twos).find_by(id: combi.player_id) %>
+      <% else %>
+        <% player = Player.includes(:pairs).find_by(id: combi.player_id) %>
+      <% end %>
       <td> <%= player.p_name %> </td>
       <td rowspan=2> <%= player.u_name %> </td>
       <% rank = Rank.find_by(race_id: race.id, rane: combi.rane) %>
@@ -166,9 +171,15 @@
       <td rowspan=2> <%= if result then result.option else "" end %> </td>
     </tr>
     <tr>
-      <% pair = Player.find_by(id: player.pairs.first.pair_id ) %>
-      <td> <%= Bib.find_by(player_id: pair.id, tour: race.tour).bib_no %> </td>
-      <td> <%= pair.p_name %> </td>
+      <% if race.race_name.include?("200") %>
+        <% pair = Player.find_by(id: player.pair_twos.first.pair_id ) %>
+        <td> <%= if bib = Bib.find_by(player_id: pair.id, tour: race.tour) then bib.bib_no end %> </td>
+        <td> <%= pair.p_name %> </td>
+      <% else %>
+        <% pair = Player.find_by(id: player.pairs.first.pair_id ) %>
+        <td> <%= if bib = Bib.find_by(player_id: pair.id, tour: race.tour) then bib.bib_no end %> </td>
+        <td> <%= pair.p_name %> </td>
+      <% end %>
     </tr>
     <% end %>
   </table>
@@ -187,7 +198,7 @@
       <th colspan=3>タイム</th>
       <th>備考</th>
     </tr>
-    <% combi_fours =  CombinationFour.where(race_id: race.id ) %>
+    <% combi_fours =  CombinationFour.where(race_id: race.id).order(:rane) %>
     <% combi_fours.each do |combi| %>
     <tr>
       <td rowspan=4> <%= combi.rane %> </td>

@@ -1,3 +1,14 @@
+
+<script type="text/javascript">
+  function SearchCheck(){
+    if(document.getElementById('u_name').value == "" && document.getElementById('p_name').value == "" ){
+      alert("大学名もしくは選手名いずれかを入力してください。");
+      document.getElementById('p_name').focus();
+      return false;
+    }
+  }
+</script>
+
 <div class = "header">
   <div class = "header-logo">
     <%= link_to("学連Webシステム", "/") %>
@@ -10,11 +21,11 @@
 <% end %>
 <div class = "main">
 <h2>速報システム・データベース</h2>
-<%= form_tag("/results_name", {method: :get}) do %>
+<%= form_tag("/results_name", method: :get, onsubmit: "return SearchCheck()" ) do %>
 大学名:
-<input type="text" name="u_name" value="<%= @u_name %>"><br>
+<input type="text" name="u_name" id="u_name" value="<%= @u_name %>"><br>
 選手名:
-<input type="text" name="p_name" value="<%= @p_name %>"><br>
+<input type="text" name="p_name" id="p_name" value="<%= @p_name %>"><br>
 開催年:
 <select name="year" size="1">
   <% for yr in ( @year* -1 )..-2017 do %>

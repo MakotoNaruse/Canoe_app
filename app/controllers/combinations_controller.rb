@@ -52,13 +52,27 @@ class CombinationsController < ApplicationController
   end
 
   def index
-    @races = Race.includes(:combinations).where(year: @year, tour: @tour).order(:race_no)
+    @races = Race.where(year: @year, tour: @tour).order(:race_no)
   end
 
 
   def lott
     #フラグ
     warning = 0
+
+    @race_name = params[:race_name]
+    if @race_name != ""
+      if @singles.include?(@race_name)
+        @singles = [@race_name]
+        @pairs = []
+        @fours = []
+      end
+      if @pairs.include?(@race_name)
+        @singles = []
+        @pairs = [@race_name]
+        @fours = []
+      end
+    end
 
     #シングルの抽選
     @singles.each do |race_name|
@@ -193,29 +207,64 @@ class CombinationsController < ApplicationController
     #ペアの抽選
     @pairs.each do |race_name|
       players = Array.new(20).map{Array.new(1,0)}
-      entries = Player.includes(:pairs).joins(:entries).where(year: @year)
+      if race_name.include?("200")
+        entries = Player.includes(:pair_twos).joins(:entries).where(year: @year)
                             .where("entries.tour" => @tour).where("entries.race_name" => race_name )
                             .order(:u_name)
 
-      # 選手idを配列に格納
-      univ_id = 0
-      player_id = 0
-      count = 0
-      univ = Array.new(1)
-      entries.each do |player|
-        player.pairs.each do |pair|
-          univ[count] = player.u_name
-          if count != 0
-            if univ[count] != univ[count-1]
-              player_id = 0
-              univ_id += 1
-            end
-          end
-          players[univ_id][player_id] = player.id
-          count += 1
-          player_id += 1
-        end
+                            # 選手idを配列に格納
+                            univ_id = 0
+                            player_id = 0
+                            count = 0
+                            univ = Array.new(1)
+                            entries.each do |player|
+                              player.pair_twos.each do |pair|
+                                if pair.tour == @tour
+                                  univ[count] = player.u_name
+                                  if count != 0
+                                    if univ[count] != univ[count-1]
+                                      player_id = 0
+                                      univ_id += 1
+                                    end
+                                  end
+                                  players[univ_id][player_id] = player.id
+                                  count += 1
+                                  player_id += 1
+                                end
+                              end
+                            end
+
+
+
+
+      else
+        entries = Player.includes(:pairs).joins(:entries).where(year: @year)
+                          .where("entries.tour" => @tour).where("entries.race_name" => race_name )
+                            .order(:u_name)
+
+                            # 選手idを配列に格納
+                            univ_id = 0
+                            player_id = 0
+                            count = 0
+                            univ = Array.new(1)
+                            entries.each do |player|
+                              player.pairs.each do |pair|
+                                if pair.tour == @tour
+                                  univ[count] = player.u_name
+                                  if count != 0
+                                    if univ[count] != univ[count-1]
+                                      player_id = 0
+                                      univ_id += 1
+                                    end
+                                  end
+                                  players[univ_id][player_id] = player.id
+                                  count += 1
+                                  player_id += 1
+                                end
+                              end
+                            end
       end
+
 
       # 大学内でシャッフル
       players.each do |players_univ|
@@ -430,17 +479,17 @@ class CombinationsController < ApplicationController
     end
 
     @bibs = Array.new(11)
-    @bibs[0] = params[:rane0].to_i
-    @bibs[1] = params[:rane1].to_i
-    @bibs[2] = params[:rane2].to_i
-    @bibs[3] = params[:rane3].to_i
-    @bibs[4] = params[:rane4].to_i
-    @bibs[5] = params[:rane5].to_i
-    @bibs[6] = params[:rane6].to_i
-    @bibs[7] = params[:rane7].to_i
-    @bibs[8] = params[:rane8].to_i
-    @bibs[9] = params[:rane9].to_i
-    @bibs[10] = params[:rane10].to_i
+    @bibs[0] = params[:rane0]
+    @bibs[1] = params[:rane1]
+    @bibs[2] = params[:rane2]
+    @bibs[3] = params[:rane3]
+    @bibs[4] = params[:rane4]
+    @bibs[5] = params[:rane5]
+    @bibs[6] = params[:rane6]
+    @bibs[7] = params[:rane7]
+    @bibs[8] = params[:rane8]
+    @bibs[9] = params[:rane9]
+    @bibs[10] = params[:rane10]
 
     @names = Array.new(11)
     @univs = Array.new(11)
@@ -501,7 +550,7 @@ class CombinationsController < ApplicationController
     @race_name = params[:race_name]
     @stage = params[:stage]
     @set = params[:set]
-    @races = Race.includes(:combinations).order(:race_no)
+    @races = Race.order(:race_no)
     if @yr != "" then @races = @races.where(year: @yr.to_i) end
     if @tr != "" then @races = @races.where(tour: @tr.to_i) end
     if @race_no != "" then @races = @races.where(race_no: @race_no.to_i) end

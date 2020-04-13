@@ -48,9 +48,15 @@ class RacesController < ApplicationController
 
   def entries2
     @race_name = params[:race_name]
-    @entries2 = Player.includes(:pairs).joins(:entries).where(year: @year)
-                          .where("entries.tour" => @tour).where("entries.race_name" => @race_name )
-                          .order(:u_name)
+    if @race_name.include?("200")
+      @entries2 = Player.includes(:pair_twos).joins(:entries).where(year: @year)
+                            .where("entries.tour" => @tour).where("entries.race_name" => @race_name )
+                            .order(:u_name)
+    else
+      @entries2 = Player.includes(:pairs).joins(:entries).where(year: @year)
+                            .where("entries.tour" => @tour).where("entries.race_name" => @race_name )
+                            .order(:u_name)
+    end
   end
 
   def entries4

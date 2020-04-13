@@ -21,8 +21,9 @@
 <table border = 1>
   <tr>
     <th>ゼッケン</th>
+    <th>選手名</th>
+    <th>ふりがな</th>
     <th>大学名</th>
-    <th>名前</th>
     <th>種目</th>
     <th>学年</th>
   </tr>
@@ -37,8 +38,9 @@
         <% else %>
           <td> <br> </td>
         <% end %>
-        <td> <%= player.u_name %> </td>
         <td> <%= player.p_name %> </td>
+        <td> <%= player.reading %> </td>
+        <td> <%= player.u_name %> </td>
         <td> <%= player.typ %> </td>
         <td> <%= player.grade %> </td>
       </tr>
