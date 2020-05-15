@@ -119,9 +119,10 @@
     </tr>
     <% ranks = race.ranks.to_a.group_by{ |rank| rank.rane } %>
     <% results = race.results.to_a.group_by{ |result| result.rane } %>
-    <% race.combinations.each do |key, combi| %>
+    <% race.combinations.each do |combi| %>
+    <% if combi %>
     <tr>
-      <td> <%= combi.rane if combi.rane %> </td>
+      <td> <%= combi.rane %> </td>
       <% bibs = combi.player.bibs.to_a.group_by{ |bib| bib.tour } %>
       <td> <%= if bibs[tour] then bibs[tour].bib_no else "" end %> </td>
       <td> <%= combi.player.p_name if combi.player.p_name%> </td>
@@ -132,6 +133,7 @@
       <td> <%= if results[key] then results[key].c else "" end %> </td>
       <td> <%= if results[key] then results[key].option else "" end %> </td>
     </tr>
+    <% end %>
     <% end %>
   </table>
   </div>
