@@ -124,14 +124,14 @@
     <tr>
       <td> <%= combi.rane %> </td>
       <% bibs = combi.player.bibs.to_a.group_by{ |bib| bib.tour } %>
-      <td> <%= if bibs[tour] then bibs[tour].bib_no else "" end %> </td>
+      <td> <%= if bibs[race.tour] then bibs[race.tour].bib_no else "" end %> </td>
       <td> <%= combi.player.p_name if combi.player.p_name%> </td>
       <td> <%= combi.player.u_name  if combi.player.u_name%> </td>
-      <td> <%= if ranks[key] then ranks[key].rank else "" end %> </td>
-      <td> <%= if results[key] then results[key].m else "" end %> </td>
-      <td> <%= if results[key] then results[key].s else "" end %> </td>
-      <td> <%= if results[key] then results[key].c else "" end %> </td>
-      <td> <%= if results[key] then results[key].option else "" end %> </td>
+      <td> <%= if ranks[combi.rane] then ranks[combi.rane].rank else "" end %> </td>
+      <td> <%= if results[combi.rane] then results[combi.rane].m else "" end %> </td>
+      <td> <%= if results[combi.rane] then results[combi.rane].s else "" end %> </td>
+      <td> <%= if results[combi.rane] then results[combi.rane].c else "" end %> </td>
+      <td> <%= if results[combi.rane] then results[combi.rane].option else "" end %> </td>
     </tr>
     <% end %>
     <% end %>
