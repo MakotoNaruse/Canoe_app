@@ -96,7 +96,7 @@
 <% if @races.first %>
 <% @races.each do |race| %>
   <% if race.stage == 'F' %>
-    <% set = Race.where(year: @yr, tour: @tr, race_name: race.race_name, stage: "F").count %>
+    <% set = race.to_a.count %>
     <% if set <= 1 %>
       レースNo. <%= race.race_no %> <%= race.race_name %> F
     <% else %>
@@ -117,21 +117,20 @@
       <th colspan=3>タイム</th>
       <th>備考</th>
     </tr>
-    <% combinations = Combination.where(race_id: race.id).order(:rane) %>
-    <% combinations.each do |combi| %>
+    <% ranks = race.ranks.to_a.group_by{ |rank| rank.rane } %>
+    <% results = race.results.to_a.group_by{ |result| result.rane } %>
+    <% race.combinations.each do |key, combi| %>
     <tr>
       <td> <%= combi.rane %> </td>
-      <td> <%= Bib.find_by(player_id: combi.player_id, tour: race.tour).bib_no %> </td>
-      <% player = Player.find_by(id: combi.player_id) %>
-      <td> <%= player.p_name %> </td>
-      <td> <%= player.u_name %> </td>
-      <% rank = Rank.find_by(race_id: race.id, rane: combi.rane) %>
-      <td> <%= if rank then rank.rank else "" end %> </td>
-      <% result = Result.find_by(race_id: race.id, rane: combi.rane) %>
-      <td> <%= if result then result.m else "" end %> </td>
-      <td> <%= if result then result.s else "" end %> </td>
-      <td> <%= if result then result.c else "" end %> </td>
-      <td> <%= if result then result.option else "" end %> </td>
+      <% bibs = combi.player.bibs.to_a.group_by{ |bib| bib.tour } %>
+      <td> <%= if bibs[tour] then bibs[tour].bib_no else "" end %> </td>
+      <td> <%= combi.player.p_name %> </td>
+      <td> <%= combi.player.u_name %> </td>
+      <td> <%= if ranks[key] then ranks[key].rank else "" end %> </td>
+      <td> <%= if results[key] then results[key].m else "" end %> </td>
+      <td> <%= if results[key] then results[key].s else "" end %> </td>
+      <td> <%= if results[key] then results[key].c else "" end %> </td>
+      <td> <%= if results[key] then results[key].option else "" end %> </td>
     </tr>
     <% end %>
   </table>
