@@ -619,6 +619,7 @@ class CombinationsController < ApplicationController
           combis_json = []
           race.combinations.each do |combi|
             if combi
+              combi_json = {}
               combi_json['rane'] = combi.rane
               bibs = combi.player.bibs.to_a.group_by{ |bib| bib.tour }
               if bibs[race.tour]
