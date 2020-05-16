@@ -89,8 +89,10 @@ Rails.application.routes.draw do
   get '/operations/scores/index' => "scores#index"
 
   get "/results" => "combinations#results"
+  get "/api/results" => "combinations#results_json"
   get "/search" => "combinations#search"
   get "/results_name" => "combinations#results_name"
+  # get "/api/results_name" => "combinations#results_name_json"
   get "/forbid_by_time" => "combinations#forbid_by_time"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
