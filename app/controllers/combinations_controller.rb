@@ -571,5 +571,112 @@ class CombinationsController < ApplicationController
   def search
   end
 
+  def results_json
+    @yr = params[:year]
+    @tr = params[:tour]
+    @race_no = params[:race_no]
+    @race_name = params[:race_name]
+    @stage = params[:stage]
+    @set = params[:set]
+    @races = Race.includes({combinations: {player: :bibs}}, :ranks, :results).order(:race_no)
+    if @yr != "" then @races = @races.where(year: @yr.to_i) end
+    if @tr != "" then @races = @races.where(tour: @tr.to_i) end
+    if @race_no != "" then @races = @races.where(race_no: @race_no.to_i) end
+    if @race_name != "" then @races = @races.where(race_name: @race_name) end
+    if @stage != "" then @races = @races.where(stage: @stage) end
+    if @set != "" then @races = @races.where(set: @set.to_i) end
+
+    result = {}
+    races_json = []
+    if @races.first
+      @races.each do |race|
+        race_json = {}
+        if race.stage == 'F'
+          race_json['race_no'] = race.race_no
+          race_json['race_name'] = race.race_name 
+          set = Race.where(year: @yr, tour: @tr, race_name: race.race_name, stage: "F").count
+          if set <= 1
+            race_json['stage'] = "F"
+            race_json['set'] = 1
+          else
+            if race.set == 1
+              race_json['stage'] = "BF"
+              race_json['set'] = 1
+            else 
+              race_json['stage'] = "AF" 
+              race_json['set'] = 1
+            end
+          end
+        else
+          race_json['race_no'] = race.race_no
+          race_json['race_name'] = race.race_name 
+          race_json['stage'] = race.stage
+          race_json['set'] = race.set
+        end
+        if race.race_name.include?("-1-") && !race.race_name.include?("Relay")
+          ranks = race.ranks.to_a.group_by{ |rank| rank.rane }
+          results = race.results.to_a.group_by{ |result| result.rane }
+          combis_json = []
+          race.combinations.each do |combi|
+            if combi
+              combi_json['rane'] = combi.rane
+              bibs = combi.player.bibs.to_a.group_by{ |bib| bib.tour }
+              if bibs[race.tour]
+                combi_json['bib_no'] = bibs[race.tour][0].bib_no 
+              else 
+                combi_json['rane'] = "" 
+              end 
+              combi_json['p_name'] = combi.player.p_name 
+              combi_json['u_name'] = combi.player.u_name  
+              if ranks[combi.rane]
+                combi_json['rank'] = ranks[combi.rane][0].rank 
+              else 
+                combi_json['rank'] = ""
+              end
+              if results[combi.rane]
+                if results[combi.rane][0].m
+                  combi_json['min'] = results[combi.rane][0].m 
+                else 
+                  combi_json['min'] = "" 
+                end 
+                if results[combi.rane][0].s 
+                  combi_json['sec'] = results[combi.rane][0].s 
+                else 
+                  combi_json['sec'] = "" 
+                end 
+                if results[combi.rane][0].c 
+                  combi_json['milisec'] = results[combi.rane][0].c 
+                else 
+                  combi_json['milisec']  = "" end 
+                if results[combi.rane][0].option
+                  combi_json['option'] = results[combi.rane][0].option 
+                else 
+                  combi_json['option']  = "" 
+                end 
+              else
+                combi_json['min'] = "" 
+                combi_json['sec'] = "" 
+                combi_json['milosec'] = "" 
+                combi_json['option'] = "" 
+              end
+              combis_json.push(combi_json)
+            end
+          end
+        elsif race.race_name.include?("-2-")
+        
+        elsif race.race_name.include?("-4-") || race.race_name.include?("Relay")
+        
+        end
+        race_json['result'] = combis_json
+        races_json.push(race_json)
+      end
+      result['data'] = races_json
+    else
+      result['data'] = "レースが見つかりませんでした。"
+    end
+
+    render :json => result
+  end
+
 
 end
