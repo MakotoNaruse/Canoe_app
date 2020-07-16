@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_16_134049) do
+ActiveRecord::Schema.define(version: 2020_07_16_104857) do
 
   create_table "bibs", force: :cascade do |t|
     t.integer "player_id"
@@ -185,6 +185,8 @@ ActiveRecord::Schema.define(version: 2019_08_16_134049) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "erea"
+    t.string "password_digest"
+    t.string "reset_token"
   end
 
 end
