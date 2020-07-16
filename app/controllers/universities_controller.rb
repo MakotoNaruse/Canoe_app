@@ -120,6 +120,40 @@ class UniversitiesController < ApplicationController
     end
   end
 
+  def password_token
+    @university = University.find_by(id: params[:id])
+    @token = params[:token]
+    if @university.blank? || @token.blank?
+      redirect_to("/")
+      return
+    end
+    if @university.reset_token != @token
+      redirect_to("/")
+      return
+    end
+  end 
 
+  def reset_password
+    @university = University.find_by(id: params[:id])
+    @token = params[:token]
+    if @university.blank? || @token.blank?
+      redirect_to("/")
+      return
+    end
+    if @university.reset_token != @token
+      redirect_to("/")
+      return
+    end
+    @university.password = params[:password]
+    @university.reset_token = nil
+    if @university.save
+      session[:univ_id] = @university.id
+      flash[:notice] = "パスワードを変更しました"
+      redirect_to("/reg/top")
+    else
+      flash[:notice] = "パスワードの変更に失敗しました。もう一度やり直してください。"
+      render("universities/password_token")
+    end
+  end
 
 end

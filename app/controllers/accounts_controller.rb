@@ -77,6 +77,7 @@ class AccountsController < ApplicationController
     if @university.blank?
       flash[:notice] = "大学が存在しません"
       redirect_to("/operations/accounts/index")
+      return
     end
     
     #token発行
@@ -85,7 +86,7 @@ class AccountsController < ApplicationController
     @university.reset_token = @random_token
 
     if @university.save
-      @reset_url = URI(request.base_url + '/accounts/reset_password')
+      @reset_url = URI(request.base_url + '/reset_password')
       @reset_url.query = URI.encode_www_form({id: @university.id , token: @random_token })  
     else
       flash[:notice] = "URLの発行に失敗しました。もう一度やり直してください"

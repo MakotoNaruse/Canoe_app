@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get "/reg/top" => "universities#top"
   post "/login" => "universities#login"
   post "/logout" => "universities#logout"
+  get "/reset_password" => "universities#password_token"
+  post "/reset_password" => "universities#reset_password"
   post "/players/add" => "players#add"
   post "/players/destroy/:id" => "players#destroy"
   get "/players/edit/:id" => "players#edit"
