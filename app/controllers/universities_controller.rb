@@ -109,7 +109,7 @@ class UniversitiesController < ApplicationController
     @players = Player.where(u_name: @current_univ.u_name, year: @year)
     @substitutes = Substitute.where(u_name: @current_univ.u_name).where(year: @year)
                               .where(tour: @current_tour_id)
-    @fours = Four.where(university_id: @current_univ.id, tour: @current_tour_id)
+    @fours = Four.where(university_id: @current_univ.id, tour: @current_tour_id, year: @year)
     respond_to do |format|
       format.html
       format.pdf do
