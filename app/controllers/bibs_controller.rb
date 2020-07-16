@@ -35,6 +35,7 @@ class BibsController < ApplicationController
       @universies = University.where(erea: "関東").order('read COLLATE "C" ASC')
       @tour = 3
     end
+    @year = Date.today.year
   end
 
   def assign
