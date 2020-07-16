@@ -15,6 +15,9 @@
 <h2>大学アカウント管理</h2>
 
 <h3>アカウント一覧</h3>
+パスワードは暗号化されているため表示されません。運営側からパスワードの変更を行うことは可能です。<br>
+大学側にパスワードを設定してもらう場合は、運営側から入力するのではなく、必ず「PWリセットURL発行」ボタンより
+URLを発行しそれを大学へとメール等で送付してください。
 
 <table border = 1>
   <tr>
@@ -23,7 +26,7 @@
     <th>読みがな</th>
     <th>エリア</th>
     <th>パスワード</th>
-    <th>操作</th>
+    <th colspan="2">操作</th>
   </tr>
   <% @universities.each do |university| %>
   <tr>
@@ -33,6 +36,7 @@
     <td> <%= university.erea %> </td>
     <td> ●●●●●●●● </td>
     <td> <%= link_to("変更", "/operations/accounts/edit/#{university.id}") %> </td>
+    <td> <%= link_to("PWリセットURL発行", "/operations/accounts/reset_password/#{university.id}", method: :post) %> </td>
   </tr>
   <% end %>
 </table>

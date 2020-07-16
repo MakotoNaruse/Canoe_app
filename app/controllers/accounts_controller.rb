@@ -71,4 +71,26 @@ class AccountsController < ApplicationController
       render("operations/accounts_edit")
     end
   end
+
+  def reset_password
+    @university = University.find_by(id: params[:id])
+    if @university.blank?
+      flash[:notice] = "大学が存在しません"
+      redirect_to("/operations/accounts/index")
+    end
+    
+    #token発行
+    @random_token = SecureRandom.urlsafe_base64(nil, false)
+
+    @university.reset_token = @random_token
+
+    if @university.save
+      @reset_url = URI(request.base_url + '/accounts/reset_password')
+      @reset_url.query = URI.encode_www_form({id: @university.id , token: @random_token })  
+    else
+      flash[:notice] = "URLの発行に失敗しました。もう一度やり直してください"
+      redirect_to("/operations/accounts/index")
+    end
+    
+  end
 end
