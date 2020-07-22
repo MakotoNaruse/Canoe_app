@@ -82,7 +82,7 @@ class UniversitiesController < ApplicationController
 
   def login
     @university = University.find_by(u_name: params[:u_name])
-    if @university.authenticate(params[:password])
+    if @university && @university.authenticate(params[:password])
       session[:univ_id] = @university.id
       flash[:notice] = "ログインしました"
       redirect_to("/reg/top")

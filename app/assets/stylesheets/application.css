@@ -16,48 +16,68 @@
 
  * {
    margin: 0;
+   font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
  }
 
- .btn-squar {
-   display: inline-block;
-   padding: 0.3em 0.7em;
-   text-decoration: none;
-   background: #668ad8;/*ボタン色*/
-   color: #FFF;
-   border-bottom: solid 4px #627295;
-   border-radius: 3px;
- }
+.btn-squar {
+  display: inline-block;
+  padding: 0.3em 0.7em;
+  text-decoration: none;
+  background: #668ad8;/*ボタン色*/
+  color: #FFF;
+  border-bottom: solid 2px #627295;
+  border-radius: 3px;
+}
+
+.btn-blue {
+  display: inline-block;
+  padding: 0.3em 0.7em;
+  text-decoration: none;
+  background: #3ecdc6;/*ボタン色*/
+  color: #FFF;
+  border-bottom: solid 2px #627295;
+  border-radius: 3px;
+}
 
 
-
- .btn-blue {
-   display: inline-block;
-   padding: 0.3em 0.7em;
-   text-decoration: none;
-   background: #3ecdc6;/*ボタン色*/
-   color: #FFF;
-   border-bottom: solid 4px #627295;
-   border-radius: 3px;
- }
-
-
- .btn-green {
-   display: inline-block;
-   padding: 0.2em 0.5em;
-   text-decoration: none;
-   background: #3cb371;/*ボタン色*/
-   color: #FFF;
-   border-bottom: solid 4px #627295;
-   border-radius: 3px;
- }
+.btn-green {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  text-decoration: none;
+  background: #3cb371;/*ボタン色*/
+  color: #FFF;
+  border-bottom: solid 2px #627295;
+  border-radius: 3px;
+  margin-bottom: 3px;
+}
 
 
- .btn-red {
-   display: inline-block;
-   padding: 0.2em 0.5em;
-   text-decoration: none;
-   background: #cd5c5c;/*ボタン色*/
-   color: #FFF;
-   border-bottom: solid 4px #627295;
-   border-radius: 3px;
- }
+.btn-red {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  text-decoration: none;
+  background: #cd5c5c;/*ボタン色*/
+  color: #FFF;
+  border-bottom: solid 2px #627295;
+  border-radius: 3px;
+}
+
+input[type="submit"]{
+  width: auto;
+  padding: 2px 20px;
+  background-color: #FFF;
+  border: #3ecdc6 1px solid;
+  border-radius: 2px;
+  font-size: 1em;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+input[type="submit"]:hover{
+  background-color: #668ad8;
+}
+
+select {
+  padding: 2px;
+  height: 2em;
+}
