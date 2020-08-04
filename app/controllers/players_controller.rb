@@ -53,8 +53,11 @@ class PlayersController < ApplicationController
   end
 
   def index
-    @players = Player.where(u_name: @current_univ.u_name, year: @year)
-                      .order({grade: :desc}, :typ, :reading)
+    if Rails.env.production?
+      @players = Player.where(u_name: @current_univ.u_name, year: @year).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
+    else
+      @players = Player.where(u_name: @current_univ.u_name, year: @year).order({grade: :desc}, :typ).order(:reading)
+    end
   end
 
   def add
