@@ -17,45 +17,50 @@ class BibsController < ApplicationController
 
   def index
     if @current_op.id == 2
-      # 開発用
-      # @universies = University.order(:erea).order(:read)
-      # 本番用
-      @universies = University.order(:erea).order('read COLLATE "C" ASC')
+      if Rails.env.production?
+        @universies = University.order(:erea).order('read COLLATE "C" ASC')
+      else
+        @universies = University.order(:erea).order(:read)
+      end
       @tour = 1
     elsif @current_op.id == 3
-      # 開発用
-      # @universies = University.where(erea: "関西").order(:read)
-      # 本番用
-      @universies = University.where(erea: "関西").order('read COLLATE "C" ASC')
+      if Rails.env.production?
+        @universies = University.order(:erea).order('read COLLATE "C" ASC')
+      else
+        @universies = University.order(:erea).order(:read)
+      end
       @tour = 2
     elsif @current_op.id == 4
-      # 開発用
-      # @universies = University.where(erea: "関東").order(:read)
-      # 本番用
-      @universies = University.where(erea: "関東").order('read COLLATE "C" ASC')
+      if Rails.env.production?
+        @universies = University.order(:erea).order('read COLLATE "C" ASC')
+      else
+        @universies = University.order(:erea).order(:read)
+      end
       @tour = 3
     end
-    @year = Date.today.year
   end
 
   def assign
     if @current_op.id == 2
-      # 開発用
-      # @universies = University.order(:erea).order(:read)
-      # 本番用
-      @universies = University.order(:erea).order('read COLLATE "C" ASC')
+      if Rails.env.production?
+        @universies = University.order(:erea).order('read COLLATE "C" ASC')
+      else
+        @universies = University.order(:erea).order(:read)
+      end
       @tour = 1
     elsif @current_op.id == 3
-      # 開発用
-      # @universies = University.where(erea: "関西").order(:read)
-      # 本番用
-      @universies = University.where(erea: "関西").order('read COLLATE "C" ASC')
+      if Rails.env.production?
+        @universies = University.order(:erea).order('read COLLATE "C" ASC')
+      else
+        @universies = University.order(:erea).order(:read)
+      end
       @tour = 2
     elsif @current_op.id == 4
-      # 開発用
-      # @universies = University.where(erea: "関東").order(:read)
-      # 本番用
-      @universies = University.where(erea: "関東").order('read COLLATE "C" ASC')
+      if Rails.env.production?
+        @universies = University.order(:erea).order('read COLLATE "C" ASC')
+      else
+        @universies = University.order(:erea).order(:read)
+      end
       @tour = 3
     end
 
@@ -63,10 +68,11 @@ class BibsController < ApplicationController
     if @tour == 2 || @tour == 3
       i = 1
       @universies.each do |university|
-        # 開発用
-        # players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order(:reading)
-        # 本番用
-        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
+        if Rails.env.production?
+          players = Player.where(u_name: university.u_name, year: @year).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
+        else
+          players = Player.where(u_name: university.u_name, year: @year).order({grade: :desc}, :typ).order(:reading)
+        end
         players.each do |player|
           @bib = Bib.find_by(player_id: player.id, tour: @tour )
           if @bib
@@ -89,10 +95,11 @@ class BibsController < ApplicationController
     if @tour == 1
       i = 1
       @universies.where(erea: "関東").each do |university|
-        # 開発用
-        # players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order(:reading)
-        # 本番用
-        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
+        if Rails.env.production?
+          players = Player.where(u_name: university.u_name, year: @year).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
+        else
+          players = Player.where(u_name: university.u_name, year: @year).order({grade: :desc}, :typ).order(:reading)
+        end
         players.each do |player|
           @bib = Bib.find_by(player_id: player.id, tour: @tour )
           if @bib
@@ -111,10 +118,11 @@ class BibsController < ApplicationController
       end
       i = 1
       @universies.where(erea: "関西").each do |university|
-        # 開発用
-        # players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order(:reading)
-        # 本番用
-        players = Player.where(u_name: university.u_name).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
+        if Rails.env.production?
+          players = Player.where(u_name: university.u_name, year: @year).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
+        else
+          players = Player.where(u_name: university.u_name, year: @year).order({grade: :desc}, :typ).order(:reading)
+        end
         players.each do |player|
           @bib = Bib.find_by(player_id: player.id, tour: @tour )
           if @bib

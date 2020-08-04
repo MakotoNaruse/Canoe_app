@@ -106,15 +106,27 @@ class UniversitiesController < ApplicationController
   end
 
   def confirm
-    @players = Player.where(u_name: @current_univ.u_name, year: @year)
+    if Rails.env.production?
+      @players = Player.where(u_name: @current_univ.u_name, year: @year).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
+    else
+      @players = Player.where(u_name: @current_univ.u_name, year: @year).order({grade: :desc}, :typ).order(:reading)
+    end
     @substitutes = Substitute.where(u_name: @current_univ.u_name).where(year: @year)
                               .where(tour: @current_tour_id)
     @fours = Four.where(university_id: @current_univ.id, tour: @current_tour_id, year: @year)
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: 'entry_confirm.pdf', #pdfファイルの名前。これがないとエラーが出ます
-               template: 'universities/confirm.html.erb', #テンプレートファイルの指定。viewsフォルダが読み込まれます。
+        if @current_tour_id == 1
+          @current_tour = "全日本学生カヌースプリント選手権大会"
+        elsif @current_tour_id == 2
+          @current_tour = "関西学生カヌー選手権大会"
+        elsif @current_tour_id == 3
+          @current_tour = "関東学生カヌースプリント選手権大会"
+        end
+        render pdf: @current_tour + '_' + @current_univ.u_name, #pdfファイルの名前。これがないとエラーが出ます
+               layout: 'pdf.html.erb',
+               template: 'universities/confirm.pdf.erb', #テンプレートファイルの指定。viewsフォルダが読み込まれます。
                encording: 'UTF-8' # 日本語フォントを使用するために必要。
       end
     end

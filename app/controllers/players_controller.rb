@@ -53,8 +53,11 @@ class PlayersController < ApplicationController
   end
 
   def index
-    @players = Player.where(u_name: @current_univ.u_name, year: @year)
-                      .order({grade: :desc}, :typ, :reading)
+    if Rails.env.production?
+      @players = Player.where(u_name: @current_univ.u_name, year: @year).order({grade: :desc}, :typ).order('reading COLLATE "C" ASC')
+    else
+      @players = Player.where(u_name: @current_univ.u_name, year: @year).order({grade: :desc}, :typ).order(:reading)
+    end
   end
 
   def add
@@ -89,6 +92,10 @@ class PlayersController < ApplicationController
 
   def update
     @player = Player.find_by(id: params[:id])
+    if @player == nil
+      flash[:notice] = "権限がありません"
+      redirect_to("/players/index")
+    end
     @player.p_name = params[:p_name]
     @player.typ = params[:typ]
     @player.grade = params[:grade].to_i
@@ -104,8 +111,9 @@ class PlayersController < ApplicationController
 
   def destroy
     @player = Player.find_by(id: params[:id])
-    if @player.u_name != @current_univ.u_name
-      "権限がありません"
+    if @player == nil || @player.u_name != @current_univ.u_name
+      flash[:notice] = "権限がありません。"
+      redirect_to("/players/index")
     else
       # 以下の記述はdependent: :destroy で代用可能？
       @pairs = Pair.where(player_id: params[:id])
