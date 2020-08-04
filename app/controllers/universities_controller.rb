@@ -124,7 +124,7 @@ class UniversitiesController < ApplicationController
         elsif @current_tour_id == 3
           @current_tour = "関東学生カヌースプリント選手権大会"
         end
-        render pdf: 'entry_confirm', #pdfファイルの名前。これがないとエラーが出ます
+        render pdf: @current_tour + '_' + @current_univ.u_name, #pdfファイルの名前。これがないとエラーが出ます
                layout: 'pdf.html.erb',
                template: 'universities/confirm.pdf.erb', #テンプレートファイルの指定。viewsフォルダが読み込まれます。
                encording: 'UTF-8' # 日本語フォントを使用するために必要。
