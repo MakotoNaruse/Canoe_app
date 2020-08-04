@@ -113,8 +113,16 @@ class UniversitiesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: 'entry_confirm.pdf', #pdfファイルの名前。これがないとエラーが出ます
-               template: 'universities/confirm.html.erb', #テンプレートファイルの指定。viewsフォルダが読み込まれます。
+        if @current_tour_id == 1
+          @current_tour = "全日本学生カヌースプリント選手権大会"
+        elsif @current_tour_id == 2
+          @current_tour = "関西学生カヌー選手権大会"
+        elsif @current_tour_id == 3
+          @current_tour = "関東学生カヌースプリント選手権大会"
+        end
+        render pdf: 'entry_confirm', #pdfファイルの名前。これがないとエラーが出ます
+               layout: 'pdf.html.erb',
+               template: 'universities/confirm.pdf.erb', #テンプレートファイルの指定。viewsフォルダが読み込まれます。
                encording: 'UTF-8' # 日本語フォントを使用するために必要。
       end
     end

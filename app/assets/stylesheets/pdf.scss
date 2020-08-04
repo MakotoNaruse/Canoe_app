@@ -1,0 +1,19 @@
+html {
+  font-family: 'IPAexゴシック', 'IPA Pゴシック', 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'MS Pゴシック', sans-serif;
+}
+table, th, td {
+  border-collapse: collapse;
+  border: 1px solid #333;
+  line-height: 1.5;
+}
+th, td {
+  padding: 5px 10px;
+}
+th{
+  background-color: #ddd;
+}
+div.sign{
+  margin-top: 50px;
+  width: 500px;
+  border-bottom: 1px solid black;
+}
