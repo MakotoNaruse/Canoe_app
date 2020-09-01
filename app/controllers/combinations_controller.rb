@@ -460,7 +460,7 @@ class CombinationsController < ApplicationController
     end
 
     if warning == 1
-      flash[:notice] = "抽選を実施しましたが大学が隣り合っっている箇所があります"
+      flash[:notice] = "抽選を実施しましたが大学が隣り合っている箇所があります"
     else
       flash[:notice] = "抽選を実施しました"
     end
