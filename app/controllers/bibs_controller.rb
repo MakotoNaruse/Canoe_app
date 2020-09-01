@@ -64,8 +64,9 @@ class BibsController < ApplicationController
       @tour = 3
     end
 
-    #支部大会の場合、ゼッケンは数字のみ
-    if @tour == 2 || @tour == 3
+    # 支部大会の場合、ゼッケンは数字のみ
+    # 2020は全国大会も
+    if @tour == 1 || @tour == 2 || @tour == 3
       i = 1
       @universies.each do |university|
         if Rails.env.production?
@@ -92,7 +93,7 @@ class BibsController < ApplicationController
     end
 
     # インカレの場合、関西にはw、関東にはeを付与する
-    if @tour == 1
+    if false #2020は関西関東の区切りなし
       i = 1
       @universies.where(erea: "関東").each do |university|
         if Rails.env.production?
