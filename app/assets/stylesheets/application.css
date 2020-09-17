@@ -80,4 +80,10 @@ input[type="submit"]:hover{
 select {
   padding: 2px;
   height: 2em;
+  margin: 2px;
+}
+
+img.banner {
+  max-width: 600px;
+  width: 100%;
 }
