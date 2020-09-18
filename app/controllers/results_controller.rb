@@ -25,7 +25,8 @@ class ResultsController < ApplicationController
 
   def add
     race_no = params[:race_no].to_i
-    @race = Race.find_by(year: @year, tour: @tour, race_no: race_no)
+    # @race = Race.find_by(year: @year, tour: @tour, race_no: race_no)
+    @race = Race.includes({combinations: {player: :bibs}}, :combination_fours, :ranks, :results).find_by(year: @year, tour: @tour, race_no: race_no)
     if !@race
       flash[:notice] = "レースが存在しません"
       redirect_to("/operations/results/search") and return
@@ -42,54 +43,73 @@ class ResultsController < ApplicationController
 
   def added
     race_id = params[:race_id].to_i
-    ms = Array.new(10)
-    ms[1] = params[:m1]
-    ms[2] = params[:m2]
-    ms[3] = params[:m3]
-    ms[4] = params[:m4]
-    ms[5] = params[:m5]
-    ms[6] = params[:m6]
-    ms[7] = params[:m7]
-    ms[8] = params[:m8]
-    ms[9] = params[:m9]
-    ms[10] = params[:m10]
-    ss = Array.new(10)
-    ss[1] = params[:s1]
-    ss[2] = params[:s2]
-    ss[3] = params[:s3]
-    ss[4] = params[:s4]
-    ss[5] = params[:s5]
-    ss[6] = params[:s6]
-    ss[7] = params[:s7]
-    ss[8] = params[:s8]
-    ss[9] = params[:s9]
-    ss[10] = params[:s10]
-    cs = Array.new(10)
-    cs[1] = params[:c1]
-    cs[2] = params[:c2]
-    cs[3] = params[:c3]
-    cs[4] = params[:c4]
-    cs[5] = params[:c5]
-    cs[6] = params[:c6]
-    cs[7] = params[:c7]
-    cs[8] = params[:c8]
-    cs[9] = params[:c9]
-    cs[10] = params[:c10]
-    for num in 1..10 do
-      if cs[num] != "" && ss[num] != ""
-        result = Result.find_by(race_id: race_id, rane: num)
-        if result
-          result.m = ms[num]
-          result.s = ss[num]
-          result.c = cs[num]
-          result.save
+    ranks = params[:rank]
+    ms = params[:m]
+    ss = params[:s]
+    cs = params[:c]
+    options = params[:option]
+    race = Race.includes(:combinations, :combination_fours, :ranks, :results).find(race_id)
+    if race.race_name.include?("-4-") || race.race_name.include?("Relay")
+      race.combination_fours.each_with_index do |combi, i|
+        rank = Rank.find_by(race_id: race_id, rane: combi.rane)
+        if rank.present?
+          rank.rank = ranks[i]
+          rank.save!
         else
-          result = Result.new(race_id: race_id, rane: num, m: ms[num], s: ss[num], c: cs[num])
-          result.save
+          rank = Rank.new(race_id: race.id, rane: combi.rane, rank: ranks[i])
+          rank.save!
+        end
+        result = Result.find_by(race_id: race_id, rane: combi.rane)
+        if result
+          result.m = ms[i]
+          result.s = ss[i]
+          result.c = cs[i]
+          result.option = options[i]
+          result.save!
+        else
+          result = Result.new(
+            race_id: race_id,
+            rane: combi.rane,
+            m: ms[i],
+            s: ss[i],
+            c: cs[i],
+            option: options[i]
+          )
+          result.save!
+        end
+      end
+    else
+      race.combinations.each_with_index do |combi, i|
+        rank = Rank.find_by(race_id: race_id, rane: combi.rane)
+        if rank.present?
+          rank.rank = ranks[i]
+          rank.save!
+        else
+          rank = Rank.new(race_id: race.id, rane: combi.rane, rank: ranks[i])
+          rank.save!
+        end
+        result = Result.find_by(race_id: race_id, rane: combi.rane)
+        if result
+          result.m = ms[i]
+          result.s = ss[i]
+          result.c = cs[i]
+          result.option = options[i]
+          result.save!
+        else
+          result = Result.new(
+            race_id: race_id,
+            rane: combi.rane,
+            m: ms[i],
+            s: ss[i],
+            c: cs[i],
+            option: options[i]
+          )
+          result.save!
         end
       end
     end
-    flash[:notice] = "タイムを追加しました"
+
+    flash[:notice] = "結果を追加しました"
     redirect_to("/operations/results/search")
   end
 
