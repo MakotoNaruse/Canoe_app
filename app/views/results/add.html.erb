@@ -13,31 +13,120 @@
 <% end %>
 <div class = "main">
 
-<h2>タイム入力</h2>
+<h2>結果入力</h2>
 ※全て半角数字で入力してください <br>
 <br>
-<%= form_tag("/operations/results/add") do %>
+<%= form_tag("/operations/results/add", id: "form1") do %>
 レースNo:<%= @race.race_no %>　<%= @race.race_name %>　<%= @race.stage %>-<%= @race.set %><br>
 <br/>
-<table border=1>
-  <tr>
-    <th>順位</th>
-    <th>レーン</th>
-    <th colspan=3>タイム</th>
-  </tr>
-
-  <% for num in 1..10 do %>
-    <% if @ranks[num] %>
+<% if @race.race_name.include?("-1-") && !@race.race_name.include?("Relay") %>
+  <table border=1>
     <tr>
-      <td> <%= num %> 位</td>
-      <td> <%= @ranks[num] %> </td>
-      <td><input type="text" style="width:20px;" name="m<%= @ranks[num]%>"/></td>
-      <td><input type="text" style="width:20px;" name="s<%= @ranks[num]%>"/></td>
-      <td><input type="text" style="width:20px;" name="c<%= @ranks[num]%>"/></td>
+      <th>la<br>ne</th>
+      <th>No</th>
+      <th>氏名</th>
+      <th>大学名</th>
+      <th>順位</th>
+      <th colspan=3>タイム</th>
+      <th>備考</th>
+    </tr>
+    <% ranks = @race.ranks.to_a.group_by{ |rank| rank.rane } %>
+    <% results = @race.results.to_a.group_by{ |result| result.rane } %>
+    <% @race.combinations.each do |combi| %>
+    <% if combi %>
+    <tr>
+      <td> <%= combi.rane %> </td>
+      <% bibs = combi.player.bibs.to_a.group_by{ |bib| bib.tour } %>
+      <td> <%= if bibs[@race.tour] then bibs[@race.tour][0].bib_no else "" end %> </td>
+      <td> <%= combi.player.p_name %> </td>
+      <td> <%= combi.player.u_name  %> </td>
+      <td> <input type="text" style="width:20px;" name="rank[]" value="<%= if ranks[combi.rane] then ranks[combi.rane][0].rank else "" end %>"/> </td>
+      <% if results[combi.rane] %>
+        <td> <input type="text" style="width:25px;" name="m[]" value="<%= if results[combi.rane][0].m then results[combi.rane][0].m else "" end %>"/> </td>
+        <td> <input type="text" style="width:25px;" name="s[]" value="<%= if results[combi.rane][0].s then results[combi.rane][0].s else "" end %>"/> </td>
+        <td> <input type="text" style="width:25px;" name="c[]" value="<%= if results[combi.rane][0].c then results[combi.rane][0].c else "" end %>"/> </td>
+        <td> <input type="text" style="width:100px;" name="option[]" value="<%= if results[combi.rane][0].option then results[combi.rane][0].option else "" end %> "/> </td>
+      <% else %>
+        <td> <input type="text" style="width:25px;" name="m[]" value=""/> </td>
+        <td> <input type="text" style="width:25px;" name="s[]" value=""/> </td>
+        <td> <input type="text" style="width:25px;" name="c[]" value=""/> </td>
+        <td> <input type="text" style="width:100px;" name="option[]" value=""/> </td>
+      <% end %>
     </tr>
     <% end %>
-  <% end %>
-</table>
+    <% end %>
+  </table>
+<% elsif @race.race_name.include?("-2-") %>
+  <table border=1>
+    <tr>
+      <th>la<br>ne</th>
+      <th>No</th>
+      <th>氏名(１人目)</th>
+      <th>大学名</th>
+      <th>順位</th>
+      <th colspan=3>タイム</th>
+      <th>備考</th>
+    </tr>
+    <% ranks = @race.ranks.to_a.group_by{ |rank| rank.rane } %>
+    <% results = @race.results.to_a.group_by{ |result| result.rane } %>
+    <% @race.combinations.each do |combi| %>
+    <% if combi %>
+    <tr>
+      <td> <%= combi.rane %> </td>
+      <% bibs = combi.player.bibs.to_a.group_by{ |bib| bib.tour } %>
+      <td> <%= if bibs[@race.tour] then bibs[@race.tour][0].bib_no else "" end %> </td>
+      <td> <%= combi.player.p_name %> </td>
+      <td> <%= combi.player.u_name  %> </td>
+      <td> <input type="text" style="width:20px;" name="rank[]" value="<%= if ranks[combi.rane] then ranks[combi.rane][0].rank else "" end %>"/> </td>
+      <% if results[combi.rane] %>
+        <td> <input type="text" style="width:25px;" name="m[]" value="<%= if results[combi.rane][0].m then results[combi.rane][0].m else "" end %>"/> </td>
+        <td> <input type="text" style="width:25px;" name="s[]" value="<%= if results[combi.rane][0].s then results[combi.rane][0].s else "" end %>"/> </td>
+        <td> <input type="text" style="width:25px;" name="c[]" value="<%= if results[combi.rane][0].c then results[combi.rane][0].c else "" end %>"/> </td>
+        <td> <input type="text" style="width:100px;" name="option[]" value="<%= if results[combi.rane][0].option then results[combi.rane][0].option else "" end %> "/> </td>
+      <% else %>
+        <td> <input type="text" style="width:25px;" name="m[]" value=""/> </td>
+        <td> <input type="text" style="width:25px;" name="s[]" value=""/> </td>
+        <td> <input type="text" style="width:25px;" name="c[]" value=""/> </td>
+        <td> <input type="text" style="width:100px;" name="option[]" value=""/> </td>
+      <% end %>
+    </tr>
+    <% end %>
+    <% end %>
+  </table>
+<% elsif @race.race_name.include?("-4-") || @race.race_name.include?("Relay") %>
+  <table border=1>
+    <tr>
+      <th>la<br>ne</th>
+      <th>大学名</th>
+      <th>順位</th>
+      <th colspan=3>タイム</th>
+      <th>備考</th>
+    </tr>
+    <% ranks = @race.ranks.to_a.group_by{ |rank| rank.rane } %>
+    <% results = @race.results.to_a.group_by{ |result| result.rane } %>
+    <% @race.combination_fours.each do |combi| %>
+    <% if combi %>
+    <tr>
+      <td> <%= combi.rane %> </td>
+      <td> <%= combi.u_name %> </td>
+      <td> <input type="text" style="width:20px;" name="rank[]" value="<%= if ranks[combi.rane] then ranks[combi.rane][0].rank else "" end %>"/> </td>
+      <% if results[combi.rane] %>
+        <td> <input type="text" style="width:25px;" name="m[]" value="<%= if results[combi.rane][0].m then results[combi.rane][0].m else "" end %>"/> </td>
+        <td> <input type="text" style="width:25px;" name="s[]" value="<%= if results[combi.rane][0].s then results[combi.rane][0].s else "" end %>"/> </td>
+        <td> <input type="text" style="width:25px;" name="c[]" value="<%= if results[combi.rane][0].c then results[combi.rane][0].c else "" end %>"/> </td>
+        <td> <input type="text" style="width:100px;" name="option[]" value="<%= if results[combi.rane][0].option then results[combi.rane][0].option else "" end %> "/> </td>
+      <% else %>
+        <td> <input type="text" style="width:25px;" name="m[]" value=""/> </td>
+        <td> <input type="text" style="width:25px;" name="s[]" value=""/> </td>
+        <td> <input type="text" style="width:25px;" name="c[]" value=""/> </td>
+        <td> <input type="text" style="width:100px;" name="option[]" value=""/> </td>
+      <% end %>
+    </tr>
+    <% end %>
+    <% end %>
+  </table>
+<% end %>
+
 <br>
 <input type="hidden" name="race_id" value="<%= @race.id %>" >
 <input type="submit" value="確認して登録する"/>
@@ -47,3 +136,28 @@
 <%= link_to("管理ページトップへ戻る", "/operations/top" ) %>
 <br><br><br><br>
 </div>
+<script language="javascript" type="text/javascript">
+  // Enterキーが押された時にSubmitされるのを抑制する
+  document.getElementById("form1").onkeypress = (e) => {
+    // form1に入力されたキーを取得
+    const key = e.keyCode || e.charCode || 0;
+    // 13はEnterキーのキーコード
+    if (key == 13) {
+      // アクションを行わない
+      e.preventDefault();
+    }
+  }
+
+  const func1 = () => {
+    // form要素の値を取得する
+    name = document.getElementById("name").value;
+    point = document.getElementById("point").value;
+
+    // 取得した値をコンソールに出力する
+    console.log(`名前：${name}`);
+    console.log(`点数：${point}`);
+
+    // actionで指定した先に遷移させない
+    return false;
+  }
+</script>
