@@ -86,4 +86,7 @@ select {
 img.banner {
   max-width: 650px;
   width: 100%;
+  border: #888 1px solid;
+  border-bottom: #333 5px solid;
+  border-radius: 20px;
 }
