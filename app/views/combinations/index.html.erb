@@ -64,7 +64,7 @@
   <div class="combinations">
   <table border=1>
     <tr>
-      <th>ra<br>ne</th>
+      <th>la<br>ne</th>
       <th>ゼッケン</th>
       <th>氏名</th>
       <th> 読み仮名 </th>
@@ -89,7 +89,7 @@
   <div class="combinations">
   <table border=1>
     <tr>
-      <th>ra<br>ne</th>
+      <th>la<br>ne</th>
       <th>ゼッケン</th>
       <th>氏名</th>
       <th> 読み仮名
@@ -131,13 +131,13 @@
   <div class="combinations">
   <table border=1>
     <tr>
-      <th>ra<br>ne</th>
+      <th>la<br>ne</th>
       <th>ゼッケン</th>
       <th>氏名</th>
       <th>読み仮名</th>
       <th>大学名</th>
     </tr>
-    <% combi_fours =  CombinationFour.where(race_id: race.id ) %>
+    <% combi_fours =  CombinationFour.where(race_id: race.id ).order(:rane) %>
     <% combi_fours.each do |combi| %>
     <tr>
       <td rowspan=4> <%= combi.rane %> </td>
