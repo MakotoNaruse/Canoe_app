@@ -92,6 +92,17 @@ class AccountsController < ApplicationController
       flash[:notice] = "URLの発行に失敗しました。もう一度やり直してください"
       redirect_to("/operations/accounts/index")
     end
-    
+  end
+
+  def proxy_login
+    @university = University.find_by(id: params[:id])
+    if @university.blank?
+      flash[:notice] = "大学が見つかりません"
+      redirect_to("/operations/accounts/index")
+      return
+    end
+    session[:univ_id] = @university.id
+    flash[:notice] = "代理ログインしました"
+    redirect_to("/reg/top")
   end
 end
