@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   post "operations/accounts/update/:id" => "accounts#update"
   post "operations/accounts/destroy/:id" => "accounts#destroy"
   post "operations/accounts/reset_password/:id" => "accounts#reset_password"
+  post "operations/accounts/proxy_login/:id" => "accounts#proxy_login"
   get "operations/bibs" => "bibs#index"
   post "operations/bibs/assign" => "bibs#assign"
   get "operations/races" => "races#index"
