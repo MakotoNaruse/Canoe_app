@@ -25,16 +25,16 @@ class BibsController < ApplicationController
       @tour = 1
     elsif @current_op.id == 3
       if Rails.env.production?
-        @universies = University.order(:erea).order('read COLLATE "C" ASC')
+        @universies = University.where(erea: "関西").order('read COLLATE "C" ASC')
       else
-        @universies = University.order(:erea).order(:read)
+        @universies = University.where(erea: "関西").order(:read)
       end
       @tour = 2
     elsif @current_op.id == 4
       if Rails.env.production?
-        @universies = University.order(:erea).order('read COLLATE "C" ASC')
+        @universies = University.where(erea: "関東").order('read COLLATE "C" ASC')
       else
-        @universies = University.order(:erea).order(:read)
+        @universies = University.where(erea: "関東").order(:read)
       end
       @tour = 3
     end
@@ -50,16 +50,16 @@ class BibsController < ApplicationController
       @tour = 1
     elsif @current_op.id == 3
       if Rails.env.production?
-        @universies = University.order(:erea).order('read COLLATE "C" ASC')
+        @universies = University.where(erea: "関西").order('read COLLATE "C" ASC')
       else
-        @universies = University.order(:erea).order(:read)
+        @universies = University.where(erea: "関西").order(:read)
       end
       @tour = 2
     elsif @current_op.id == 4
       if Rails.env.production?
-        @universies = University.order(:erea).order('read COLLATE "C" ASC')
+        @universies = University.where(erea: "関東").order('read COLLATE "C" ASC')
       else
-        @universies = University.order(:erea).order(:read)
+        @universies = University.where(erea: "関東").order(:read)
       end
       @tour = 3
     end

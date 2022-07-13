@@ -184,7 +184,11 @@ class CombinationsController < ApplicationController
           end
         # 7組までの場合はHとなる　1レーンに寄せる
         elsif total_set >= 2 && total_set <= 7
-          race = Race.find_by(year: @year, tour: @tour, race_name: race_name, stage: "H", set: set )
+          # 1次Hがある場合はそちらに入れる
+          race = Race.find_by(year: @year, tour: @tour, race_name: race_name, stage: "1次H", set: set )
+          if race.blank?
+            race = Race.find_by(year: @year, tour: @tour, race_name: race_name, stage: "H", set: set )
+          end
           cmbs = Combination.where(race_id: race.id )
           if cmbs
             cmbs.destroy_all
