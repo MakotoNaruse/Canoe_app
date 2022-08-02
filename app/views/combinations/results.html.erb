@@ -212,11 +212,11 @@
     </tr>
     <tr>
       <% if race.race_name.include?("200") %>
-        <% pair = Player.find_by(id: player.pair_twos.find_by(tour: @tour)&.pair_id ) %>
+        <% pair = Player.find_by(id: player.pair_twos.find_by(tour: race.tour)&.pair_id ) %>
         <td> <%= if bib = Bib.find_by(player_id: pair.id, tour: race.tour) then bib.bib_no end %> </td>
         <td> <%= pair.p_name %> </td>
       <% else %>
-        <% pair = Player.find_by(id: player.pairs.find_by(tour: @tour)&.pair_id ) %>
+        <% pair = Player.find_by(id: player.pairs.find_by(tour: race.tour)&.pair_id ) %>
         <td> <%= if bib = Bib.find_by(player_id: pair.id, tour: race.tour) then bib.bib_no end %> </td>
         <td> <%= pair.p_name %> </td>
       <% end %>
